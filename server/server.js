@@ -1,14 +1,19 @@
-const express = require("express");
-const cors = require("cors");
+require("dotenv").config();
 const OpenAI = require("openai");
 
-const app = express();
-const PORT = 8080;
-
-app.get("/", (req, res) => {
-  res.json({ message: "Hello World" });
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+async function main() {
+  const chatCompletion = await openai.chat.completions
+    .create({
+      messages: [{ role: "user", content: "Say this is a test" }],
+      model: "gpt-3.5-turbo",
+    })
+    .then((res) => {
+      console.log(res.choices[0].message);
+    });
+}
+
+main();

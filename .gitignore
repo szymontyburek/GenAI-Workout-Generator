@@ -1,0 +1,4 @@
+.env
+server/node_modules
+recipe_generator/node_modules
+
