@@ -11,24 +11,18 @@ app.listen(port, () => {
 });
 
 app.get("/generateImage", async (req, res) => {
-  const { content } = req.query;
-  res.json({ message: await callToOpenAi() });
+  const { message } = req.query;
+  const resp = await openai.images.generate({
+    model: "dall-e-3",
+    prompt: message,
+    n: 1,
+    size: "1024x1024",
+  });
+  res.json({
+    url: resp.data[0].url,
+  });
 });
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
-async function callToOpenAi() {
-  let response;
-  const chatCompletion = await openai.chat.completions
-    .create({
-      messages: [{ role: "user", content: "Say this is a test" }],
-      model: "gpt-3.5-turbo",
-    })
-    .then((res) => {
-      response = res.choices[0].message.content;
-    });
-
-  return response;
-}

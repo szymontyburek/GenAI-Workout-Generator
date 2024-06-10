@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
@@ -10,8 +10,12 @@ function App() {
   );
 }
 
-function TextField({ onType }) {
+function TextField({ text, onType }) {
   const [nodeValue, setNodeValue] = useState("");
+
+  useEffect(() => {
+    setNodeValue(text);
+  }, [text]);
 
   function getText(e) {
     const val = e.target.value;
@@ -40,22 +44,25 @@ function Submit({ data, onClick }) {
 }
 
 function Container() {
-  const [sharedData, setSharedData] = useState("");
+  const [sharedUserMessage, setSharedUserMessage] = useState("");
 
   const dataChange = function (newData) {
-    setSharedData(newData);
+    setSharedUserMessage(newData);
   };
 
   async function exportText(text) {
-    const params = { content: text };
+    const params = { message: text };
+    let base64;
 
     try {
       const response = await axios.get("http://localhost:8080/generateImage", {
         params,
       });
-      debugger;
+      const imageUrl = response.data.url;
+
+      setSharedUserMessage(response.data.url);
     } catch (error) {
-      console.error("Error:", error);
+      setSharedUserMessage(error);
     }
   }
 
@@ -69,8 +76,8 @@ function Container() {
       }}
     >
       <h1>Image Generator</h1>
-      <TextField onType={dataChange} />
-      <Submit data={sharedData} onClick={exportText} />
+      <TextField text={sharedUserMessage} onType={dataChange} />{" "}
+      <Submit data={sharedUserMessage} onClick={exportText} />
     </div>
   );
 }
