@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import axios from "axios";
 
 function App() {
   return (
@@ -45,9 +46,17 @@ function Container() {
     setSharedData(newData);
   };
 
-  function exportText(text) {
-    debugger;
-    console.log(text);
+  async function exportText(text) {
+    const params = { content: text };
+
+    try {
+      const response = await axios.get("http://localhost:8080/generateImage", {
+        params,
+      });
+      debugger;
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
   return (

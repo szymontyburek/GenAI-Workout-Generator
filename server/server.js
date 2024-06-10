@@ -1,13 +1,17 @@
 require("dotenv").config();
 const OpenAI = require("openai");
 const app = require("express")();
+const cors = require("cors");
 const port = 8080;
+
+app.use(cors());
 
 app.listen(port, () => {
   console.log("Server is running on port " + port);
 });
 
-app.get("/", async (req, res) => {
+app.get("/generateImage", async (req, res) => {
+  const { content } = req.query;
   res.json({ message: await callToOpenAi() });
 });
 
