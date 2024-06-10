@@ -12,14 +12,15 @@ app.listen(port, () => {
 
 app.get("/generateImage", async (req, res) => {
   const { message } = req.query;
+  const resp = await openai.images.generate({
+    model: "dall-e-3",
+    prompt: message,
+    n: 1,
+    size: "1024x1024",
+  });
   res.json({
-    message: await openai.images.generate({
-      model: "dall-e-3",
-      prompt: message,
-      n: 1,
-      size: "1024x1024",
-    }),
-  }).data[0].url;
+    url: resp.data[0].url,
+  });
 });
 
 const openai = new OpenAI({

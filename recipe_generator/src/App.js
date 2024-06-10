@@ -52,16 +52,17 @@ function Container() {
 
   async function exportText(text) {
     const params = { message: text };
+    let base64;
 
     try {
       const response = await axios.get("http://localhost:8080/generateImage", {
         params,
       });
-      const imageUrl = response.data.message.data[0].url;
-      debugger;
-      setSharedUserMessage(response.data.message);
+      const imageUrl = response.data.url;
+
+      setSharedUserMessage(response.data.url);
     } catch (error) {
-      console.error("Error:", error);
+      setSharedUserMessage(error);
     }
   }
 
