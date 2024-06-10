@@ -1,23 +1,76 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import axios from "axios";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ width: "100%", height: "100%" }}>
+      <Container />
+    </div>
+  );
+}
+
+function TextField({ onType }) {
+  const [nodeValue, setNodeValue] = useState("");
+
+  function getText(e) {
+    const val = e.target.value;
+    setNodeValue(val);
+    onType(val); //pass data to parent
+  }
+
+  return (
+    <textarea
+      style={{ width: "80%", height: "300px" }}
+      value={nodeValue}
+      onChange={getText}
+    ></textarea>
+  );
+}
+
+function Submit({ data, onClick }) {
+  return (
+    <button
+      style={{ marginTop: "1em", padding: "1em", width: "80%" }}
+      onClick={() => onClick(data)}
+    >
+      Submit
+    </button>
+  );
+}
+
+function Container() {
+  const [sharedData, setSharedData] = useState("");
+
+  const dataChange = function (newData) {
+    setSharedData(newData);
+  };
+
+  async function exportText(text) {
+    const params = { content: text };
+
+    try {
+      const response = await axios.get("http://localhost:8080/generateImage", {
+        params,
+      });
+      debugger;
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <h1>Image Generator</h1>
+      <TextField onType={dataChange} />
+      <Submit data={sharedData} onClick={exportText} />
     </div>
   );
 }
