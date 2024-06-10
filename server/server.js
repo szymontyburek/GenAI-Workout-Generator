@@ -12,7 +12,7 @@ app.listen(port, () => {
 
 app.get("/generateImage", async (req, res) => {
   const { content } = req.query;
-  res.json({ message: await callToOpenAi() });
+  res.json({ message: await callToOpenAi(content) });
 });
 
 const openai = new OpenAI({
