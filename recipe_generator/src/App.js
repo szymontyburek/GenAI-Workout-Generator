@@ -24,8 +24,15 @@ function TextField() {
 }
 
 function Submit() {
+  function getText() {
+    debugger;
+  }
+
   return (
-    <button style={{ marginTop: "1em", padding: "1em", width: "80%" }}>
+    <button
+      style={{ marginTop: "1em", padding: "1em", width: "80%" }}
+      onClick={getText}
+    >
       Submit
     </button>
   );
