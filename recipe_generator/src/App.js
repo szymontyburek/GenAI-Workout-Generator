@@ -1,43 +1,69 @@
 import "./App.css";
+import { useState } from "react";
 
 function App() {
   return (
     <div style={{ width: "100%", height: "100%" }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <h1>Image Generator</h1>
-        <TextField />
-        <Submit />
-      </div>
+      <Container />
     </div>
   );
 }
 
-function TextField() {
-  return <textarea style={{ width: "80%", height: "300px" }}></textarea>;
-}
+function TextField({ onSubmit }) {
+  const [nodeValue, setNodeValue] = useState("");
 
-function Submit() {
-  function getText() {
-    debugger;
+  function getText(e) {
+    const val = e.target.value;
+    setNodeValue(val);
+    onSubmit(val); //pass data to parent
   }
 
   return (
+    <textarea
+      style={{ width: "80%", height: "300px" }}
+      value={nodeValue}
+      onChange={getText}
+    ></textarea>
+  );
+}
+
+function Submit({ data, onClick }) {
+  return (
     <button
       style={{ marginTop: "1em", padding: "1em", width: "80%" }}
-      onClick={getText}
+      onClick={() => onClick(data)}
     >
       Submit
     </button>
   );
 }
 
-function getMessage() {}
+function Container() {
+  const [sharedData, setSharedData] = useState("");
+
+  const dataChange = function (newData) {
+    setSharedData(newData);
+  };
+
+  function exportText(text) {
+    debugger;
+    console.log(text);
+  }
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <h1>Image Generator</h1>
+      <TextField onSubmit={dataChange} />
+      <Submit data={sharedData} onClick={exportText} />
+    </div>
+  );
+}
 
 export default App;
