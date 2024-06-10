@@ -3,7 +3,7 @@ import "./App.css";
 function App() {
   return (
     <div>
-      <h1>Recipe Generator</h1>
+      <h1>Image Generator</h1>
       <TextField />
       <Submit />
     </div>

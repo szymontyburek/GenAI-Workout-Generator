@@ -19,7 +19,7 @@ async function callToOpenAi() {
   let response;
   const chatCompletion = await openai.chat.completions
     .create({
-      messages: [{ role: "user", content: "Say this is a dfst" }],
+      messages: [{ role: "user", content: "Say this is a test" }],
       model: "gpt-3.5-turbo",
     })
     .then((res) => {
