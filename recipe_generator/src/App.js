@@ -57,6 +57,8 @@ function Container() {
       const response = await axios.get("http://localhost:8080/generateImage", {
         params,
       });
+      const imageUrl = response.data.message.data[0].url;
+      debugger;
       setSharedUserMessage(response.data.message);
     } catch (error) {
       console.error("Error:", error);
