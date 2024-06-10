@@ -9,13 +9,13 @@ function App() {
   );
 }
 
-function TextField({ onSubmit }) {
+function TextField({ onType }) {
   const [nodeValue, setNodeValue] = useState("");
 
   function getText(e) {
     const val = e.target.value;
     setNodeValue(val);
-    onSubmit(val); //pass data to parent
+    onType(val); //pass data to parent
   }
 
   return (
@@ -60,7 +60,7 @@ function Container() {
       }}
     >
       <h1>Image Generator</h1>
-      <TextField onSubmit={dataChange} />
+      <TextField onType={dataChange} />
       <Submit data={sharedData} onClick={exportText} />
     </div>
   );
