@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  return <Container />;
+  return <ParentContainer />;
 }
 
 function TextField({ text, onType }) {
@@ -54,17 +54,9 @@ function ImgContainer({ src, onResponse }) {
   );
 }
 
-function Container() {
+function ParentContainer() {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
   const [sharedImgSrc, setSharedImgSrc] = useState("");
-
-  const messageChange = function (newData) {
-    setSharedUserMessage(newData);
-  };
-
-  const displayImage = function (src) {
-    setSharedImgSrc(src);
-  };
 
   async function exportText(text) {
     const params = { message: text };
@@ -94,8 +86,8 @@ function Container() {
       }}
     >
       <h1>Image Generator</h1>
-      <ImgContainer src={sharedImgSrc} onResponse={displayImage} />
-      <TextField text={sharedUserMessage} onType={messageChange} />{" "}
+      <ImgContainer src={sharedImgSrc} onResponse={setSharedImgSrc} />
+      <TextField text={sharedUserMessage} onType={setSharedUserMessage} />{" "}
       <Submit data={sharedUserMessage} onClick={exportText} />
     </div>
   );
