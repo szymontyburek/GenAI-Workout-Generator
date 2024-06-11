@@ -66,7 +66,6 @@ function ParentContainer() {
       const response = await axios.get("http://localhost:8080/generateImage", {
         params,
       });
-      const imageUrl = response.data.url;
 
       setSharedImgSrc(response.data.url);
     } catch (error) {
