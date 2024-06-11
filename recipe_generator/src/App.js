@@ -123,7 +123,6 @@ function LoadingAnimation({ style }) {
 
 function Everything() {
   const [switchToAnimation, setSwitchToAnimation] = useState(false);
-  const [sharedDisplay, setSharedDisplay] = useState("none");
   const [styles, setStyles] = useState({
     width: "100%",
     height: "100%",
@@ -149,7 +148,7 @@ function Everything() {
   return (
     <div>
       <ImageGeneration setSwitchToAnimation={setSwitchToAnimation} />
-      <LoadingAnimation style={styles} sharedDisplay={sharedDisplay} />
+      <LoadingAnimation style={styles} />
     </div>
   );
 }
