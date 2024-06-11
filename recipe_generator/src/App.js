@@ -3,12 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  return (
-    <div>
-      <ParentContainer />
-      <LoadingAnimation />
-    </div>
-  );
+  return <Everything />;
 }
 
 function TextField({ text, onType, placeholder }) {
@@ -64,7 +59,7 @@ function ImgContainer({ src, onResponse }) {
   );
 }
 
-function ParentContainer() {
+function ImageGeneration() {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
   const [sharedImgSrc, setSharedImgSrc] = useState("");
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
@@ -114,24 +109,35 @@ function ParentContainer() {
   );
 }
 
-function LoadingAnimation() {
+function LoadingAnimation({ css_obj }) {
+  const [styles, setStyles] = useState(css_obj);
+  css_obj.display = "none";
+
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        backgroundColor: "black",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        display: "none",
-      }}
-    >
+    <div style={css_obj}>
       <div className="loadingWheel"></div>
       <ImgContainer src="patience.jpg" style={{ width: "80%" }} />
+    </div>
+  );
+}
+
+function Everything() {
+  return (
+    <div>
+      <ImageGeneration />
+      <LoadingAnimation
+        css_obj={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          backgroundColor: "black",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      />
     </div>
   );
 }
