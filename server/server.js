@@ -1,17 +1,17 @@
 require("dotenv").config();
 const OpenAI = require("openai");
-const app = require("express")();
+const server = require("express")();
 const cors = require("cors");
 const axios = require("axios");
 const port = 8080;
 
-app.use(cors());
+server.use(cors());
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log("Server is running on port " + port);
 });
 
-app.get("/generateImage", async (req, res) => {
+server.get("/generateImage", async (req, res) => {
   // const { message } = req.query;
   // const resp = await openai.images.generate({
   //   model: "dall-e-3",
@@ -20,7 +20,7 @@ app.get("/generateImage", async (req, res) => {
   //   size: "1024x1024",
   // });
 
-  //resp.data[0].url
+  // resp.data[0].url;
   try {
     // Fetch the image from the URL
     const imageResponse = await axios.get(
@@ -30,15 +30,9 @@ app.get("/generateImage", async (req, res) => {
       }
     );
 
-    // Convert image content to base64
-    const imageBase64 = Buffer.from(imageResponse.data, "binary").toString(
-      "base64"
-    );
-    console.log(imageBase64);
-
-    // res.json({
-    //   url: imageBase64,
-    // });
+    res.json({
+      url: Buffer.from(imageResponse.data, "binary").toString("base64"),
+    });
   } catch (err) {
     console.log(err);
   }
