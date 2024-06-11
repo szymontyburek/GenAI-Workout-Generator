@@ -12,14 +12,13 @@ app.listen(port, () => {
 });
 
 app.get("/generateImage", async (req, res) => {
-  let url;
+  let message;
   let success = false;
   let openaiResponse;
   try {
-    const { message } = req.query;
     openaiResponse = await openai.images.generate({
       model: "dall-e-3",
-      prompt: message,
+      prompt: req.query.message,
       n: 1,
       size: "1024x1024",
     });
@@ -28,16 +27,16 @@ app.get("/generateImage", async (req, res) => {
       responseType: "arraybuffer",
     });
 
-    url =
+    message =
       "data:image/png;base64, " + Buffer.from(image.data).toString("base64");
     success = true;
   } catch (err) {
-    url = "Error. Image could not be generated. Please try again.";
-    console.log(err);
+    message = "Error. Image could not be generated. Please try again.";
+    console.log("ERROR: " + err);
   } finally {
     res.json({
       success: success,
-      url: url,
+      message: message,
     });
   }
 });

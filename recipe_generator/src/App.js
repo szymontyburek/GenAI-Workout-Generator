@@ -6,12 +6,17 @@ function App() {
   return <ParentContainer />;
 }
 
-function TextField({ text, onType }) {
+function TextField({ text, onType, placeholder }) {
   const [nodeValue, setNodeValue] = useState("");
+  const [Placeholder, setPlaceholder] = useState("");
 
   useEffect(() => {
     setNodeValue(text);
   }, [text]);
+
+  useEffect(() => {
+    setPlaceholder(placeholder);
+  }, [placeholder]);
 
   function getText(e) {
     const val = e.target.value;
@@ -24,7 +29,7 @@ function TextField({ text, onType }) {
       style={{ width: "80%", height: "5em", margin: "1em 0" }}
       value={nodeValue}
       onChange={getText}
-      placeholder="Image description..."
+      placeholder={Placeholder}
     ></textarea>
   );
 }
@@ -57,6 +62,9 @@ function ImgContainer({ src, onResponse }) {
 function ParentContainer() {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
   const [sharedImgSrc, setSharedImgSrc] = useState("");
+  const [sharedPlaceholder, setSharedPlaceholder] = useState(
+    "Image description..."
+  );
 
   async function exportText(text) {
     const params = { message: text };
@@ -67,9 +75,14 @@ function ParentContainer() {
         params,
       });
 
-      setSharedImgSrc(response.data.url);
+      if (response.data.success) setSharedImgSrc(response.data.message);
+      else {
+        setSharedPlaceholder(response.data.message);
+        setSharedUserMessage("");
+      }
     } catch (error) {
       setSharedUserMessage(error);
+      setSharedUserMessage("");
     }
   }
 
@@ -86,7 +99,11 @@ function ParentContainer() {
     >
       <h1>Image Generator</h1>
       <ImgContainer src={sharedImgSrc} onResponse={setSharedImgSrc} />
-      <TextField text={sharedUserMessage} onType={setSharedUserMessage} />{" "}
+      <TextField
+        text={sharedUserMessage}
+        onType={setSharedUserMessage}
+        placeholder={sharedPlaceholder}
+      />{" "}
       <Submit data={sharedUserMessage} onClick={exportText} />
     </div>
   );
