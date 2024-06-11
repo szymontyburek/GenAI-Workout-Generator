@@ -110,18 +110,9 @@ function ImageGeneration({ setSharedDisplay }) {
   );
 }
 
-function LoadingAnimation({ css_obj, sharedDisplay }) {
-  const [styles, setStyles] = useState(css_obj);
-
-  useEffect(() => {
-    //modify styles for topmost div dynamically
-    let clone = structuredClone(css_obj);
-    clone.display = sharedDisplay;
-    setStyles(clone);
-  }, [sharedDisplay]);
-
+function LoadingAnimation({ style }) {
   return (
-    <div style={styles}>
+    <div style={style}>
       <div className="loadingWheel"></div>
       <ImgContainer src="patience.jpg" style={{ width: "80%" }} />
     </div>
@@ -129,25 +120,36 @@ function LoadingAnimation({ css_obj, sharedDisplay }) {
 }
 
 function Everything() {
+  const [switchToAnimation, setSwitchToAnimation] = useState(false);
   const [sharedDisplay, setSharedDisplay] = useState("none");
+  const [styles, setStyles] = useState({
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    backgroundColor: "black",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  });
+
+  useEffect(() => {
+    //modify styles for topmost div dynamically
+    let clone = structuredClone(styles);
+    clone.display = sharedDisplay;
+    setStyles(clone);
+  }, [sharedDisplay]);
+
+  useEffect(() => {
+    if (switchToAnimation) {
+    }
+  }, [switchToAnimation]);
 
   return (
     <div>
       <ImageGeneration setSharedDisplay={setSharedDisplay} />
-      <LoadingAnimation
-        css_obj={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          backgroundColor: "black",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        sharedDisplay={sharedDisplay}
-      />
+      <LoadingAnimation style={styles} sharedDisplay={sharedDisplay} />
     </div>
   );
 }
