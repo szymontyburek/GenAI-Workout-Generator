@@ -45,6 +45,7 @@
   border-bottom: 5px solid white;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  animation-play-state: paused;
 }
 
 @keyframes spin {
