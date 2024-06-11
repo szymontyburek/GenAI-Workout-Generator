@@ -109,12 +109,21 @@ function ImageGeneration() {
   );
 }
 
-function LoadingAnimation({ css_obj }) {
+function LoadingAnimation({ css_obj, sharedDisplay }) {
   const [styles, setStyles] = useState(css_obj);
-  css_obj.display = "none";
+  const [display, setDisplay] = useState(sharedDisplay);
+
+  useEffect(() => {
+    setDisplay(sharedDisplay);
+
+    //modify styles for topmost div dynamically
+    let clone = structuredClone(css_obj);
+    clone.display = display;
+    setStyles(clone);
+  }, [sharedDisplay]);
 
   return (
-    <div style={css_obj}>
+    <div style={styles}>
       <div className="loadingWheel"></div>
       <ImgContainer src="patience.jpg" style={{ width: "80%" }} />
     </div>
@@ -122,6 +131,8 @@ function LoadingAnimation({ css_obj }) {
 }
 
 function Everything() {
+  const [sharedDisplay, setSharedDisplay] = useState("none");
+
   return (
     <div>
       <ImageGeneration />
@@ -137,6 +148,7 @@ function Everything() {
           justifyContent: "center",
           alignItems: "center",
         }}
+        sharedDisplay={sharedDisplay}
       />
     </div>
   );
