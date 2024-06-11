@@ -3,7 +3,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  return <ParentContainer />;
+  return (
+    <div>
+      <ParentContainer />
+      <LoadingAnimation />
+    </div>
+  );
 }
 
 function TextField({ text, onType, placeholder }) {
@@ -109,6 +114,26 @@ function ParentContainer() {
   );
 }
 
-function LoadingAnimation() {}
+function LoadingAnimation() {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        backgroundColor: "black",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        display: "none",
+      }}
+    >
+      <div className="loadingWheel"></div>
+      <ImgContainer src="patience.jpg" style={{ width: "80%" }} />
+    </div>
+  );
+}
 
 export default App;
