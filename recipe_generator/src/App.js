@@ -3,11 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <Container />
-    </div>
-  );
+  return <Container />;
 }
 
 function TextField({ text, onType }) {
@@ -25,9 +21,10 @@ function TextField({ text, onType }) {
 
   return (
     <textarea
-      style={{ width: "80%", height: "300px" }}
+      style={{ width: "80%", height: "5em", margin: "1em 0" }}
       value={nodeValue}
       onChange={getText}
+      placeholder="Image description..."
     ></textarea>
   );
 }
@@ -35,11 +32,19 @@ function TextField({ text, onType }) {
 function Submit({ data, onClick }) {
   return (
     <button
-      style={{ marginTop: "1em", padding: "1em", width: "80%" }}
+      style={{ padding: "1em", width: "80%" }}
       onClick={() => onClick(data)}
     >
       Submit
     </button>
+  );
+}
+
+function ImgContainer() {
+  return (
+    <div style={{ width: "80%", height: "50%", border: "1px solid black" }}>
+      <img></img>
+    </div>
   );
 }
 
@@ -73,9 +78,12 @@ function Container() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        width: "100vw",
+        height: "100vh",
       }}
     >
       <h1>Image Generator</h1>
+      <ImgContainer />
       <TextField text={sharedUserMessage} onType={dataChange} />{" "}
       <Submit data={sharedUserMessage} onClick={exportText} />
     </div>
