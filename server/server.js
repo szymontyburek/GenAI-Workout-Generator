@@ -16,18 +16,18 @@ app.get("/generateImage", async (req, res) => {
   let success = false;
   let openaiResponse;
   try {
-    // const { message } = req.query;
-    // openaiResponse = await openai.images.generate({
-    //   model: "dall-e-3",
-    //   prompt: message,
-    //   n: 1,
-    //   size: "1024x1024",
-    // });
-    // url = openaiResponse.data[0].url;
-    const imageUrl = "http://placekitten.com/200/300";
-    let image = await axios.get(imageUrl, {
+    const { message } = req.query;
+    openaiResponse = await openai.images.generate({
+      model: "dall-e-3",
+      prompt: message,
+      n: 1,
+      size: "1024x1024",
+    });
+
+    let image = await axios.get(openaiResponse.data[0].url, {
       responseType: "arraybuffer",
     });
+
     url =
       "data:image/png;base64, " + Buffer.from(image.data).toString("base64");
     success = true;
