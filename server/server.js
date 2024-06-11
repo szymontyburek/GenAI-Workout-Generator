@@ -1,40 +1,44 @@
 require("dotenv").config();
 const OpenAI = require("openai");
-const server = require("express")();
+const app = require("express")();
 const cors = require("cors");
 const axios = require("axios");
 const port = 8080;
 
-server.use(cors());
+app.use(cors());
 
-server.listen(port, () => {
+app.listen(port, () => {
   console.log("Server is running on port " + port);
 });
 
-server.get("/generateImage", async (req, res) => {
-  // const { message } = req.query;
-  // const resp = await openai.images.generate({
-  //   model: "dall-e-3",
-  //   prompt: message,
-  //   n: 1,
-  //   size: "1024x1024",
-  // });
-
-  // resp.data[0].url;
+app.get("/generateImage", async (req, res) => {
+  let url;
+  let success = false;
+  let openaiResponse;
   try {
-    // Fetch the image from the URL
-    const imageResponse = await axios.get(
-      "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png",
-      {
-        responseType: "arraybuffer",
-      }
-    );
-
-    res.json({
-      url: Buffer.from(imageResponse.data, "binary").toString("base64"),
+    // const { message } = req.query;
+    // openaiResponse = await openai.images.generate({
+    //   model: "dall-e-3",
+    //   prompt: message,
+    //   n: 1,
+    //   size: "1024x1024",
+    // });
+    // url = openaiResponse.data[0].url;
+    const imageUrl = "http://placekitten.com/200/300";
+    let image = await axios.get(imageUrl, {
+      responseType: "arraybuffer",
     });
+    url =
+      "data:image/png;base64, " + Buffer.from(image.data).toString("base64");
+    success = true;
   } catch (err) {
+    url = "Error. Image could not be generated. Please try again.";
     console.log(err);
+  } finally {
+    res.json({
+      success: success,
+      url: url,
+    });
   }
 });
 
