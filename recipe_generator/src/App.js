@@ -109,4 +109,6 @@ function ParentContainer() {
   );
 }
 
+function LoadingAnimation() {}
+
 export default App;
