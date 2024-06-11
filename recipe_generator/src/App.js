@@ -40,10 +40,12 @@ function Submit({ data, onClick }) {
   );
 }
 
-function ImgContainer({ src }) {
+function ImgContainer({ src, onResponse }) {
   const [imgSrc, setImgSrc] = useState("");
 
-  useEffect(() => {}, imgSrc);
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
 
   return (
     <div style={{ width: "80%", height: "50%", border: "1px solid black" }}>
@@ -54,9 +56,14 @@ function ImgContainer({ src }) {
 
 function Container() {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
+  const [sharedImgSrc, setSharedImgSrc] = useState("");
 
-  const dataChange = function (newData) {
+  const messageChange = function (newData) {
     setSharedUserMessage(newData);
+  };
+
+  const displayImage = function (src) {
+    setSharedImgSrc(src);
   };
 
   async function exportText(text) {
@@ -69,7 +76,7 @@ function Container() {
       });
       const imageUrl = response.data.url;
 
-      setSharedUserMessage(response.data.url);
+      setSharedImgSrc(response.data.url);
     } catch (error) {
       setSharedUserMessage(error);
     }
@@ -87,12 +94,8 @@ function Container() {
       }}
     >
       <h1>Image Generator</h1>
-      <ImgContainer
-        src={
-          "https://oaidalleapiprodscus.blob.core.windows.net/private/org-BtAaG8qWwBwmBA6DneVshTfg/user-zrSqydqbbD8ODQqADJEQofM1/img-GOk6Vci3eQmPhbXJKgWF1ZVJ.png?st=2024-06-11T17%3A15%3A47Z&se=2024-06-11T19%3A15%3A47Z&sp=r&sv=2023-11-03&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-06-10T18%3A38%3A45Z&ske=2024-06-11T18%3A38%3A45Z&sks=b&skv=2023-11-03&sig=1sErq472kw19kc0c2EShCaqYCcVVg79isK/to2h2%2BVk%3D"
-        }
-      />
-      <TextField text={sharedUserMessage} onType={dataChange} />{" "}
+      <ImgContainer src={sharedImgSrc} onResponse={displayImage} />
+      <TextField text={sharedUserMessage} onType={messageChange} />{" "}
       <Submit data={sharedUserMessage} onClick={exportText} />
     </div>
   );
