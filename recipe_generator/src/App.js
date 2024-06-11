@@ -59,7 +59,7 @@ function ImgContainer({ src, onResponse }) {
   );
 }
 
-function ImageGeneration({ setSharedDisplay }) {
+function ImageGeneration({ setSwitchToAnimation }) {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
   const [sharedImgSrc, setSharedImgSrc] = useState("");
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
@@ -71,7 +71,7 @@ function ImageGeneration({ setSharedDisplay }) {
     let base64;
 
     try {
-      setSharedDisplay("flex");
+      setSwitchToAnimation(true);
       const response = await axios.get("http://localhost:8080/generateImage", {
         params,
       });
@@ -84,6 +84,8 @@ function ImageGeneration({ setSharedDisplay }) {
     } catch (error) {
       setSharedUserMessage(error);
       setSharedUserMessage("");
+    } finally {
+      setSwitchToAnimation(false);
     }
   }
 
@@ -135,20 +137,18 @@ function Everything() {
   });
 
   useEffect(() => {
-    //modify styles for topmost div dynamically
+    //modify styles for topmost div in LoadingAnimation component dynamically
     let clone = structuredClone(styles);
-    clone.display = sharedDisplay;
-    setStyles(clone);
-  }, [sharedDisplay]);
 
-  useEffect(() => {
-    if (switchToAnimation) {
-    }
+    if (switchToAnimation) clone.display = "flex";
+    else clone.display = "none";
+
+    setStyles(clone);
   }, [switchToAnimation]);
 
   return (
     <div>
-      <ImageGeneration setSharedDisplay={setSharedDisplay} />
+      <ImageGeneration setSwitchToAnimation={setSwitchToAnimation} />
       <LoadingAnimation style={styles} sharedDisplay={sharedDisplay} />
     </div>
   );
