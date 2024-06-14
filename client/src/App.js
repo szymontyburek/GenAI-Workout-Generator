@@ -167,8 +167,15 @@ function ImgContainer({ src, onResponse }) {
   }, [src]);
 
   return (
-    <div style={{ width: "inherit", height: "50%", border: "1px solid black" }}>
-      <img style={{ width: "100%", height: "100%" }} src={src}></img>
+    <div
+      style={{
+        width: "inherit",
+        height: "50%",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <img style={{ width: "100%" }} src={src}></img>
     </div>
   );
 }
