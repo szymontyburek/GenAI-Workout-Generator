@@ -2,10 +2,6 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function App() {
-  return <Everything />;
-}
-
 function TextField({ text, onType, placeholder }) {
   const [nodeValue, setNodeValue] = useState("");
   const [Placeholder, setPlaceholder] = useState("");
@@ -121,7 +117,7 @@ function LoadingAnimation({ style }) {
   );
 }
 
-function Everything() {
+function ParentContainer() {
   const [switchToAnimation, setSwitchToAnimation] = useState(false);
   const [styles, setStyles] = useState({
     width: "100%",
@@ -136,7 +132,7 @@ function Everything() {
   });
 
   useEffect(() => {
-    //modify styles for topmost div in LoadingAnimation component dynamically
+    //modify display property for topmost div in LoadingAnimation component dynamically
     let clone = structuredClone(styles);
 
     if (switchToAnimation) clone.display = "flex";
@@ -153,4 +149,4 @@ function Everything() {
   );
 }
 
-export default App;
+export default ParentContainer;
