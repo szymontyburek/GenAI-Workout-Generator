@@ -90,7 +90,12 @@ function ImageGeneration({ setSwitchToAnimation }) {
         }}
       >
         <Button text="Download" data={sharedUserMessage} onClick={exportText} />
-        <Button text="Submit" data={sharedUserMessage} onClick={exportText} />
+        <Button
+          text="Generate"
+          data={sharedUserMessage}
+          onClick={exportText}
+          style={{ backgroundColor: "#ee2400 " }}
+        />
       </div>
     </div>
   );
@@ -133,9 +138,13 @@ function TextField({ text, onType, placeholder }) {
   );
 }
 
-function Button({ text, data, onClick }) {
+function Button({ text, data, onClick, style }) {
+  const merged_styles = {
+    ...style,
+    ...{ padding: "1em", borderRadius: ".5em" },
+  };
   return (
-    <button style={{ padding: "1em" }} onClick={() => onClick(data)}>
+    <button style={merged_styles} onClick={() => onClick(data)}>
       {text}
     </button>
   );
