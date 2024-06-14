@@ -64,6 +64,10 @@ function ImageGeneration({ setSwitchToAnimation }) {
     }
   }
 
+  function downloadImage(base64) {
+    debugger;
+  }
+
   return (
     <div
       style={{
@@ -89,7 +93,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
           width: "inherit",
         }}
       >
-        <Button text="Download" data={sharedUserMessage} onClick={exportText} />
+        <Button text="Download" data={sharedImgSrc} onClick={downloadImage} />
         <Button
           text="Generate"
           data={sharedUserMessage}
