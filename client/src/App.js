@@ -65,7 +65,12 @@ function ImageGeneration({ setSwitchToAnimation }) {
   }
 
   function downloadImage(base64) {
-    debugger;
+    var link = document.createElement("a");
+    link.href = base64;
+    link.download = "generatedImage.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   return (
