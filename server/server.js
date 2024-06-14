@@ -3,6 +3,7 @@ const OpenAI = require("openai");
 const app = require("express")();
 const cors = require("cors");
 const axios = require("axios");
+const mongoose = require("mongoose");
 const port = 8080;
 
 app.use(cors());
@@ -40,6 +41,8 @@ app.get("/generateImage", async (req, res) => {
     });
   }
 });
+
+app.post("/retrieveRecords", async (req, res) => {});
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
