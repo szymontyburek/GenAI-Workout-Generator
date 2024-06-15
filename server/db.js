@@ -1,18 +1,14 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 let dbConnection;
 
 module.exports = {
   connectToDb: (cb) => {
-    MongoClient.connect("mongodb://localhost:27017/ImageGenerator")
-      .then((client) => {
-        dbConnection = client.db();
-        return cb();
-      })
-      .catch((err) => {
-        console.log(err);
-        return cb(err);
-      });
+    const mongoConnectionString = process.env.MONGO_CONNECTION;
+    mongoose.connect(mongoConnectionString).then(() => {
+      console.log("success");
+    });
   },
   getDb: () => dbConnection,
 };

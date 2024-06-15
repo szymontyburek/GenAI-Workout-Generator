@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const mongoose = require("mongoose");
+const { connectToDb } = require("./db");
 const port = 8080;
 
 app.use(cors());
@@ -14,10 +14,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const mongoConnectionString = process.env.MONGO_CONNECTION;
-mongoose.connect(mongoConnectionString).then(() => {
-  console.log("success");
-});
+connectToDb();
 
 app.listen(port, () => {
   console.log("Server is running on port " + port);
