@@ -10,6 +10,15 @@ const port = 8080;
 app.use(cors());
 app.use(express.json());
 
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const mongoConnectionString = process.env.MONGO_CONNECTION;
+mongoose.connect(mongoConnectionString).then(() => {
+  console.log("success");
+});
+
 app.listen(port, () => {
   console.log("Server is running on port " + port);
 });
@@ -45,9 +54,6 @@ app.get("/generateImage", async (req, res) => {
 });
 
 app.post("/retrieveRecords", async (req, res) => {
-  res.send(req.body);
-});
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  let success = false;
+  res.send({ message: req.body, success: success });
 });

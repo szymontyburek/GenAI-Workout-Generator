@@ -74,6 +74,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
         { message: "banana" }
       );
 
+      debugger;
       if (response.data.success) setSharedImgSrc(response.data.message);
       else {
         setSharedPlaceholder(response.data.message);
