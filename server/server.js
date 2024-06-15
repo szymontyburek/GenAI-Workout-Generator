@@ -1,12 +1,14 @@
 require("dotenv").config();
 const OpenAI = require("openai");
-const app = require("express")();
+const express = require("express");
+const app = express();
 const cors = require("cors");
 const axios = require("axios");
 const mongoose = require("mongoose");
 const port = 8080;
 
 app.use(cors());
+app.use(express.json());
 
 app.listen(port, () => {
   console.log("Server is running on port " + port);
@@ -43,7 +45,7 @@ app.get("/generateImage", async (req, res) => {
 });
 
 app.post("/retrieveRecords", async (req, res) => {
-  res.send("banana");
+  res.send(req.body);
 });
 
 const openai = new OpenAI({

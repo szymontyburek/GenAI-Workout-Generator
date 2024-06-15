@@ -65,13 +65,13 @@ function ImageGeneration({ setSwitchToAnimation }) {
   }
 
   async function importGenerations(text) {
-    const params = { message: "banana" };
+    let base64;
 
     try {
       setSwitchToAnimation(true);
       const response = await axios.post(
         "http://localhost:8080/retrieveRecords",
-        params
+        { message: "banana" }
       );
 
       if (response.data.success) setSharedImgSrc(response.data.message);
