@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const { connectToDb } = require("./db");
+const { connectToDb, getModel, getSchema } = require("./db");
 const port = 8080;
 
 app.use(cors());
@@ -51,6 +51,11 @@ app.get("/generateImage", async (req, res) => {
 });
 
 app.post("/retrieveRecords", async (req, res) => {
-  let success = false;
+  try {
+    const generatedImagesData = await getModel.find();
+  } catch (err) {
+    console.log(err);
+  } finally {
+  }
   res.send({ message: req.body, success: success });
 });
