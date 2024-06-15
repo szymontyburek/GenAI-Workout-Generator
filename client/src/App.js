@@ -64,6 +64,29 @@ function ImageGeneration({ setSwitchToAnimation }) {
     }
   }
 
+  async function importGenerations(text) {
+    const params = { message: "banana" };
+
+    try {
+      setSwitchToAnimation(true);
+      const response = await axios.post(
+        "http://localhost:8080/retrieveRecords",
+        params
+      );
+
+      if (response.data.success) setSharedImgSrc(response.data.message);
+      else {
+        setSharedPlaceholder(response.data.message);
+        setSharedUserMessage("");
+      }
+    } catch (error) {
+      setSharedUserMessage(error);
+      setSharedUserMessage("");
+    } finally {
+      setSwitchToAnimation(false);
+    }
+  }
+
   function downloadImage(base64) {
     var link = document.createElement("a");
     link.href = base64;
@@ -98,6 +121,11 @@ function ImageGeneration({ setSwitchToAnimation }) {
           width: "inherit",
         }}
       >
+        <Button
+          text="History"
+          data={sharedUserMessage}
+          onClick={importGenerations}
+        />
         <Button text="Download" data={sharedImgSrc} onClick={downloadImage} />
         <Button
           text="Generate"

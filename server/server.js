@@ -42,7 +42,9 @@ app.get("/generateImage", async (req, res) => {
   }
 });
 
-app.post("/retrieveRecords", async (req, res) => {});
+app.post("/retrieveRecords", async (req, res) => {
+  res.send("banana");
+});
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
