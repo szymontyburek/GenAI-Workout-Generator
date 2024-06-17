@@ -9,19 +9,17 @@ const port = 8080;
 
 let dbConnection;
 
-const userSchema = new mongoose.Schema({
-  base64: String,
-  description: String,
-});
-const userModel = mongoose.model("users", userSchema);
+const userModel = mongoose.model(
+  "users",
+  new mongoose.Schema({
+    base64: String,
+    description: String,
+  })
+);
 
-function connectToDb() {
-  const mongoConnectionString = process.env.MONGO_CONNECTION;
-  mongoose.connect(mongoConnectionString).then(() => {
-    console.log("Successfully connected to database");
-  });
-}
-connectToDb();
+mongoose.connect(process.env.MONGO_CONNECTION).then(() => {
+  console.log("Successfully connected to database");
+});
 
 app.use(cors());
 app.use(express.json());
