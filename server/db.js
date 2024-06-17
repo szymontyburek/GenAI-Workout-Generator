@@ -3,17 +3,10 @@ require("dotenv").config();
 
 let dbConnection;
 
-const generatedImagesSchema = new mongoose.Schema({
-  base64: String,
-  dateCreated: Date,
-  userId: String,
-  description: String,
+const userSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
 });
-
-const generatedImagesModel = mongoose.model(
-  "generatedImages",
-  generatedImagesSchema
-);
 
 module.exports = {
   connectToDb: (cb) => {
@@ -22,6 +15,5 @@ module.exports = {
       console.log("Successfully connected to database");
     });
   },
-  getModel: () => generatedImagesModel,
-  getSchema: () => generatedImagesSchema,
+  userModel: () => mongoose.model("users", userSchema),
 };

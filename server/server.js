@@ -4,8 +4,23 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const { connectToDb, getModel, getSchema } = require("./db");
+const mongoose = require("mongoose");
 const port = 8080;
+
+let dbConnection;
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+});
+const userModel = mongoose.model("users", userSchema);
+
+function connectToDb() {
+  const mongoConnectionString = process.env.MONGO_CONNECTION;
+  mongoose.connect(mongoConnectionString).then(() => {
+    console.log("Successfully connected to database");
+  });
+}
 
 app.use(cors());
 app.use(express.json());
@@ -51,11 +66,12 @@ app.get("/generateImage", async (req, res) => {
 });
 
 app.post("/retrieveRecords", async (req, res) => {
+  let data;
   try {
-    const generatedImagesData = await getModel.find();
+    data = await userModel.find();
   } catch (err) {
     console.log(err);
   } finally {
   }
-  res.send({ message: req.body, success: success });
+  res.send({ message: req.body });
 });
