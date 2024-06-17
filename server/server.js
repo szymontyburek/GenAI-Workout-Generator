@@ -10,10 +10,10 @@ const port = 8080;
 let dbConnection;
 
 const userSchema = new mongoose.Schema({
-  name: String,
-  age: Number,
+  base64: String,
+  description: String,
 });
-const userModel = mongoose.model("users", userSchema);
+const userModel = mongoose.model("generatedImages", userSchema);
 
 function connectToDb() {
   const mongoConnectionString = process.env.MONGO_CONNECTION;
@@ -68,10 +68,12 @@ app.get("/generateImage", async (req, res) => {
 app.post("/retrieveRecords", async (req, res) => {
   let data;
   try {
-    data = await userModel.find();
+    mongoose.set("debug", true); // Enable Mongoose debug mode
+    data = await userModel.find({});
+    console.log(data);
   } catch (err) {
     console.log(err);
   } finally {
   }
-  res.send({ message: req.body });
+  res.send({ message: data });
 });
