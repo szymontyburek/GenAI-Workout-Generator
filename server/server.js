@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   base64: String,
   description: String,
 });
-const userModel = mongoose.model("generatedImages", userSchema);
+const userModel = mongoose.model("users", userSchema);
 
 function connectToDb() {
   const mongoConnectionString = process.env.MONGO_CONNECTION;
@@ -21,6 +21,7 @@ function connectToDb() {
     console.log("Successfully connected to database");
   });
 }
+connectToDb();
 
 app.use(cors());
 app.use(express.json());
@@ -28,8 +29,6 @@ app.use(express.json());
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
-connectToDb();
 
 app.listen(port, () => {
   console.log("Server is running on port " + port);
@@ -68,7 +67,6 @@ app.get("/generateImage", async (req, res) => {
 app.post("/retrieveRecords", async (req, res) => {
   let data;
   try {
-    mongoose.set("debug", true); // Enable Mongoose debug mode
     data = await userModel.find({});
     console.log(data);
   } catch (err) {
