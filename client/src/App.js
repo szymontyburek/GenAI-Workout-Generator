@@ -11,6 +11,7 @@ function ParentContainer() {
     top: 0,
     left: 0,
     backgroundColor: "black",
+    opacity: 0.6,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -143,7 +144,6 @@ function LoadingAnimation({ style }) {
   return (
     <div style={style}>
       <div className="loadingWheel"></div>
-      <ImgContainer src="patience.jpg" />
     </div>
   );
 }
