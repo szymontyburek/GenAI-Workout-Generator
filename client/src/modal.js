@@ -52,7 +52,13 @@ function Button2() {
 }
 
 function ModalContainer() {
-  return <div className="modal" id="modal"></div>;
+  return (
+    <div className="modal" id="modal">
+      <div class="modal-header">
+        <Button2 />
+      </div>
+    </div>
+  );
 }
 
 export default Modal;
