@@ -98,46 +98,6 @@ function ImageGeneration({ setSwitchToAnimation }) {
     document.body.removeChild(link);
   }
 
-  const openModalButtons = document.querySelectorAll("#historyBtn");
-  const closeModalButtons = document.querySelectorAll("[data-close-button]");
-  const overlays = document.querySelectorAll("#overlay");
-  let overlay = overlays[0];
-
-  openModalButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const modal = document.querySelector(button.dataset.modalTarget);
-      openModal(modal);
-    });
-  });
-
-  overlays.forEach((overlay) => {
-    overlay.addEventListener("click", () => {
-      const modals = document.querySelectorAll(".modal.active");
-      modals.forEach((modal) => {
-        closeModal(modal);
-      });
-    });
-  });
-
-  closeModalButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const modal = button.closest(".modal");
-      closeModal(modal);
-    });
-  });
-
-  function openModal(modal) {
-    if (modal == null) return;
-    modal.classList.add("active");
-    overlay.classList.add("active");
-  }
-
-  function closeModal(modal) {
-    if (modal == null) return;
-    modal.classList.remove("active");
-    overlay.classList.remove("active");
-  }
-
   return (
     <div
       style={{
@@ -169,7 +129,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
           onClick={importGenerations}
           id="historyBtn"
         />
-        <Modal />
+        <Modal openBtnId="historyBtn" />
         <Button text="Download" data={sharedImgSrc} onClick={downloadImage} />
         <Button
           text="Generate"
@@ -256,7 +216,47 @@ function ImgContainer({ src, onResponse }) {
   );
 }
 
-function Modal() {
+function Modal({ openBtnId }) {
+  const openModalButtons = document.querySelectorAll("#" + openBtnId);
+  const closeModalButtons = document.querySelectorAll("[data-close-button]");
+  const overlays = document.querySelectorAll("#overlay");
+  let overlay = overlays[0];
+
+  openModalButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const modal = document.querySelector(button.dataset.modalTarget);
+      openModal(modal);
+    });
+  });
+
+  overlays.forEach((overlay) => {
+    overlay.addEventListener("click", () => {
+      const modals = document.querySelectorAll(".modal.active");
+      modals.forEach((modal) => {
+        closeModal(modal);
+      });
+    });
+  });
+
+  closeModalButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const modal = button.closest(".modal");
+      closeModal(modal);
+    });
+  });
+
+  function openModal(modal) {
+    if (modal == null) return;
+    modal.classList.add("active");
+    overlay.classList.add("active");
+  }
+
+  function closeModal(modal) {
+    if (modal == null) return;
+    modal.classList.remove("active");
+    overlay.classList.remove("active");
+  }
+
   return (
     <div>
       <ModalBody />
