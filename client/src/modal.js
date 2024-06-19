@@ -1,15 +1,10 @@
 function Modal() {
   return (
     <div>
-      <Button1 />
       <ModalBody />
       <OverlayDiv />
     </div>
   );
-}
-
-function Button1() {
-  return <button data-modal-target="#modal">Open Modal</button>;
 }
 
 function Button2() {

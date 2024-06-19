@@ -99,7 +99,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
     document.body.removeChild(link);
   }
 
-  const openModalButtons = document.querySelectorAll("[data-modal-target]");
+  const openModalButtons = document.querySelectorAll("#historyBtn");
   const closeModalButtons = document.querySelectorAll("[data-close-button]");
   const overlay = document.getElementById("overlay");
 
@@ -222,7 +222,12 @@ function Button({ text, data, onClick, style, id }) {
     ...{ padding: "1em", borderRadius: ".5em" },
   };
   return (
-    <button style={merged_styles} onClick={() => onClick(data)}>
+    <button
+      data-modal-target="#modal"
+      id={id}
+      style={merged_styles}
+      onClick={() => onClick(data)}
+    >
       {text}
     </button>
   );
