@@ -101,7 +101,8 @@ function ImageGeneration({ setSwitchToAnimation }) {
 
   const openModalButtons = document.querySelectorAll("#historyBtn");
   const closeModalButtons = document.querySelectorAll("[data-close-button]");
-  const overlay = document.getElementById("overlay");
+  const overlays = document.querySelectorAll("#overlay");
+  let overlay = overlays[0];
 
   openModalButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -110,10 +111,12 @@ function ImageGeneration({ setSwitchToAnimation }) {
     });
   });
 
-  overlay.addEventListener("click", () => {
-    const modals = document.querySelectorAll(".modal.active");
-    modals.forEach((modal) => {
-      closeModal(modal);
+  overlays.forEach((overlay) => {
+    overlay.addEventListener("click", () => {
+      const modals = document.querySelectorAll(".modal.active");
+      modals.forEach((modal) => {
+        closeModal(modal);
+      });
     });
   });
 
