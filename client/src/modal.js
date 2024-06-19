@@ -3,6 +3,7 @@ function Modal() {
     <div>
       <Button1 />
       <ModalBody />
+      <OverlayDiv />
     </div>
   );
 }
@@ -57,6 +58,10 @@ function ModalBody() {
       </div>
     </div>
   );
+}
+
+function OverlayDiv() {
+  return <div id="overlay"></div>;
 }
 
 export default Modal;
