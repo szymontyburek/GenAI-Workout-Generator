@@ -77,7 +77,6 @@ function ImageGeneration({ setSwitchToAnimation }) {
       );
 
       if (response.data.success) {
-        setSharedImgSrc(response.data.message);
         debugger;
         clickTrigger.current = clickTrigger.current + 1; //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {
