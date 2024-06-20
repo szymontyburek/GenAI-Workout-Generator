@@ -78,7 +78,6 @@ function ImageGeneration({ setSwitchToAnimation }) {
         { message: "banana" }
       );
 
-      debugger;
       if (response.data.success) setSharedImgSrc(response.data.message);
       else {
         setSharedPlaceholder(response.data.message);
@@ -88,7 +87,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
       setSharedUserMessage(error);
       setSharedUserMessage("");
     } finally {
-      setSwitchToAnimation(false);
+      // setSwitchToAnimation(false);
     }
   }
 
@@ -181,17 +180,17 @@ function TextField({ text, onType, placeholder }) {
   );
 }
 
-function Button({ text, data, onClick, style, id }) {
+function Button({ text, data, onClick, style, id, className }) {
   const merged_styles = {
     ...style,
     ...{ padding: "1em", borderRadius: ".5em" },
   };
   return (
     <button
-      data-modal-target="#modal"
       id={id}
       style={merged_styles}
       onClick={() => onClick(data)}
+      className={className}
     >
       {text}
     </button>
@@ -220,21 +219,12 @@ function ImgContainer({ src, onResponse }) {
 }
 
 function Modal({ clickEvent }) {
-  const closeModalButtons = document.querySelectorAll("[data-close-button]");
-
   const [sharedModalClass, setSharedModalClass] = useState("modal");
   const [sharedOverlayClass, setSharedOverlayClass] = useState("modal");
 
   useEffect(() => {
     if (clickEvent.current > 0) openModal(); //clickEvent equals 0 on initial HTML render
   }, [clickEvent.current]);
-
-  closeModalButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const modal = button.closest(".modal");
-      closeModal(modal);
-    });
-  });
 
   function openModal() {
     setSharedModalClass("modal active");
@@ -248,25 +238,21 @@ function Modal({ clickEvent }) {
 
   return (
     <div>
-      <ModalBody className={sharedModalClass} />
+      <ModalBody className={sharedModalClass} closeModal={closeModal} />
       <OverlayDiv className={sharedOverlayClass} />
     </div>
   );
 }
 
 function Button2() {
-  return (
-    <button data-close-button className="close-button">
-      &times;
-    </button>
-  );
+  return <button className="close-button">&times;</button>;
 }
 
-function ModalBody({ className }) {
+function ModalBody({ className, closeModal }) {
   return (
     <div className={className} id="modal">
       <div className="modal-header">
-        <Button2 />
+        <Button text="&times;" className="close-button" onClick={closeModal} />
         <div
           style={{
             display: "flex",
