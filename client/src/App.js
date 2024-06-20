@@ -221,23 +221,13 @@ function ImgContainer({ src, onResponse }) {
 
 function Modal({ clickEvent }) {
   const closeModalButtons = document.querySelectorAll("[data-close-button]");
-  const overlays = document.querySelectorAll("#overlay");
-  let overlay = overlays[0];
 
   const [sharedModalClass, setSharedModalClass] = useState("modal");
+  const [sharedOverlayClass, setSharedOverlayClass] = useState("modal");
 
   useEffect(() => {
     if (clickEvent.current > 0) openModal(); //clickEvent equals 0 on initial HTML render
   }, [clickEvent.current]);
-
-  overlays.forEach((overlay) => {
-    overlay.addEventListener("click", () => {
-      const modals = document.querySelectorAll(".modal.active");
-      modals.forEach((modal) => {
-        closeModal(modal);
-      });
-    });
-  });
 
   closeModalButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -247,21 +237,19 @@ function Modal({ clickEvent }) {
   });
 
   function openModal() {
-    // if (modal == null) return;
     setSharedModalClass("modal active");
-    overlay.classList.add("active");
+    setSharedOverlayClass("modal active");
   }
 
   function closeModal() {
-    // if (modal == null) return;
     setSharedModalClass("modal");
-    overlay.classList.remove("active");
+    setSharedOverlayClass("modal");
   }
 
   return (
     <div>
       <ModalBody className={sharedModalClass} />
-      <OverlayDiv />
+      <OverlayDiv className={sharedOverlayClass} />
     </div>
   );
 }
@@ -314,8 +302,8 @@ function ModalBody({ className }) {
   );
 }
 
-function OverlayDiv() {
-  return <div id="overlay"></div>;
+function OverlayDiv({ sharedOverlayClass }) {
+  return <div className={sharedOverlayClass} id="overlay"></div>;
 }
 
 export default ParentContainer;
