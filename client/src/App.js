@@ -130,14 +130,24 @@ function ImageGeneration({ setSwitchToAnimation }) {
           data={sharedUserMessage}
           onClick={importGenerations}
           id="historyBtn"
+          style={{ padding: "1em", borderRadius: "0.5em" }}
         />
         <Modal clickEvent={clickTrigger} />
-        <Button text="Download" data={sharedImgSrc} onClick={downloadImage} />
+        <Button
+          text="Download"
+          data={sharedImgSrc}
+          onClick={downloadImage}
+          style={{ padding: "1em", borderRadius: "0.5em" }}
+        />
         <Button
           text="Generate"
           data={sharedUserMessage}
           onClick={exportText}
-          style={{ backgroundColor: "#ee2400 " }}
+          style={{
+            backgroundColor: "#ee2400",
+            padding: "1em",
+            borderRadius: "0.5em",
+          }}
         />
       </div>
     </div>
@@ -181,14 +191,10 @@ function TextField({ text, onType, placeholder }) {
 }
 
 function Button({ text, data, onClick, style, id, className }) {
-  const merged_styles = {
-    ...style,
-    ...{ padding: "1em", borderRadius: ".5em" },
-  };
   return (
     <button
       id={id}
-      style={merged_styles}
+      style={style}
       onClick={() => onClick(data)}
       className={className}
     >
@@ -242,10 +248,6 @@ function Modal({ clickEvent }) {
       <OverlayDiv className={sharedOverlayClass} />
     </div>
   );
-}
-
-function Button2() {
-  return <button className="close-button">&times;</button>;
 }
 
 function ModalBody({ className, closeModal }) {
