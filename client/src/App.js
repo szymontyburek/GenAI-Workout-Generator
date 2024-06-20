@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 function ParentContainer() {
@@ -41,7 +41,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
     "Image description..."
   );
-  const [clickTrigger, setClickTrigger] = useState(0);
+  const clickTrigger = useRef(0);
 
   async function exportText(text) {
     const params = { message: text };
@@ -67,7 +67,8 @@ function ImageGeneration({ setSwitchToAnimation }) {
   }
 
   async function importGenerations(text) {
-    setClickTrigger((clickTrigger) => clickTrigger + 1);
+    clickTrigger.current = clickTrigger.current + 1;
+
     let base64;
 
     try {
@@ -226,8 +227,8 @@ function Modal({ clickEvent }) {
   const [sharedModalClass, setSharedModalClass] = useState("modal");
 
   useEffect(() => {
-    if (clickEvent > 0) openModal();
-  }, [clickEvent]);
+    if (clickEvent.current > 0) openModal(); //clickEvent equals 0 on initial HTML render
+  }, [clickEvent.current]);
 
   // openModalButtons.forEach((button) => {
   //   button.addEventListener("click", () => {
