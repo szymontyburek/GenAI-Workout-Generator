@@ -230,13 +230,6 @@ function Modal({ clickEvent }) {
     if (clickEvent.current > 0) openModal(); //clickEvent equals 0 on initial HTML render
   }, [clickEvent.current]);
 
-  // openModalButtons.forEach((button) => {
-  //   button.addEventListener("click", () => {
-  //     const modal = document.querySelector(button.dataset.modalTarget);
-  //     openModal(modal);
-  //   });
-  // });
-
   overlays.forEach((overlay) => {
     overlay.addEventListener("click", () => {
       const modals = document.querySelectorAll(".modal.active");
