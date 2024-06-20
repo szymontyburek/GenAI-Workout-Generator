@@ -222,6 +222,8 @@ function Modal({ openBtnId }) {
   const overlays = document.querySelectorAll("#overlay");
   let overlay = overlays[0];
 
+  const [sharedModalClass, setSharedModalClass] = useState("modal");
+
   openModalButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const modal = document.querySelector(button.dataset.modalTarget);
@@ -246,20 +248,20 @@ function Modal({ openBtnId }) {
   });
 
   function openModal(modal) {
-    if (modal == null) return;
-    modal.classList.add("active");
+    // if (modal == null) return;
+    setSharedModalClass("modal active");
     overlay.classList.add("active");
   }
 
   function closeModal(modal) {
-    if (modal == null) return;
-    modal.classList.remove("active");
+    // if (modal == null) return;
+    setSharedModalClass("modal");
     overlay.classList.remove("active");
   }
 
   return (
     <div>
-      <ModalBody />
+      <ModalBody className={sharedModalClass} />
       <OverlayDiv />
     </div>
   );
@@ -273,9 +275,9 @@ function Button2() {
   );
 }
 
-function ModalBody() {
+function ModalBody({ className }) {
   return (
-    <div className="modal" id="modal">
+    <div className={className} id="modal">
       <div className="modal-header">
         <Button2 />
         <div
