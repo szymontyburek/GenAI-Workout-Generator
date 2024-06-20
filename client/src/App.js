@@ -41,6 +41,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
     "Image description..."
   );
+  const [clickTrigger, setClickTrigger] = useState(0);
 
   async function exportText(text) {
     const params = { message: text };
@@ -66,6 +67,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
   }
 
   async function importGenerations(text) {
+    setClickTrigger((clickTrigger) => clickTrigger + 1);
     let base64;
 
     try {
@@ -129,7 +131,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
           onClick={importGenerations}
           id="historyBtn"
         />
-        <Modal openBtnId="historyBtn" />
+        <Modal clickEvent={clickTrigger} />
         <Button text="Download" data={sharedImgSrc} onClick={downloadImage} />
         <Button
           text="Generate"
@@ -216,20 +218,23 @@ function ImgContainer({ src, onResponse }) {
   );
 }
 
-function Modal({ openBtnId }) {
-  const openModalButtons = document.querySelectorAll("#" + openBtnId);
+function Modal({ clickEvent }) {
   const closeModalButtons = document.querySelectorAll("[data-close-button]");
   const overlays = document.querySelectorAll("#overlay");
   let overlay = overlays[0];
 
   const [sharedModalClass, setSharedModalClass] = useState("modal");
 
-  openModalButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const modal = document.querySelector(button.dataset.modalTarget);
-      openModal(modal);
-    });
-  });
+  useEffect(() => {
+    if (clickEvent > 0) openModal();
+  }, [clickEvent]);
+
+  // openModalButtons.forEach((button) => {
+  //   button.addEventListener("click", () => {
+  //     const modal = document.querySelector(button.dataset.modalTarget);
+  //     openModal(modal);
+  //   });
+  // });
 
   overlays.forEach((overlay) => {
     overlay.addEventListener("click", () => {
@@ -247,13 +252,13 @@ function Modal({ openBtnId }) {
     });
   });
 
-  function openModal(modal) {
+  function openModal() {
     // if (modal == null) return;
     setSharedModalClass("modal active");
     overlay.classList.add("active");
   }
 
-  function closeModal(modal) {
+  function closeModal() {
     // if (modal == null) return;
     setSharedModalClass("modal");
     overlay.classList.remove("active");
