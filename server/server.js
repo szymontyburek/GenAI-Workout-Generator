@@ -64,12 +64,13 @@ app.get("/generateImage", async (req, res) => {
 
 app.post("/retrieveRecords", async (req, res) => {
   let data;
+  let success;
   try {
     data = await userModel.find({});
-    console.log(data);
+    success = true;
   } catch (err) {
     console.log(err);
-  } finally {
+    success = false;
   }
-  res.send({ message: data });
+  res.send({ message: data, success: success });
 });

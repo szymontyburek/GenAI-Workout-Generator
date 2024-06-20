@@ -67,8 +67,6 @@ function ImageGeneration({ setSwitchToAnimation }) {
   }
 
   async function importGenerations(text) {
-    clickTrigger.current = clickTrigger.current + 1;
-
     let base64;
 
     try {
@@ -78,8 +76,11 @@ function ImageGeneration({ setSwitchToAnimation }) {
         { message: "banana" }
       );
 
-      if (response.data.success) setSharedImgSrc(response.data.message);
-      else {
+      if (response.data.success) {
+        setSharedImgSrc(response.data.message);
+        debugger;
+        clickTrigger.current = clickTrigger.current + 1; //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
+      } else {
         setSharedPlaceholder(response.data.message);
         setSharedUserMessage("");
       }
@@ -87,7 +88,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
       setSharedUserMessage(error);
       setSharedUserMessage("");
     } finally {
-      // setSwitchToAnimation(false);
+      setSwitchToAnimation(false);
     }
   }
 
