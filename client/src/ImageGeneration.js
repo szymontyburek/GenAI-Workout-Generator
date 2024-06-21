@@ -182,7 +182,10 @@ function DynamicInstantiationContainer({ Instantiate, InstantiateData }) {
   return (
     <div className="modal-body">
       {data.map((img) => (
-        <ImgContainer src={img.base64} />
+        <div>
+          <h3>{img.description}</h3>
+          <ImgContainer src={img.base64} />
+        </div>
       ))}
     </div>
   );
