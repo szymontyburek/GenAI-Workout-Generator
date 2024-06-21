@@ -48,7 +48,20 @@ app.get("/generateImage", async (req, res) => {
   }
 });
 
-app.post("/retrieveRecords", async (req, res) => {
+app.post("/getRecords", async (req, res) => {
+  let data;
+  let success;
+  try {
+    data = await userModel.find({});
+    success = true;
+  } catch (err) {
+    console.log(err);
+    success = false;
+  }
+  res.send({ message: data, success: success });
+});
+
+app.post("/addRecord", async (req, res) => {
   let data;
   let success;
   try {

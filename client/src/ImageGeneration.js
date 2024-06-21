@@ -6,7 +6,7 @@ import ImgContainer from "./ImgContainer";
 import HistoryDisplay from "./HistoryDisplay";
 import axios from "axios";
 
-function ImageGeneration({ setSwitchToAnimation }) {
+function ImageGeneration({ setIsLoading }) {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
   const [sharedImgSrc, setSharedImgSrc] = useState("");
   const [sharedPostData, setSharedPostData] = useState("");
@@ -20,7 +20,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
     let base64;
 
     try {
-      setSwitchToAnimation(true);
+      setIsLoading(true);
       const response = await axios.get("http://localhost:8080/generateImage", {
         params,
       });
@@ -34,19 +34,18 @@ function ImageGeneration({ setSwitchToAnimation }) {
       setSharedUserMessage(error);
       setSharedUserMessage("");
     } finally {
-      setSwitchToAnimation(false);
+      setIsLoading(false);
     }
   }
 
-  async function importGenerations(text) {
+  async function getRecords(text) {
     let base64;
 
     try {
-      setSwitchToAnimation(true);
-      const response = await axios.post(
-        "http://localhost:8080/retrieveRecords",
-        { message: "banana" }
-      );
+      setIsLoading(true);
+      const response = await axios.post("http://localhost:8080/getRecords", {
+        message: "banana",
+      });
 
       if (response.data.success) {
         setSharedPostData(response.data.message);
@@ -59,7 +58,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
       setSharedUserMessage(error);
       setSharedUserMessage("");
     } finally {
-      setSwitchToAnimation(false);
+      setIsLoading(false);
     }
   }
 
@@ -100,7 +99,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
         <Button
           text="History"
           data={sharedUserMessage}
-          onClick={importGenerations}
+          onClick={getRecords}
           id="historyBtn"
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />

@@ -6,7 +6,7 @@ import ImageGeneration from "./ImageGeneration";
 import LoadingAnimation from "./LoadingAnimation";
 
 function ParentContainer() {
-  const [switchToAnimation, setSwitchToAnimation] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [styles, setStyles] = useState({
     width: "100%",
     height: "100%",
@@ -24,15 +24,15 @@ function ParentContainer() {
     //modify display property for topmost div in LoadingAnimation component dynamically
     let clone = structuredClone(styles);
 
-    if (switchToAnimation) clone.display = "flex";
+    if (isLoading) clone.display = "flex";
     else clone.display = "none";
 
     setStyles(clone);
-  }, [switchToAnimation]);
+  }, [isLoading]);
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <ImageGeneration setSwitchToAnimation={setSwitchToAnimation} />
+      <ImageGeneration setIsLoading={setIsLoading} />
       <LoadingAnimation style={styles} />
     </div>
   );
