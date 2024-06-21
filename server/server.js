@@ -4,22 +4,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const mongoose = require("mongoose");
+const { connectToDb, userModel } = require("./db");
 const port = 8080;
-
-let dbConnection;
-
-const userModel = mongoose.model(
-  "users",
-  new mongoose.Schema({
-    base64: String,
-    description: String,
-  })
-);
-
-mongoose.connect(process.env.MONGO_CONNECTION).then(() => {
-  console.log("Successfully connected to database");
-});
 
 app.use(cors());
 app.use(express.json());
