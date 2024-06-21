@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Button from "./Button";
 
-function Modal({ clickEvent, ModalContents }) {
+function Modal({ clickEvent, ModalContents, ModalContentsData }) {
   const [sharedModalClass, setSharedModalClass] = useState("modal");
   const [sharedOverlayClass, setSharedOverlayClass] = useState("modal");
 
@@ -25,16 +25,25 @@ function Modal({ clickEvent, ModalContents }) {
         className={sharedModalClass}
         closeModal={closeModal}
         ModalContents={ModalContents}
+        ModalContentsData={ModalContentsData}
       />
       <OverlayDiv className={sharedOverlayClass} />
     </div>
   );
 }
 
-function ModalBodyContainer({ className, closeModal, ModalContents }) {
+function ModalBodyContainer({
+  className,
+  closeModal,
+  ModalContents,
+  ModalContentsData,
+}) {
   return (
     <div className={className} id="modal">
-      <ModalContents closeModal={closeModal} />
+      <ModalContents
+        closeModal={closeModal}
+        ModalContentsData={ModalContentsData}
+      />
     </div>
   );
 }

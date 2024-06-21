@@ -8,6 +8,7 @@ import axios from "axios";
 function ImageGeneration({ setSwitchToAnimation }) {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
   const [sharedImgSrc, setSharedImgSrc] = useState("");
+  const [sharedPostData, setSharedPostData] = useState("");
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
     "Image description..."
   );
@@ -47,7 +48,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
       );
 
       if (response.data.success) {
-        debugger;
+        setSharedPostData(response.data.message);
         clickTrigger.current = clickTrigger.current + 1; //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {
         setSharedPlaceholder(response.data.message);
@@ -102,7 +103,11 @@ function ImageGeneration({ setSwitchToAnimation }) {
           id="historyBtn"
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />
-        <Modal clickEvent={clickTrigger} ModalContents={ModalBodyContents} />
+        <Modal
+          clickEvent={clickTrigger}
+          ModalContents={ModalBodyContents}
+          ModalContentsData={sharedPostData}
+        />
         <Button
           text="Download"
           data={sharedImgSrc}
@@ -124,7 +129,13 @@ function ImageGeneration({ setSwitchToAnimation }) {
   );
 }
 
-function ModalBodyContents({ closeModal }) {
+function ModalBodyContents({ closeModal, ModalContentsData }) {
+  const [postData, setPostData] = useState("");
+
+  useEffect(() => {
+    setPostData(ModalContentsData);
+  }, [ModalContentsData]);
+
   return (
     <div>
       <div className="modal-header">
