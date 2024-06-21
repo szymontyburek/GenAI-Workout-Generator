@@ -21,7 +21,7 @@ function ImageGeneration({ setIsLoading }) {
 
     try {
       setIsLoading(true);
-      const response = await axios.get("http://localhost:8080/generateImage", {
+      const response = await axios.post("http://localhost:8080/addRecord", {
         params,
       });
 

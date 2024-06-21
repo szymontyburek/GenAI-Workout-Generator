@@ -18,14 +18,14 @@ app.listen(port, () => {
   console.log("Server is running on port " + port);
 });
 
-app.get("/generateImage", async (req, res) => {
+app.post("/addRecord", async (req, res) => {
   let message;
   let success = false;
   let openaiResponse;
   try {
     openaiResponse = await openai.images.generate({
       model: "dall-e-3",
-      prompt: req.query.message,
+      prompt: req.body.params.message,
       n: 1,
       size: "1024x1024",
     });
