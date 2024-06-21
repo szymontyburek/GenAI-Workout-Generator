@@ -15,7 +15,7 @@ function ImageGeneration({ setIsLoading }) {
   );
   const clickTrigger = useRef(0);
 
-  async function exportText(text) {
+  async function getImage(text) {
     const params = { message: text };
     let base64;
 
@@ -43,7 +43,7 @@ function ImageGeneration({ setIsLoading }) {
 
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:8080/getRecords", {
+      const response = await axios.get("http://localhost:8080/getRecords", {
         message: "banana",
       });
 
@@ -117,7 +117,7 @@ function ImageGeneration({ setIsLoading }) {
         <Button
           text="Generate"
           data={sharedUserMessage}
-          onClick={exportText}
+          onClick={getImage}
           style={{
             backgroundColor: "#ee2400",
             padding: "1em",
