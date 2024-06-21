@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function ImgContainer({ src, onResponse }) {
+export default function ImgContainer({ src }) {
   const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {

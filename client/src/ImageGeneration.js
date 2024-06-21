@@ -82,7 +82,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
       }}
     >
       <h1>Image Generator</h1>
-      <ImgContainer src={sharedImgSrc} onResponse={setSharedImgSrc} />
+      <ImgContainer src={sharedImgSrc} />
       <TextField
         text={sharedUserMessage}
         onType={setSharedUserMessage}
