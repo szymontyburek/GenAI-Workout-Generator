@@ -3,6 +3,7 @@ import Button from "./Button";
 import Modal from "./Modal";
 import TextField from "./TextField";
 import ImgContainer from "./ImgContainer";
+import HistoryDisplay from "./HistoryDisplay";
 import axios from "axios";
 
 function ImageGeneration({ setSwitchToAnimation }) {
@@ -105,7 +106,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
         />
         <Modal
           clickEvent={clickTrigger}
-          ModalContents={ModalBodyContents}
+          ModalContents={HistoryDisplay}
           ModalContentsData={sharedPostData}
         />
         <Button
@@ -125,58 +126,6 @@ function ImageGeneration({ setSwitchToAnimation }) {
           }}
         />
       </div>
-    </div>
-  );
-}
-
-function ModalBodyContents({ closeModal, ModalContentsData }) {
-  const [postData, setPostData] = useState("");
-
-  useEffect(() => {
-    setPostData(ModalContentsData);
-  }, [ModalContentsData]);
-
-  return (
-    <div>
-      <div className="modal-header">
-        <Button text="&times;" className="close-button" onClick={closeModal} />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div className="title">Prior Generations:</div>
-          <select name="selectDate" id="">
-            <option value="">06/17/2024</option>
-            <option value="">06/16/2024</option>
-          </select>
-        </div>
-      </div>
-      <DynamicInstantiation
-        Instantiate={ImgContainer}
-        InstantiateData={postData}
-      />
-    </div>
-  );
-}
-
-function DynamicInstantiation({ Instantiate, InstantiateData }) {
-  const [data, setData] = useState([{}]);
-
-  useEffect(() => {
-    if (InstantiateData.length > 0) setData(InstantiateData);
-  }, [InstantiateData]);
-
-  return (
-    <div className="modal-body">
-      {data.map((img) => (
-        <div>
-          <h3>{img.description}</h3>
-          <Instantiate src={img.base64} />
-        </div>
-      ))}
     </div>
   );
 }
