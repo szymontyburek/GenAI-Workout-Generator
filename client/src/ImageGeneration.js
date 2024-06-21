@@ -173,7 +173,7 @@ function ModalBodyContents({ closeModal, ModalContentsData }) {
 }
 
 function DynamicInstantiationContainer({ Instantiate, InstantiateData }) {
-  const [data, setData] = useState([{ base64: "logo512.png" }]);
+  const [data, setData] = useState([{}]);
 
   useEffect(() => {
     if (InstantiateData.length > 0) setData(InstantiateData);
@@ -181,7 +181,9 @@ function DynamicInstantiationContainer({ Instantiate, InstantiateData }) {
 
   return (
     <div className="modal-body">
-      <ImgContainer src={data[0].base64} />
+      {data.map((img) => (
+        <ImgContainer src={img.base64} />
+      ))}
     </div>
   );
 }
