@@ -154,25 +154,15 @@ function ModalBodyContents({ closeModal, ModalContentsData }) {
           </select>
         </div>
       </div>
-      <DynamicInstantiationContainer
-        Instantiate="lkj"
+      <DynamicInstantiation
+        Instantiate={ImgContainer}
         InstantiateData={postData}
       />
-      {/* <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <button>Unselect</button>
-          <button style={{ backgroundColor: "#ee2400" }}>Download</button>
-        </div> */}
     </div>
   );
 }
 
-function DynamicInstantiationContainer({ Instantiate, InstantiateData }) {
+function DynamicInstantiation({ Instantiate, InstantiateData }) {
   const [data, setData] = useState([{}]);
 
   useEffect(() => {
@@ -184,7 +174,7 @@ function DynamicInstantiationContainer({ Instantiate, InstantiateData }) {
       {data.map((img) => (
         <div>
           <h3>{img.description}</h3>
-          <ImgContainer src={img.base64} />
+          <Instantiate src={img.base64} />
         </div>
       ))}
     </div>
