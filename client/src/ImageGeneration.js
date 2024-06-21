@@ -144,11 +144,11 @@ function ModalBodyContents({ closeModal }) {
         </div>
       </div>
       <div className="modal-body">
-        <img src="logo512.png" alt="" />
-        <img src="logo512.png" alt="" />
-        <img src="logo512.png" alt="" />
-        <img src="logo512.png" alt="" />
-        <img src="logo512.png" alt="" />
+        <ImgContainer src="logo512.png" />
+        <ImgContainer src="logo512.png" />
+        <ImgContainer src="logo512.png" />
+        <ImgContainer src="logo512.png" />
+        <ImgContainer src="logo512.png" />
         <div
           style={{
             display: "flex",
