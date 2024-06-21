@@ -154,13 +154,11 @@ function ModalBodyContents({ closeModal, ModalContentsData }) {
           </select>
         </div>
       </div>
-      <div className="modal-body">
-        <ImgContainer src="logo512.png" />
-        <ImgContainer src="logo512.png" />
-        <ImgContainer src="logo512.png" />
-        <ImgContainer src="logo512.png" />
-        <ImgContainer src="logo512.png" />
-        <div
+      <DynamicInstantiationContainer
+        Instantiate="lkj"
+        InstantiateData={postData}
+      />
+      {/* <div
           style={{
             display: "flex",
             justifyContent: "center",
@@ -169,8 +167,21 @@ function ModalBodyContents({ closeModal, ModalContentsData }) {
         >
           <button>Unselect</button>
           <button style={{ backgroundColor: "#ee2400" }}>Download</button>
-        </div>
-      </div>
+        </div> */}
+    </div>
+  );
+}
+
+function DynamicInstantiationContainer({ Instantiate, InstantiateData }) {
+  const [data, setData] = useState([{ base64: "logo512.png" }]);
+
+  useEffect(() => {
+    if (InstantiateData.length > 0) setData(InstantiateData);
+  }, [InstantiateData]);
+
+  return (
+    <div className="modal-body">
+      <ImgContainer src={data[0].base64} />
     </div>
   );
 }
