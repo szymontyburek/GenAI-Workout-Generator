@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
-import Modal from "./modal";
+import Modal from "./Modal";
 import Button from "./Button";
 import ImageGeneration from "./ImageGeneration";
 import LoadingAnimation from "./LoadingAnimation";

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import Button from "./Button";
-import Modal from "./modal";
+import Modal from "./Modal";
 import TextField from "./TextField";
 import ImgContainer from "./ImgContainer";
 import axios from "axios";
@@ -102,7 +102,7 @@ function ImageGeneration({ setSwitchToAnimation }) {
           id="historyBtn"
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />
-        <Modal clickEvent={clickTrigger} />
+        <Modal clickEvent={clickTrigger} ModalContents={ModalBodyContents} />
         <Button
           text="Download"
           data={sharedImgSrc}
@@ -119,6 +119,46 @@ function ImageGeneration({ setSwitchToAnimation }) {
             borderRadius: "0.5em",
           }}
         />
+      </div>
+    </div>
+  );
+}
+
+function ModalBodyContents({ closeModal }) {
+  return (
+    <div>
+      <div className="modal-header">
+        <Button text="&times;" className="close-button" onClick={closeModal} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div className="title">Prior Generations:</div>
+          <select name="selectDate" id="">
+            <option value="">06/17/2024</option>
+            <option value="">06/16/2024</option>
+          </select>
+        </div>
+      </div>
+      <div className="modal-body">
+        <img src="logo512.png" alt="" />
+        <img src="logo512.png" alt="" />
+        <img src="logo512.png" alt="" />
+        <img src="logo512.png" alt="" />
+        <img src="logo512.png" alt="" />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <button>Unselect</button>
+          <button style={{ backgroundColor: "#ee2400" }}>Download</button>
+        </div>
       </div>
     </div>
   );
