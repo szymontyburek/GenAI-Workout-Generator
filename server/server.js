@@ -4,22 +4,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const mongoose = require("mongoose");
+const { connectToDb, userModel } = require("./db");
 const port = 8080;
-
-let dbConnection;
-
-const userModel = mongoose.model(
-  "users",
-  new mongoose.Schema({
-    base64: String,
-    description: String,
-  })
-);
-
-mongoose.connect(process.env.MONGO_CONNECTION).then(() => {
-  console.log("Successfully connected to database");
-});
 
 app.use(cors());
 app.use(express.json());
@@ -32,14 +18,14 @@ app.listen(port, () => {
   console.log("Server is running on port " + port);
 });
 
-app.get("/generateImage", async (req, res) => {
+app.post("/addRecord", async (req, res) => {
   let message;
   let success = false;
   let openaiResponse;
   try {
     openaiResponse = await openai.images.generate({
       model: "dall-e-3",
-      prompt: req.query.message,
+      prompt: req.body.params.message,
       n: 1,
       size: "1024x1024",
     });
@@ -62,7 +48,7 @@ app.get("/generateImage", async (req, res) => {
   }
 });
 
-app.post("/retrieveRecords", async (req, res) => {
+app.get("/getRecords", async (req, res) => {
   let data;
   let success;
   try {
@@ -72,5 +58,5 @@ app.post("/retrieveRecords", async (req, res) => {
     console.log(err);
     success = false;
   }
-  res.send({ message: data, success: success });
+  res.json({ message: data, success: success });
 });
