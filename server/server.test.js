@@ -1,12 +1,9 @@
 const request = require("supertest");
-const app = require("./app");
+const { getRecords } = require("./server");
 
-describe("GET /getRecords", () => {
-  it("should respond with a JSON object containing records", async () => {
-    const response = await request(app).get("/getRecords");
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("records");
-    expect(Array.isArray(response.body.records)).toBe(true);
-    expect(response.body.records).toEqual(["record1", "record2", "record3"]);
+describe("GET endpoint /getRecords", () => {
+  it("should get records from db in the cloud", async () => {
+    const response = await getRecords();
+    expect(response.message.length).toBeGreaterThan(0);
   });
 });
