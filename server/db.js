@@ -3,7 +3,7 @@ require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
 module.exports = {
-  getData: async function () {
+  getRecords: async function () {
     const connection = new MongoClient(process.env.MONGODB_CONNECTION, {
       serverApi: {
         version: ServerApiVersion.v1,
@@ -13,15 +13,26 @@ module.exports = {
     });
 
     let data;
+    let success;
+
     try {
       await connection.connect();
       const collection = connection.db("ImageGenerator").collection("images");
       data = await collection.find().toArray();
+      success = true;
     } catch (err) {
       console.log(err);
+      success = false;
     } finally {
       await connection.close();
     }
-    return data;
+    return { message: data, success: success };
+  },
+  addRecord: async function addRecord(fieldDataObj) {
+    try {
+    } catch (err) {
+      return false;
+    }
+    return true;
   },
 };

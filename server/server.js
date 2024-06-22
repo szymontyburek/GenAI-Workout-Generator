@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const getRecords = require("./endpoints");
+const { getRecords } = require("./db");
 const port = process.env.PORT || 8080;
 
 app.use(cors());
@@ -55,4 +55,4 @@ app.get("/getRecords", async (req, res) => {
   res.json(response);
 });
 
-module.exports = app;
+module.exports = { app: app };
