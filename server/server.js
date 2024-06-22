@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const { connectToDb, userModel } = require("./db");
+const { getData, userModel } = require("./db");
 const port = 8080;
 
 app.use(cors());
@@ -52,7 +52,7 @@ app.get("/getRecords", async (req, res) => {
   let data;
   let success;
   try {
-    data = await userModel.find({});
+    data = await getData();
     success = true;
   } catch (err) {
     console.log(err);

@@ -10,7 +10,6 @@ module.exports = {
       description: String,
     })
   ),
-
   getData: async function () {
     const connection = new MongoClient(process.env.MONGODB_CONNECTION, {
       serverApi: {
