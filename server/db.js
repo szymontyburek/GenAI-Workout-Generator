@@ -3,13 +3,6 @@ require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
 module.exports = {
-  userModel: mongoose.model(
-    "images",
-    new mongoose.Schema({
-      base64: String,
-      description: String,
-    })
-  ),
   getData: async function () {
     const connection = new MongoClient(process.env.MONGODB_CONNECTION, {
       serverApi: {

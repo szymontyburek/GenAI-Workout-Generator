@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const { getData, userModel } = require("./db");
+const getRecords = require("./getRecords");
 const port = process.env.PORT || 8080;
 
 app.use(cors());
@@ -12,6 +12,10 @@ app.use(express.json());
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+});
+
+app.listen(port, () => {
+  console.log("Server is running on port " + port);
 });
 
 app.post("/addRecord", async (req, res) => {
@@ -50,21 +54,3 @@ app.get("/getRecords", async (req, res) => {
   const response = await getRecords();
   res.json(response);
 });
-
-async function getRecords() {
-  let data;
-  let success;
-  try {
-    data = await getData();
-    success = true;
-  } catch (err) {
-    console.log(err);
-    success = false;
-  }
-  return { message: data, success: success };
-}
-
-module.exports = {
-  getRecords: getRecords,
-  app: app,
-};
