@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const { getRecords } = require("./db");
+const { getRecords, addRecord } = require("./db");
 const port = process.env.PORT || 8080;
 
 app.use(cors());
@@ -23,9 +23,10 @@ app.post("/addRecord", async (req, res) => {
   let success = false;
   let openaiResponse;
   try {
+    const description = req.body.params.message;
     openaiResponse = await openai.images.generate({
       model: "dall-e-3",
-      prompt: req.body.params.message,
+      prompt: description,
       n: 1,
       size: "1024x1024",
     });
@@ -36,6 +37,9 @@ app.post("/addRecord", async (req, res) => {
 
     message =
       "data:image/png;base64, " + Buffer.from(image.data).toString("base64");
+
+    await addRecord({ description: description, base64: message });
+
     success = true;
   } catch (err) {
     message = "Error. Image could not be generated. Please try again.";
