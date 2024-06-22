@@ -5,7 +5,7 @@ const app = express();
 const cors = require("cors");
 const axios = require("axios");
 const { getData, userModel } = require("./db");
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(express.json());
