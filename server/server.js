@@ -46,9 +46,15 @@ app.post("/addRecord", async (req, res) => {
       message: message,
     });
   }
+
+  return true; //for unit testing (ensuring)
 });
 
 app.get("/getRecords", async (req, res) => {
+  getRecords();
+});
+
+async function getRecords() {
   let data;
   let success;
   try {
@@ -59,4 +65,9 @@ app.get("/getRecords", async (req, res) => {
     success = false;
   }
   res.json({ message: data, success: success });
-});
+  return data;
+}
+
+module.exports = {
+  getRecords: getRecords,
+};
