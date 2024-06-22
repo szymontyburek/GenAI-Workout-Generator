@@ -34,12 +34,10 @@ app.post("/addRecord", async (req, res) => {
     let image = await axios.get(openaiResponse.data[0].url, {
       responseType: "arraybuffer",
     });
-
     message =
       "data:image/png;base64, " + Buffer.from(image.data).toString("base64");
 
     await addRecord({ description: description, base64: message });
-
     success = true;
   } catch (err) {
     message = "Error. Image could not be generated. Please try again.";
@@ -50,8 +48,6 @@ app.post("/addRecord", async (req, res) => {
       message: message,
     });
   }
-
-  return true; //for unit testing (ensuring)
 });
 
 app.get("/getRecords", async (req, res) => {
