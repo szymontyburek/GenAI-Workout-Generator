@@ -51,7 +51,8 @@ app.post("/addRecord", async (req, res) => {
 });
 
 app.get("/getRecords", async (req, res) => {
-  getRecords();
+  const response = await getRecords();
+  res.json(response);
 });
 
 async function getRecords() {
@@ -64,8 +65,7 @@ async function getRecords() {
     console.log(err);
     success = false;
   }
-  res.json({ message: data, success: success });
-  return data;
+  return { message: data, success: success };
 }
 
 module.exports = {
