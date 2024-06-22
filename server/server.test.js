@@ -1,4 +1,3 @@
-const request = require("supertest");
 const { getRecords } = require("./server");
 
 describe("GET endpoint /getRecords", () => {

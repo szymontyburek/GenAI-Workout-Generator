@@ -14,10 +14,6 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.listen(port, () => {
-  console.log("Server is running on port " + port);
-});
-
 app.post("/addRecord", async (req, res) => {
   let message;
   let success = false;
@@ -70,4 +66,5 @@ async function getRecords() {
 
 module.exports = {
   getRecords: getRecords,
+  app: app,
 };
