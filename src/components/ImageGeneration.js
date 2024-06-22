@@ -13,7 +13,7 @@ function ImageGeneration({ setIsLoading }) {
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
     "Image description..."
   );
-  const clickTrigger = useRef(0);
+  const [clickTrigger, setClickTrigger] = useState(0);
 
   async function getImage(text) {
     const params = { message: text };
@@ -49,7 +49,7 @@ function ImageGeneration({ setIsLoading }) {
 
       if (response.data.success) {
         setSharedPostData(response.data.message);
-        clickTrigger.current = clickTrigger.current + 1; //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
+        setClickTrigger((clickTrigger) => clickTrigger + 1); //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {
         setSharedPlaceholder(response.data.message);
         setSharedUserMessage("");

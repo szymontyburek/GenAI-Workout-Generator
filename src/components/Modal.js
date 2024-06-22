@@ -6,8 +6,8 @@ function Modal({ clickEvent, ModalContents, ModalContentsData }) {
   const [sharedOverlayClass, setSharedOverlayClass] = useState("modal");
 
   useEffect(() => {
-    if (clickEvent.current > 0) openModal(); //clickEvent equals 0 on initial HTML render
-  }, [clickEvent.current]);
+    if (clickEvent > 0) openModal(); //clickEvent equals 0 on initial HTML render
+  }, [clickEvent]);
 
   function openModal() {
     setSharedModalClass("modal active");
