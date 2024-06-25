@@ -71,6 +71,27 @@ function DynamicInstantiation({ Component, InstantiateData }) {
           <Component src={img.base64} />
         </div>
       ))}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          margin: "1em 0",
+        }}
+      >
+        <Button
+          text="Unselect"
+          style={{ padding: "1em", borderRadius: ".5em" }}
+        />
+        <Button
+          text="Download"
+          style={{
+            padding: "1em",
+            borderRadius: ".5em",
+            backgroundColor: "#ee2400",
+          }}
+        />
+      </div>
     </div>
   );
 }
