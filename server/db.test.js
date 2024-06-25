@@ -6,9 +6,3 @@ describe("GET endpoint /getRecords", () => {
     expect(response.message.length).toBeGreaterThan(0);
   });
 });
-
-describe("POST endpoint /addRecord", () => {
-  it("successful addition of record to database", async () => {
-    // expect(await addRecord({ description: "", base64: "" })).toBeTruthy();
-  });
-});
