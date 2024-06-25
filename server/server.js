@@ -37,7 +37,11 @@ app.post("/addRecord", async (req, res) => {
     message =
       "data:image/png;base64, " + Buffer.from(image.data).toString("base64");
 
-    await addRecord({ description: description, base64: message });
+    await addRecord({
+      description: description,
+      base64: message,
+      dateCreated: new Date(),
+    });
     success = true;
   } catch (err) {
     message = "Error. Image could not be generated. Please try again.";

@@ -36,7 +36,7 @@ const getRecords = async function () {
   return { message: data, success: success };
 };
 
-const addRecord = async function (fieldDataObj) {
+const addRecord = async function (document) {
   let data;
   let success;
   let connection;
@@ -44,7 +44,7 @@ const addRecord = async function (fieldDataObj) {
   try {
     connection = await getConnection();
     const collection = await getCollection(connection);
-    const result = await collection.insertOne(fieldDataObj);
+    const result = await collection.insertOne(document);
     success = true;
   } catch (err) {
     console.log(err);
