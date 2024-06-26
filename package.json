@@ -10,6 +10,7 @@
     "axios": "^1.7.2",
     "jest": "^27.5.1",
     "node-fetch": "^3.3.2",
+    "puppeteer": "^22.12.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
@@ -18,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "e2e": "jest src/index.test.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
