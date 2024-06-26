@@ -9,12 +9,12 @@ export default function ImgContainer({ src }) {
     alignItems: "center",
   });
   const [border, setBorder] = useState("4px solid black");
-  const [imgCount, setImgCount] = useState(0);
+  const [clickCount, setClickCount] = useState(0);
 
   function selectImg() {
-    if (imgCount % 2 == 0) setBorder("4px solid orange");
+    if (clickCount % 2 == 0) setBorder("4px solid orange");
     else setBorder("4px solid black");
-    setImgCount((imgCount) => imgCount + 1);
+    setClickCount((clickCount) => clickCount + 1);
   }
 
   useEffect(() => {
