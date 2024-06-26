@@ -102,7 +102,7 @@ function ImageGeneration({ setIsLoading }) {
         />
         <Button
           text="Download"
-          data={sharedImgData}
+          data={[sharedImgData]}
           onClick={downloadImage}
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />
