@@ -4,11 +4,12 @@ import Modal from "./Modal";
 import TextField from "./TextField";
 import ImgContainer from "./ImgContainer";
 import HistoryDisplay from "./HistoryDisplay";
+import downloadImage from "./downloadImage";
 import axios from "axios";
 
 function ImageGeneration({ setIsLoading }) {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
-  const [sharedImgSrc, setSharedImgSrc] = useState("");
+  const [sharedImgData, setSharedImgData] = useState({});
   const [sharedPostData, setSharedPostData] = useState("");
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
     "Image description..."
@@ -25,7 +26,7 @@ function ImageGeneration({ setIsLoading }) {
         params,
       });
 
-      if (response.data.success) setSharedImgSrc(response.data.message);
+      if (response.data.success) setSharedImgData(response.data.message);
       else {
         setSharedPlaceholder(response.data.message);
         setSharedUserMessage("");
@@ -62,15 +63,6 @@ function ImageGeneration({ setIsLoading }) {
     }
   }
 
-  function downloadImage(base64) {
-    var link = document.createElement("a");
-    link.href = base64;
-    link.download = "generatedImage.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
   return (
     <div
       style={{
@@ -83,7 +75,7 @@ function ImageGeneration({ setIsLoading }) {
       }}
     >
       <h1>Image Generator</h1>
-      <ImgContainer src={sharedImgSrc} />
+      <ImgContainer src={sharedImgData.base64} />
       <TextField
         text={sharedUserMessage}
         onType={setSharedUserMessage}
@@ -110,7 +102,7 @@ function ImageGeneration({ setIsLoading }) {
         />
         <Button
           text="Download"
-          data={sharedImgSrc}
+          data={sharedImgData}
           onClick={downloadImage}
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />

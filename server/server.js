@@ -22,6 +22,8 @@ app.post("/addRecord", async (req, res) => {
   let message;
   let success = false;
   let openaiResponse;
+  let imgData;
+
   try {
     const description = req.body.params.message;
     openaiResponse = await openai.images.generate({
@@ -37,11 +39,14 @@ app.post("/addRecord", async (req, res) => {
     message =
       "data:image/png;base64, " + Buffer.from(image.data).toString("base64");
 
-    await addRecord({
+    imgData = {
       description: description,
       base64: message,
       dateCreated: new Date(),
-    });
+    };
+
+    await addRecord(imgData);
+
     success = true;
   } catch (err) {
     message = "Error. Image could not be generated. Please try again.";
@@ -49,7 +54,7 @@ app.post("/addRecord", async (req, res) => {
   } finally {
     res.json({
       success: success,
-      message: message,
+      message: imgData,
     });
   }
 });
