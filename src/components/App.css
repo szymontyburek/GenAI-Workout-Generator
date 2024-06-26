@@ -113,11 +113,9 @@
 
 .modal-body img {
   width: 100%;
-  border: 4px solid black;
 }
 
 .modal-body img:hover {
-  border: 4px solid orange;
   cursor: pointer;
 }
 

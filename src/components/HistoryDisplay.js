@@ -37,10 +37,15 @@ export default function HistoryDisplay({ closeModal, ModalContentsData }) {
 
 function DynamicInstantiation({ Component, InstantiateData }) {
   const [data, setData] = useState([{}]);
+  const [border, setBorder] = useState("4px solid black");
 
   useEffect(() => {
     if (InstantiateData.length > 0) setData(InstantiateData);
   }, [InstantiateData]);
+
+  function selectImg() {
+    debugger;
+  }
 
   return (
     <div className="modal-body">
@@ -68,7 +73,7 @@ function DynamicInstantiation({ Component, InstantiateData }) {
                 : null}
             </h5>
           </div>
-          <Component src={img.base64} />
+          <Component src={img.base64} onClick={selectImg} style={border} />
         </div>
       ))}
       <div
