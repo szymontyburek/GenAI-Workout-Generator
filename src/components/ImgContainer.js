@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function ImgContainer({ src, onUnselect }) {
+export default function ImgContainer({ src, onUnselect, selectOpt }) {
   const [imgSrc, setImgSrc] = useState("");
   const [styles, setStyles] = useState({
     width: "inherit",
@@ -8,10 +8,11 @@ export default function ImgContainer({ src, onUnselect }) {
     display: "flex",
     alignItems: "center",
   });
-  const [border, setBorder] = useState("4px solid black");
+  const [border, setBorder] = useState("");
   const [clickCount, setClickCount] = useState(0);
 
   function selectImg() {
+    if (!selectOpt) return;
     if (clickCount % 2 == 0) setBorder("4px solid orange");
     else setBorder("4px solid black");
     setClickCount((clickCount) => clickCount + 1);
@@ -22,6 +23,7 @@ export default function ImgContainer({ src, onUnselect }) {
   }, [src]);
 
   useEffect(() => {
+    if (!selectOpt) return;
     setBorder("4px solid black");
     setClickCount(0);
   }, [onUnselect]);

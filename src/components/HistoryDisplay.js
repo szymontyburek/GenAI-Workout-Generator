@@ -73,7 +73,11 @@ function DynamicInstantiation({ Component, InstantiateData }) {
                 : null}
             </h5>
           </div>
-          <Component src={img.base64} onUnselect={unselectClick} />
+          <Component
+            src={img.base64}
+            onUnselect={unselectClick}
+            selectOpt={true}
+          />
         </div>
       ))}
       <div
