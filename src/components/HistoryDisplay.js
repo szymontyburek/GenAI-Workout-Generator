@@ -38,13 +38,16 @@ export default function HistoryDisplay({ closeModal, ModalContentsData }) {
 function DynamicInstantiation({ Component, InstantiateData }) {
   const [data, setData] = useState([{}]);
   const [border, setBorder] = useState("4px solid black");
+  const [imgCount, setImgCount] = useState(0);
 
   useEffect(() => {
     if (InstantiateData.length > 0) setData(InstantiateData);
   }, [InstantiateData]);
 
   function selectImg() {
-    debugger;
+    if (imgCount % 2 == 0) setBorder("4px solid orange");
+    else setBorder("4px solid black");
+    setImgCount((imgCount) => imgCount + 1);
   }
 
   return (
