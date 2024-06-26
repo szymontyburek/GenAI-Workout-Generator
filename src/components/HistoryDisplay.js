@@ -47,11 +47,25 @@ function DynamicInstantiation({ Component, InstantiateData }) {
 
   function onUnselect() {
     setUnselectClick((unselectClick) => unselectClick + 1);
+
+    //remove imgData from
   }
 
   function onSelect(imgObj) {
     const shallowClone = [...selectedImgData];
     shallowClone.push(imgObj);
+    setSelectedImgData(shallowClone);
+  }
+
+  function onUnselectTmp(imgObj) {
+    if (typeof imgObj == "boolean") {
+      setSelectedImgData([]);
+      return;
+    }
+
+    const shallowClone = [...selectedImgData];
+    let index = shallowClone.indexOf(imgObj);
+    shallowClone.splice(index, 1);
     setSelectedImgData(shallowClone);
   }
 
@@ -85,7 +99,8 @@ function DynamicInstantiation({ Component, InstantiateData }) {
             src={img.base64}
             imgData={img}
             onSelect={onSelect}
-            onUnselect={unselectClick}
+            onUnselect={onUnselectTmp}
+            unselect={unselectClick}
             selectAbility={true}
           />
         </div>

@@ -5,6 +5,7 @@ export default function ImgContainer({
   selectAbility,
   onSelect,
   onUnselect,
+  unselect,
   imgData,
 }) {
   const [imgSrc, setImgSrc] = useState("");
@@ -20,11 +21,15 @@ export default function ImgContainer({
   function selectImg() {
     if (!selectAbility) return;
 
-    if (clickCount % 2 == 0) setBorder("4px solid orange");
-    else setBorder("4px solid black");
+    if (clickCount % 2 == 0) {
+      setBorder("4px solid orange");
+      onSelect(imgData);
+    } else {
+      setBorder("4px solid black");
+      onUnselect(imgData);
+    }
 
     setClickCount((clickCount) => clickCount + 1);
-    onSelect(imgData);
   }
 
   useEffect(() => {
@@ -34,8 +39,9 @@ export default function ImgContainer({
   useEffect(() => {
     if (!selectAbility) return;
     setBorder("4px solid black");
+    onUnselect(true);
     setClickCount(0);
-  }, [onUnselect]);
+  }, [unselect]);
 
   useEffect(() => {
     let clone = structuredClone(styles);
