@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Button from "./Button";
 import ImgContainer from "./ImgContainer";
+import downloadImage from "./downloadImage";
 
 export default function HistoryDisplay({ closeModal, ModalContentsData }) {
   const [postData, setPostData] = useState("");
@@ -37,6 +38,7 @@ export default function HistoryDisplay({ closeModal, ModalContentsData }) {
 
 function DynamicInstantiation({ Component, InstantiateData }) {
   const [data, setData] = useState([{}]);
+  const [selectedImgData, setSelectedImgData] = useState([]);
   const [unselectClick, setUnselectClick] = useState(0);
 
   useEffect(() => {
@@ -45,6 +47,12 @@ function DynamicInstantiation({ Component, InstantiateData }) {
 
   function onUnselect() {
     setUnselectClick((unselectClick) => unselectClick + 1);
+  }
+
+  function onSelect(imgObj) {
+    const shallowClone = [...selectedImgData];
+    shallowClone.push(imgObj);
+    setSelectedImgData(shallowClone);
   }
 
   return (
@@ -75,8 +83,11 @@ function DynamicInstantiation({ Component, InstantiateData }) {
           </div>
           <Component
             src={img.base64}
+            imgData={img}
+            setSelectedImgData={setSelectedImgData}
             onUnselect={unselectClick}
-            selectOpt={true}
+            selectAbility={true}
+            onSelect={onSelect}
           />
         </div>
       ))}
@@ -100,6 +111,8 @@ function DynamicInstantiation({ Component, InstantiateData }) {
             borderRadius: ".5em",
             backgroundColor: "#ee2400",
           }}
+          onClick={downloadImage}
+          data={selectedImgData}
         />
       </div>
     </div>

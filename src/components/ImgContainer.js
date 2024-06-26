@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-export default function ImgContainer({ src, onUnselect, selectOpt }) {
+export default function ImgContainer({
+  src,
+  onUnselect,
+  selectAbility,
+  imgData,
+  setSelectedImgData,
+}) {
   const [imgSrc, setImgSrc] = useState("");
   const [styles, setStyles] = useState({
     width: "inherit",
@@ -12,10 +18,19 @@ export default function ImgContainer({ src, onUnselect, selectOpt }) {
   const [clickCount, setClickCount] = useState(0);
 
   function selectImg() {
-    if (!selectOpt) return;
+    if (!selectAbility) return;
+
     if (clickCount % 2 == 0) setBorder("4px solid orange");
     else setBorder("4px solid black");
+
     setClickCount((clickCount) => clickCount + 1);
+    onSelect(imgData);
+  }
+
+  function onSelect(imgObj) {
+    // const shallowClone = [...selectedImgData];
+    // shallowClone.push(imgObj);
+    setSelectedImgData(imgObj);
   }
 
   useEffect(() => {
@@ -23,7 +38,7 @@ export default function ImgContainer({ src, onUnselect, selectOpt }) {
   }, [src]);
 
   useEffect(() => {
-    if (!selectOpt) return;
+    if (!selectAbility) return;
     setBorder("4px solid black");
     setClickCount(0);
   }, [onUnselect]);
