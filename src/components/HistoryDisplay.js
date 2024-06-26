@@ -73,7 +73,7 @@ function DynamicInstantiation({ Component, InstantiateData }) {
                 : null}
             </h5>
           </div>
-          <Component src={img.base64} onClick={selectImg} style={border} />
+          <Component src={img.base64} onClick={selectImg} border={border} />
         </div>
       ))}
       <div
