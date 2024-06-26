@@ -84,10 +84,9 @@ function DynamicInstantiation({ Component, InstantiateData }) {
           <Component
             src={img.base64}
             imgData={img}
-            setSelectedImgData={setSelectedImgData}
+            onSelect={onSelect}
             onUnselect={unselectClick}
             selectAbility={true}
-            onSelect={onSelect}
           />
         </div>
       ))}

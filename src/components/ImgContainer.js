@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 export default function ImgContainer({
   src,
-  onUnselect,
   selectAbility,
+  onSelect,
+  onUnselect,
   imgData,
-  setSelectedImgData,
 }) {
   const [imgSrc, setImgSrc] = useState("");
   const [styles, setStyles] = useState({
@@ -25,12 +25,6 @@ export default function ImgContainer({
 
     setClickCount((clickCount) => clickCount + 1);
     onSelect(imgData);
-  }
-
-  function onSelect(imgObj) {
-    // const shallowClone = [...selectedImgData];
-    // shallowClone.push(imgObj);
-    setSelectedImgData(imgObj);
   }
 
   useEffect(() => {
