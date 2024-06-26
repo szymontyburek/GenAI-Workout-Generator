@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function ImgContainer({ src }) {
+export default function ImgContainer({ src, onUnselect }) {
   const [imgSrc, setImgSrc] = useState("");
   const [styles, setStyles] = useState({
     width: "inherit",
@@ -20,6 +20,11 @@ export default function ImgContainer({ src }) {
   useEffect(() => {
     setImgSrc(src);
   }, [src]);
+
+  useEffect(() => {
+    setBorder("4px solid black");
+    setClickCount(0);
+  }, [onUnselect]);
 
   useEffect(() => {
     let clone = structuredClone(styles);

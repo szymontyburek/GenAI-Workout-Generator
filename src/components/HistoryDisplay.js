@@ -37,17 +37,14 @@ export default function HistoryDisplay({ closeModal, ModalContentsData }) {
 
 function DynamicInstantiation({ Component, InstantiateData }) {
   const [data, setData] = useState([{}]);
-  const [border, setBorder] = useState("4px solid black");
-  const [imgCount, setImgCount] = useState(0);
+  const [unselectClick, setUnselectClick] = useState(0);
 
   useEffect(() => {
     if (InstantiateData.length > 0) setData(InstantiateData);
   }, [InstantiateData]);
 
-  function selectImg() {
-    if (imgCount % 2 == 0) setBorder("4px solid orange");
-    else setBorder("4px solid black");
-    setImgCount((imgCount) => imgCount + 1);
+  function onUnselect() {
+    setUnselectClick((unselectClick) => unselectClick + 1);
   }
 
   return (
@@ -76,7 +73,7 @@ function DynamicInstantiation({ Component, InstantiateData }) {
                 : null}
             </h5>
           </div>
-          <Component src={img.base64} onClick={selectImg} border={border} />
+          <Component src={img.base64} onUnselect={unselectClick} />
         </div>
       ))}
       <div
@@ -90,6 +87,7 @@ function DynamicInstantiation({ Component, InstantiateData }) {
         <Button
           text="Unselect"
           style={{ padding: "1em", borderRadius: ".5em" }}
+          onClick={onUnselect}
         />
         <Button
           text="Download"
