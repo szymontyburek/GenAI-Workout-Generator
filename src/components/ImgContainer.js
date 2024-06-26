@@ -5,7 +5,7 @@ export default function ImgContainer({
   selectAbility,
   onSelect,
   onUnselect,
-  unselect,
+  click,
   imgData,
 }) {
   const [imgSrc, setImgSrc] = useState("");
@@ -17,6 +17,23 @@ export default function ImgContainer({
   });
   const [border, setBorder] = useState("");
   const [clickCount, setClickCount] = useState(0);
+
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
+
+  useEffect(() => {
+    if (!selectAbility) return;
+    setBorder("4px solid black");
+    onUnselect(true);
+    setClickCount(0);
+  }, [click]);
+
+  useEffect(() => {
+    let clone = structuredClone(styles);
+    clone.border = border;
+    setStyles(clone);
+  }, [border]);
 
   function selectImg() {
     if (!selectAbility) return;
@@ -31,23 +48,6 @@ export default function ImgContainer({
 
     setClickCount((clickCount) => clickCount + 1);
   }
-
-  useEffect(() => {
-    setImgSrc(src);
-  }, [src]);
-
-  useEffect(() => {
-    if (!selectAbility) return;
-    setBorder("4px solid black");
-    onUnselect(true);
-    setClickCount(0);
-  }, [unselect]);
-
-  useEffect(() => {
-    let clone = structuredClone(styles);
-    clone.border = border;
-    setStyles(clone);
-  }, [border]);
 
   return (
     <div style={styles}>

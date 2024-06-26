@@ -39,16 +39,14 @@ export default function HistoryDisplay({ closeModal, ModalContentsData }) {
 function DynamicInstantiation({ Component, InstantiateData }) {
   const [data, setData] = useState([{}]);
   const [selectedImgData, setSelectedImgData] = useState([]);
-  const [unselectClick, setUnselectClick] = useState(0);
+  const [imgClick, setImgClick] = useState(0);
 
   useEffect(() => {
     if (InstantiateData.length > 0) setData(InstantiateData);
   }, [InstantiateData]);
 
-  function onUnselect() {
-    setUnselectClick((unselectClick) => unselectClick + 1);
-
-    //remove imgData from
+  function onClick() {
+    setImgClick((imgClick) => imgClick + 1);
   }
 
   function onSelect(imgObj) {
@@ -57,7 +55,7 @@ function DynamicInstantiation({ Component, InstantiateData }) {
     setSelectedImgData(shallowClone);
   }
 
-  function onUnselectTmp(imgObj) {
+  function onUnselect(imgObj) {
     if (typeof imgObj == "boolean") {
       setSelectedImgData([]);
       return;
@@ -99,8 +97,8 @@ function DynamicInstantiation({ Component, InstantiateData }) {
             src={img.base64}
             imgData={img}
             onSelect={onSelect}
-            onUnselect={onUnselectTmp}
-            unselect={unselectClick}
+            onUnselect={onUnselect}
+            click={imgClick}
             selectAbility={true}
           />
         </div>
@@ -116,7 +114,7 @@ function DynamicInstantiation({ Component, InstantiateData }) {
         <Button
           text="Unselect"
           style={{ padding: "1em", borderRadius: ".5em" }}
-          onClick={onUnselect}
+          onClick={onClick}
         />
         <Button
           text="Download"
