@@ -53,7 +53,7 @@ function DynamicInstantiation({ Component, InstantiateData }) {
     if (InstantiateData.length > 0) setData(InstantiateData);
   }, [InstantiateData]);
 
-  function onClick() {
+  function unselectClick() {
     setImgClick((imgClick) => imgClick + 1);
   }
 
@@ -122,7 +122,7 @@ function DynamicInstantiation({ Component, InstantiateData }) {
         <Button
           text="Unselect"
           style={{ padding: "1em", borderRadius: ".5em" }}
-          onClick={onClick}
+          onClick={unselectClick}
         />
         <Button
           text="Download"
