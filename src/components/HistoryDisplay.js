@@ -5,13 +5,19 @@ import downloadImage from "./downloadImage";
 
 export default function HistoryDisplay({ closeModal, ModalContentsData }) {
   const [postData, setPostData] = useState("");
+  const [imgClick, setImgClick] = useState(0);
 
   useEffect(() => {
     setPostData(ModalContentsData);
   }, [ModalContentsData]);
 
+  function unselectClick() {
+    setImgClick((imgClick) => imgClick + 1);
+  }
+
   function closeModalAndUnselect() {
     closeModal();
+    unselectClick();
   }
 
   return (
@@ -39,23 +45,25 @@ export default function HistoryDisplay({ closeModal, ModalContentsData }) {
       <DynamicInstantiation
         Component={ImgContainer}
         InstantiateData={postData}
+        imgClick={imgClick}
+        unselectClick={unselectClick}
       />
     </div>
   );
 }
 
-function DynamicInstantiation({ Component, InstantiateData }) {
+function DynamicInstantiation({
+  Component,
+  InstantiateData,
+  imgClick,
+  unselectClick,
+}) {
   const [data, setData] = useState([{}]);
   const [selectedImgData, setSelectedImgData] = useState([]);
-  const [imgClick, setImgClick] = useState(0);
 
   useEffect(() => {
     if (InstantiateData.length > 0) setData(InstantiateData);
   }, [InstantiateData]);
-
-  function unselectClick() {
-    setImgClick((imgClick) => imgClick + 1);
-  }
 
   function onSelect(imgObj) {
     const shallowClone = [...selectedImgData];
