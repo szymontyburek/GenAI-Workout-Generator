@@ -25,7 +25,7 @@ export default function ImgContainer({
   useEffect(() => {
     if (!selectAbility) return;
     setBorder("4px solid black");
-    onUnselect(true);
+    onUnselect();
     setClickCount(0);
   }, [click]);
 
