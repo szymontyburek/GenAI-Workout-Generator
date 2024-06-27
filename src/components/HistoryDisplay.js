@@ -10,10 +10,18 @@ export default function HistoryDisplay({ closeModal, ModalContentsData }) {
     setPostData(ModalContentsData);
   }, [ModalContentsData]);
 
+  function closeModalAndUnselect() {
+    closeModal();
+  }
+
   return (
     <div>
       <div className="modal-header">
-        <Button text="&times;" className="close-button" onClick={closeModal} />
+        <Button
+          text="&times;"
+          className="close-button"
+          onClick={closeModalAndUnselect}
+        />
         <div
           style={{
             display: "flex",

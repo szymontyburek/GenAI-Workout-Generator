@@ -10,7 +10,6 @@
     "axios": "^1.7.2",
     "jest": "^27.5.1",
     "node-fetch": "^3.3.2",
-    "puppeteer": "^22.12.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
@@ -21,6 +20,9 @@
     "build": "react-scripts build",
     "e2e": "jest src/index.test.js",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "puppeteer": "^22.12.1",
     "webpack-node-externals": "^3.0.0"
   }
 }
