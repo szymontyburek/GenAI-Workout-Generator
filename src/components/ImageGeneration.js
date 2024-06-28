@@ -100,8 +100,10 @@ function ImageGeneration({ setIsLoading }) {
         <Modal
           clickEvent={clickTrigger}
           ModalContents={HistoryDisplay}
-          ModalContentsData={sharedPostData}
-          ddlData={ddlData}
+          ModalContentsData={{
+            sharedPostData: sharedPostData,
+            ddlData: ddlData,
+          }}
         />
         <Button
           text="Download"

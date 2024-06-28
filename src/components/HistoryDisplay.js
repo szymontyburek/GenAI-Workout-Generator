@@ -4,12 +4,20 @@ import ImgContainer from "./ImgContainer";
 import downloadImage from "../methods/downloadImage";
 
 export default function HistoryDisplay({ exitModal, ModalContentsData }) {
+  const sharedPostData = ModalContentsData.sharedPostData;
+  const ddlData = ModalContentsData.ddlData;
+
   const [postData, setPostData] = useState("");
   const [unselectAll, setUnselectAll] = useState(0);
+  const [ddlOptions, setDdlOptions] = useState([]);
 
   useEffect(() => {
-    setPostData(ModalContentsData);
-  }, [ModalContentsData]);
+    setPostData(sharedPostData);
+  }, [sharedPostData]);
+
+  useEffect(() => {
+    setDdlOptions(ddlData);
+  }, [ddlData]);
 
   function unselectClick() {
     setUnselectAll((unselectAll) => unselectAll + 1);
@@ -32,10 +40,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
           }}
         >
           <div className="title">Prior Generations:</div>
-          <select name="selectDate" id="">
-            <option value="">06/17/2024</option>
-            <option value="">06/16/2024</option>
-          </select>
+          <Ddl options={ddlOptions} />
         </div>
       </div>
       <DynamicInstantiation
@@ -45,6 +50,22 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
         unselectClick={unselectClick}
       />
     </div>
+  );
+}
+
+function Ddl(options) {
+  const [ddlOptions, setDdlOptions] = useState(["2024-06-20", "2024-06-21"]);
+
+  // useEffect(() => {
+  //   if (options.length > 0) setDdlOptions(options);
+  // }, [options]);
+
+  return (
+    <select>
+      {ddlOptions.map((item, idx) => (
+        <option key={idx}>{item}</option>
+      ))}
+    </select>
   );
 }
 
