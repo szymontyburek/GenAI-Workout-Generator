@@ -5,7 +5,7 @@ export default function ImgContainer({
   selectAbility,
   onSelect,
   onUnselect,
-  click,
+  unselectAll,
   imgData,
 }) {
   const [imgSrc, setImgSrc] = useState("");
@@ -27,7 +27,7 @@ export default function ImgContainer({
     setBorder("4px solid black");
     onUnselect();
     setClickCount(0);
-  }, [click]);
+  }, [unselectAll]);
 
   useEffect(() => {
     let clone = structuredClone(styles);

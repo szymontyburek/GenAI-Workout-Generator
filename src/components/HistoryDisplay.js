@@ -3,31 +3,27 @@ import Button from "./Button";
 import ImgContainer from "./ImgContainer";
 import downloadImage from "./downloadImage";
 
-export default function HistoryDisplay({ closeModal, ModalContentsData }) {
+export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   const [postData, setPostData] = useState("");
-  const [imgClick, setImgClick] = useState(0);
+  const [unselectAll, setUnselectAll] = useState(0);
 
   useEffect(() => {
     setPostData(ModalContentsData);
   }, [ModalContentsData]);
 
   function unselectClick() {
-    setImgClick((imgClick) => imgClick + 1);
+    setUnselectAll((unselectAll) => unselectAll + 1);
   }
 
-  function closeModalAndUnselect() {
-    closeModal();
+  function closeModal() {
+    exitModal();
     unselectClick();
   }
 
   return (
     <div>
       <div className="modal-header">
-        <Button
-          text="&times;"
-          className="close-button"
-          onClick={closeModalAndUnselect}
-        />
+        <Button text="&times;" className="close-button" onClick={closeModal} />
         <div
           style={{
             display: "flex",
@@ -45,7 +41,7 @@ export default function HistoryDisplay({ closeModal, ModalContentsData }) {
       <DynamicInstantiation
         Component={ImgContainer}
         InstantiateData={postData}
-        imgClick={imgClick}
+        unselectAll={unselectAll}
         unselectClick={unselectClick}
       />
     </div>
@@ -55,7 +51,7 @@ export default function HistoryDisplay({ closeModal, ModalContentsData }) {
 function DynamicInstantiation({
   Component,
   InstantiateData,
-  imgClick,
+  unselectAll,
   unselectClick,
 }) {
   const [data, setData] = useState([{}]);
@@ -114,7 +110,7 @@ function DynamicInstantiation({
             imgData={img}
             onSelect={onSelect}
             onUnselect={onUnselect}
-            click={imgClick}
+            unselectAll={unselectAll}
             selectAbility={true}
           />
         </div>
@@ -128,7 +124,7 @@ function DynamicInstantiation({
         }}
       >
         <Button
-          text="Unselect"
+          text="Unselect All"
           style={{ padding: "1em", borderRadius: ".5em" }}
           onClick={unselectClick}
         />

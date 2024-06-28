@@ -14,7 +14,7 @@ function Modal({ clickEvent, ModalContents, ModalContentsData }) {
     setSharedOverlayClass("modal active");
   }
 
-  function closeModal() {
+  function exitModal() {
     setSharedModalClass("modal");
     setSharedOverlayClass("modal");
   }
@@ -23,7 +23,7 @@ function Modal({ clickEvent, ModalContents, ModalContentsData }) {
     <div>
       <ModalBodyContainer
         className={sharedModalClass}
-        closeModal={closeModal}
+        exitModal={exitModal}
         ModalContents={ModalContents}
         ModalContentsData={ModalContentsData}
       />
@@ -34,14 +34,14 @@ function Modal({ clickEvent, ModalContents, ModalContentsData }) {
 
 function ModalBodyContainer({
   className,
-  closeModal,
+  exitModal,
   ModalContents,
   ModalContentsData,
 }) {
   return (
     <div className={className} id="modal">
       <ModalContents
-        closeModal={closeModal}
+        exitModal={exitModal}
         ModalContentsData={ModalContentsData}
       />
     </div>
