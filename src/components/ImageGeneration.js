@@ -4,7 +4,7 @@ import Modal from "./Modal";
 import TextField from "./TextField";
 import ImgContainer from "./ImgContainer";
 import HistoryDisplay from "./HistoryDisplay";
-import downloadImage from "./downloadImage";
+import downloadImage from "../methods/downloadImage";
 import axios from "axios";
 
 function ImageGeneration({ setIsLoading }) {

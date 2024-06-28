@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Button from "./Button";
 import ImgContainer from "./ImgContainer";
-import downloadImage from "./downloadImage";
+import downloadImage from "../methods/downloadImage";
 
 export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   const [postData, setPostData] = useState("");
