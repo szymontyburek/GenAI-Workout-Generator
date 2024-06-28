@@ -17,15 +17,24 @@ const getCollection = async function (connection) {
   return connection.db("ImageGenerator").collection("images");
 };
 
-const getRecords = async function () {
+const getData = async function () {
   let data;
+  let distinctDates;
   let success;
   let connection;
 
   try {
     connection = await getConnection();
     const collection = await getCollection(connection);
+
     data = await collection.find().toArray();
+    distinctDates = await collection
+      .aggregate([
+        { $group: { _id: "$dateCreated" } },
+        { $project: { _id: 0, dateCreated: "$_id" } },
+      ])
+      .toArray();
+
     success = true;
   } catch (err) {
     console.log(err);
@@ -33,7 +42,10 @@ const getRecords = async function () {
   } finally {
     await connection.close();
   }
-  return { message: data, success: success };
+  return {
+    message: { data: data, distinctDates: distinctDates },
+    success: success,
+  };
 };
 
 const addRecord = async function (document) {
@@ -55,4 +67,4 @@ const addRecord = async function (document) {
   return true;
 };
 
-module.exports = { addRecord, getRecords };
+module.exports = { addRecord, getData };

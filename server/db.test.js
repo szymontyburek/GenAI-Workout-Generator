@@ -1,8 +1,8 @@
-const { getRecords, addRecord } = require("./db");
+const { getData, addRecord } = require("./db");
 
-describe("GET endpoint /getRecords", () => {
+describe("GET endpoint /getData", () => {
   it("should get records from db in the cloud", async () => {
-    const response = await getRecords();
+    const response = await getData();
     expect(response.message.length).toBeGreaterThan(0);
   });
 });

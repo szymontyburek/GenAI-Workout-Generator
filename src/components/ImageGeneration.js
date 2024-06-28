@@ -11,6 +11,7 @@ function ImageGeneration({ setIsLoading }) {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
   const [sharedImgData, setSharedImgData] = useState({});
   const [sharedPostData, setSharedPostData] = useState("");
+  const [ddlData, setDdlData] = useState("");
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
     "Image description..."
   );
@@ -39,17 +40,18 @@ function ImageGeneration({ setIsLoading }) {
     }
   }
 
-  async function getRecords(text) {
+  async function getData(text) {
     let base64;
 
     try {
       setIsLoading(true);
-      const response = await axios.get("http://localhost:8080/getRecords", {
-        message: "banana",
-      });
+
+      const response = await axios.get("http://localhost:8080/getData");
 
       if (response.data.success) {
-        setSharedPostData(response.data.message);
+        const message = response.data.message;
+        setDdlData(message.distinctDates);
+        setSharedPostData(message.data);
         setClickTrigger((clickTrigger) => clickTrigger + 1); //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {
         setSharedPlaceholder(response.data.message);
@@ -91,7 +93,7 @@ function ImageGeneration({ setIsLoading }) {
         <Button
           text="History"
           data={sharedUserMessage}
-          onClick={getRecords}
+          onClick={getData}
           id="historyBtn"
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />
@@ -99,6 +101,7 @@ function ImageGeneration({ setIsLoading }) {
           clickEvent={clickTrigger}
           ModalContents={HistoryDisplay}
           ModalContentsData={sharedPostData}
+          ddlData={ddlData}
         />
         <Button
           text="Download"
