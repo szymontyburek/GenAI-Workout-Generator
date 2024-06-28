@@ -19,7 +19,7 @@ const getCollection = async function (connection) {
 
 const getData = async function () {
   let data;
-  let distinctDates;
+  let distinctDates = [];
   let success;
   let connection;
 
@@ -28,12 +28,16 @@ const getData = async function () {
     const collection = await getCollection(connection);
 
     data = await collection.find().toArray();
-    distinctDates = await collection
+
+    let distinctDatesTmp = await collection
       .aggregate([
         { $group: { _id: "$dateCreated" } },
         { $project: { _id: 0, dateCreated: "$_id" } },
       ])
       .toArray();
+    for (const obj of distinctDatesTmp) {
+      distinctDates.push(obj.dateCreated);
+    }
 
     success = true;
   } catch (err) {
