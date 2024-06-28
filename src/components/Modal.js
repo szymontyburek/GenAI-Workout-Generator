@@ -21,29 +21,13 @@ function Modal({ clickEvent, ModalContents, ModalContentsData }) {
 
   return (
     <div>
-      <ModalBodyContainer
-        className={sharedModalClass}
-        exitModal={exitModal}
-        ModalContents={ModalContents}
-        ModalContentsData={ModalContentsData}
-      />
+      <div className={sharedModalClass} id="modal">
+        <ModalContents
+          exitModal={exitModal}
+          ModalContentsData={ModalContentsData}
+        />
+      </div>
       <OverlayDiv className={sharedOverlayClass} />
-    </div>
-  );
-}
-
-function ModalBodyContainer({
-  className,
-  exitModal,
-  ModalContents,
-  ModalContentsData,
-}) {
-  return (
-    <div className={className} id="modal">
-      <ModalContents
-        exitModal={exitModal}
-        ModalContentsData={ModalContentsData}
-      />
     </div>
   );
 }
