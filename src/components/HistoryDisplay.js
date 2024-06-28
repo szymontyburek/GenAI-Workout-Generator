@@ -72,7 +72,7 @@ function DynamicInstantiation({
   }
 
   function onUnselect(imgObj) {
-    if (typeof imgObj == "boolean") {
+    if (arguments.length == 0) {
       setSelectedImgData([]);
       return;
     }
