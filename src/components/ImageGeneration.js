@@ -103,6 +103,7 @@ function ImageGeneration({ setIsLoading }) {
           ModalContentsData={{
             sharedDbData: sharedDbData,
             ddlData: ddlData,
+            getData: getData,
           }}
         />
         <Button

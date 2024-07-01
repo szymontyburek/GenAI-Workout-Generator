@@ -6,6 +6,7 @@ import downloadImage from "../methods/downloadImage";
 export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   const sharedDbData = ModalContentsData.sharedDbData;
   const ddlData = ModalContentsData.ddlData;
+  const getData = ModalContentsData.getData;
 
   const [postData, setPostData] = useState("");
   const [unselectAll, setUnselectAll] = useState(0);
@@ -40,7 +41,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
           }}
         >
           <div className="title">Prior Generations:</div>
-          <Ddl options={ddlOptions} />
+          <Ddl options={ddlOptions} getData={getData} />
         </div>
       </div>
       <DynamicInstantiation

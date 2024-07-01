@@ -27,7 +27,9 @@ const getData = async function () {
     connection = await getConnection();
     const collection = await getCollection(connection);
 
-    data = await collection.find().toArray();
+    data = await collection
+      .find({ dateCreated: new Date("2024-06-20") })
+      .toArray();
 
     let distinctDatesTmp = await collection
       .aggregate([
