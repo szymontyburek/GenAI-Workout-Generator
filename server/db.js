@@ -34,10 +34,11 @@ const getData = async function (dateStr) {
       .aggregate([
         { $group: { _id: "$dateCreated" } },
         { $project: { _id: 0, dateCreated: "$_id" } },
+        { $sort: { dateCreated: -1 } },
       ])
       .toArray();
     for (const obj of distinctDatesTmp) {
-      distinctDates.push(obj.dateCreated);
+      distinctDates.push(obj.dateCreated.toISOString().split("T")[0]);
     }
 
     success = true;

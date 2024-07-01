@@ -40,7 +40,7 @@ function ImageGeneration({ setIsLoading }) {
     }
   }
 
-  async function getData(text) {
+  async function getData() {
     let base64;
 
     try {
