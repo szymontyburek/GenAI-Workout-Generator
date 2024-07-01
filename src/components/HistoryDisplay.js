@@ -4,7 +4,7 @@ import ImgContainer from "./ImgContainer";
 import downloadImage from "../methods/downloadImage";
 
 export default function HistoryDisplay({ exitModal, ModalContentsData }) {
-  const sharedPostData = ModalContentsData.sharedPostData;
+  const sharedDbData = ModalContentsData.sharedDbData;
   const ddlData = ModalContentsData.ddlData;
 
   const [postData, setPostData] = useState("");
@@ -12,8 +12,8 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   const [ddlOptions, setDdlOptions] = useState([]);
 
   useEffect(() => {
-    setPostData(sharedPostData);
-  }, [sharedPostData]);
+    setPostData(sharedDbData);
+  }, [sharedDbData]);
 
   useEffect(() => {
     setDdlOptions(ddlData);
@@ -60,8 +60,10 @@ function Ddl(options) {
   //   if (options.length > 0) setDdlOptions(options);
   // }, [options]);
 
+  function dateChange() {}
+
   return (
-    <select>
+    <select onChange={dateChange}>
       {ddlOptions.map((item, idx) => (
         <option key={idx}>{item}</option>
       ))}

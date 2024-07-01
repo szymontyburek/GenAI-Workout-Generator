@@ -10,7 +10,7 @@ import axios from "axios";
 function ImageGeneration({ setIsLoading }) {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
   const [sharedImgData, setSharedImgData] = useState({});
-  const [sharedPostData, setSharedPostData] = useState("");
+  const [sharedDbData, setSharedDbData] = useState("");
   const [ddlData, setDdlData] = useState("");
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
     "Image description..."
@@ -51,7 +51,7 @@ function ImageGeneration({ setIsLoading }) {
       if (response.data.success) {
         const message = response.data.message;
         setDdlData(message.distinctDates);
-        setSharedPostData(message.data);
+        setSharedDbData(message.data);
         setClickTrigger((clickTrigger) => clickTrigger + 1); //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {
         setSharedPlaceholder(response.data.message);
@@ -101,7 +101,7 @@ function ImageGeneration({ setIsLoading }) {
           clickEvent={clickTrigger}
           ModalContents={HistoryDisplay}
           ModalContentsData={{
-            sharedPostData: sharedPostData,
+            sharedDbData: sharedDbData,
             ddlData: ddlData,
           }}
         />
