@@ -17,7 +17,7 @@ const getCollection = async function (connection) {
   return connection.db("ImageGenerator").collection("images");
 };
 
-const getData = async function () {
+const getData = async function (dateStr) {
   let data;
   let distinctDates = [];
   let success;
@@ -27,9 +27,8 @@ const getData = async function () {
     connection = await getConnection();
     const collection = await getCollection(connection);
 
-    data = await collection
-      .find({ dateCreated: new Date("2024-06-20") })
-      .toArray();
+    const findQuery = dateStr ? { dateCreated: new Date(dateStr) } : {};
+    data = await collection.find(findQuery).toArray();
 
     let distinctDatesTmp = await collection
       .aggregate([
