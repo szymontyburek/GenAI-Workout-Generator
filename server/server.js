@@ -4,8 +4,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const { connectToDb, userModel } = require("./db");
-const port = 8080;
+const { getData, addRecord } = require("./db");
+const port = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(express.json());
@@ -22,10 +22,13 @@ app.post("/addRecord", async (req, res) => {
   let message;
   let success = false;
   let openaiResponse;
+  let imgData;
+
   try {
+    const description = req.body.params.message;
     openaiResponse = await openai.images.generate({
       model: "dall-e-3",
-      prompt: req.body.params.message,
+      prompt: description,
       n: 1,
       size: "1024x1024",
     });
@@ -33,9 +36,17 @@ app.post("/addRecord", async (req, res) => {
     let image = await axios.get(openaiResponse.data[0].url, {
       responseType: "arraybuffer",
     });
-
     message =
       "data:image/png;base64, " + Buffer.from(image.data).toString("base64");
+
+    imgData = {
+      description: description,
+      base64: message,
+      dateCreated: new Date(),
+    };
+
+    await addRecord(imgData);
+
     success = true;
   } catch (err) {
     message = "Error. Image could not be generated. Please try again.";
@@ -43,20 +54,14 @@ app.post("/addRecord", async (req, res) => {
   } finally {
     res.json({
       success: success,
-      message: message,
+      message: imgData,
     });
   }
 });
 
-app.get("/getRecords", async (req, res) => {
-  let data;
-  let success;
-  try {
-    data = await userModel.find({});
-    success = true;
-  } catch (err) {
-    console.log(err);
-    success = false;
-  }
-  res.json({ message: data, success: success });
+app.get("/getData", async (req, res) => {
+  const response = await getData();
+  res.json(response);
 });
+
+module.exports = { app: app };

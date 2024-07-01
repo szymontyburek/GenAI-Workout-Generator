@@ -6,44 +6,28 @@ function Modal({ clickEvent, ModalContents, ModalContentsData }) {
   const [sharedOverlayClass, setSharedOverlayClass] = useState("modal");
 
   useEffect(() => {
-    if (clickEvent.current > 0) openModal(); //clickEvent equals 0 on initial HTML render
-  }, [clickEvent.current]);
+    if (clickEvent > 0) openModal(); //clickEvent equals 0 on initial HTML render
+  }, [clickEvent]);
 
   function openModal() {
     setSharedModalClass("modal active");
     setSharedOverlayClass("modal active");
   }
 
-  function closeModal() {
+  function exitModal() {
     setSharedModalClass("modal");
     setSharedOverlayClass("modal");
   }
 
   return (
     <div>
-      <ModalBodyContainer
-        className={sharedModalClass}
-        closeModal={closeModal}
-        ModalContents={ModalContents}
-        ModalContentsData={ModalContentsData}
-      />
+      <div className={sharedModalClass} id="modal">
+        <ModalContents
+          exitModal={exitModal}
+          ModalContentsData={ModalContentsData}
+        />
+      </div>
       <OverlayDiv className={sharedOverlayClass} />
-    </div>
-  );
-}
-
-function ModalBodyContainer({
-  className,
-  closeModal,
-  ModalContents,
-  ModalContentsData,
-}) {
-  return (
-    <div className={className} id="modal">
-      <ModalContents
-        closeModal={closeModal}
-        ModalContentsData={ModalContentsData}
-      />
     </div>
   );
 }
