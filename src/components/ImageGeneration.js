@@ -4,16 +4,18 @@ import Modal from "./Modal";
 import TextField from "./TextField";
 import ImgContainer from "./ImgContainer";
 import HistoryDisplay from "./HistoryDisplay";
+import downloadImage from "../methods/downloadImage";
 import axios from "axios";
 
 function ImageGeneration({ setIsLoading }) {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
-  const [sharedImgSrc, setSharedImgSrc] = useState("");
+  const [sharedImgData, setSharedImgData] = useState({});
   const [sharedPostData, setSharedPostData] = useState("");
+  const [ddlData, setDdlData] = useState("");
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
     "Image description..."
   );
-  const clickTrigger = useRef(0);
+  const [clickTrigger, setClickTrigger] = useState(0);
 
   async function getImage(text) {
     const params = { message: text };
@@ -25,7 +27,7 @@ function ImageGeneration({ setIsLoading }) {
         params,
       });
 
-      if (response.data.success) setSharedImgSrc(response.data.message);
+      if (response.data.success) setSharedImgData(response.data.message);
       else {
         setSharedPlaceholder(response.data.message);
         setSharedUserMessage("");
@@ -38,18 +40,19 @@ function ImageGeneration({ setIsLoading }) {
     }
   }
 
-  async function getRecords(text) {
+  async function getData(text) {
     let base64;
 
     try {
       setIsLoading(true);
-      const response = await axios.get("http://localhost:8080/getRecords", {
-        message: "banana",
-      });
+
+      const response = await axios.get("http://localhost:8080/getData");
 
       if (response.data.success) {
-        setSharedPostData(response.data.message);
-        clickTrigger.current = clickTrigger.current + 1; //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
+        const message = response.data.message;
+        setDdlData(message.distinctDates);
+        setSharedPostData(message.data);
+        setClickTrigger((clickTrigger) => clickTrigger + 1); //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {
         setSharedPlaceholder(response.data.message);
         setSharedUserMessage("");
@@ -60,15 +63,6 @@ function ImageGeneration({ setIsLoading }) {
     } finally {
       setIsLoading(false);
     }
-  }
-
-  function downloadImage(base64) {
-    var link = document.createElement("a");
-    link.href = base64;
-    link.download = "generatedImage.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   }
 
   return (
@@ -83,7 +77,7 @@ function ImageGeneration({ setIsLoading }) {
       }}
     >
       <h1>Image Generator</h1>
-      <ImgContainer src={sharedImgSrc} />
+      <ImgContainer src={sharedImgData.base64} />
       <TextField
         text={sharedUserMessage}
         onType={setSharedUserMessage}
@@ -99,18 +93,21 @@ function ImageGeneration({ setIsLoading }) {
         <Button
           text="History"
           data={sharedUserMessage}
-          onClick={getRecords}
+          onClick={getData}
           id="historyBtn"
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />
         <Modal
           clickEvent={clickTrigger}
           ModalContents={HistoryDisplay}
-          ModalContentsData={sharedPostData}
+          ModalContentsData={{
+            sharedPostData: sharedPostData,
+            ddlData: ddlData,
+          }}
         />
         <Button
           text="Download"
-          data={sharedImgSrc}
+          data={[sharedImgData]}
           onClick={downloadImage}
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />
