@@ -60,7 +60,7 @@ app.post("/addRecord", async (req, res) => {
 });
 
 app.get("/getData", async (req, res) => {
-  const response = await getData();
+  const response = await getData(req.query.date);
   res.json(response);
 });
 
