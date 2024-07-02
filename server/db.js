@@ -26,9 +26,15 @@ const getRecords = async function (dateStr) {
     connection = await getConnection();
     const collection = await getCollection(connection);
 
-    const findQuery = dateStr ? { dateCreated: new Date(dateStr) } : {};
-
-    records = await collection.find().toArray();
+    const findQuery = dateStr
+      ? {
+          dateCreated: {
+            $gte: new Date(dateStr),
+            $lt: new Date(dateStr + "T23:59:59Z"),
+          },
+        }
+      : {};
+    records = await collection.find(findQuery).toArray();
 
     success = true;
   } catch (err) {
@@ -60,7 +66,8 @@ const getDates = async function () {
       ])
       .toArray();
     for (const obj of distinctDatesTmp) {
-      distinctDates.push(obj.dateCreated.toISOString().split("T")[0]);
+      const dateNoTime = obj.dateCreated.toISOString().split("T")[0];
+      if (!distinctDates.includes(dateNoTime)) distinctDates.push(dateNoTime);
     }
 
     success = true;
