@@ -108,28 +108,15 @@ function DynamicInstantiation({
     <div className="modal-body">
       {data.map((img, idx) => (
         <div key={idx}>
-          <div
+          <h5
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+              textWrap: "nowrap",
             }}
           >
-            <h5
-              style={{
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-                textWrap: "nowrap",
-              }}
-            >
-              {img.description}
-            </h5>
-            <h5 style={{ textWrap: "nowrap", padding: "0em 1em" }}>
-              {typeof img.dateCreated != "undefined"
-                ? " " + img.dateCreated.split("T")[0]
-                : null}
-            </h5>
-          </div>
+            {img.description}
+          </h5>
           <Component
             src={img.base64}
             imgData={img}
