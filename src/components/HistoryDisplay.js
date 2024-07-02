@@ -28,6 +28,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   function closeModal() {
     exitModal();
     unselectClick();
+    setDdlOptions([]);
   }
 
   return (
@@ -68,6 +69,7 @@ function Ddl(options) {
 
   useEffect(() => {
     if (optionsTmp.length > 0) setDdlOptions(optionsTmp);
+    else setDdlOptions([]);
   }, [optionsTmp]);
 
   async function dateChange(e) {
