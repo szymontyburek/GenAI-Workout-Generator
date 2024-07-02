@@ -52,9 +52,9 @@ function ImageGeneration({ setIsLoading }) {
         params: { date: distinctDates[0] },
       });
 
-      if (response.data.success) {
+      if (response.data.success && getDates.data.success) {
         const message = response.data.message;
-        //setDdlData(message.distinctDates);
+        setDdlData(distinctDates);
         setSharedDbData(message);
         setClickTrigger((clickTrigger) => clickTrigger + 1); //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {

@@ -41,7 +41,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
           }}
         >
           <div className="title">Prior Generations:</div>
-          <Ddl options={ddlOptions} getRecords={getRecords} />
+          <Ddl options={ddlOptions} />
         </div>
       </div>
       <DynamicInstantiation
@@ -54,12 +54,13 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   );
 }
 
-function Ddl(options) {
-  const [ddlOptions, setDdlOptions] = useState(["2024-06-20", "2024-06-21"]);
+function Ddl(optionsArr) {
+  const [ddlOptions, setDdlOptions] = useState([]);
 
-  // useEffect(() => {
-  //   if (options.length > 0) setDdlOptions(options);
-  // }, [options]);
+  useEffect(() => {
+    const options = optionsArr.options;
+    if (options.length > 0) setDdlOptions(options);
+  }, [optionsArr]);
 
   function dateChange() {}
 
