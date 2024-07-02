@@ -11,14 +11,14 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
 
   const [dbData, setDbData] = useState("");
   const [unselectAll, setUnselectAll] = useState(0);
-  const [ddlOptions, setDdlOptions] = useState([]);
+  const [ddlArr, setDdlArr] = useState([]);
 
   useEffect(() => {
     setDbData(sharedDbData);
   }, [sharedDbData]);
 
   useEffect(() => {
-    setDdlOptions(ddlData);
+    setDdlArr(ddlData);
   }, [ddlData]);
 
   function unselectClick() {
@@ -28,7 +28,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   function closeModal() {
     exitModal();
     unselectClick();
-    setDdlOptions([]);
+    setDdlArr([]);
   }
 
   return (
@@ -44,9 +44,10 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
         >
           <div className="title">Prior Generations:</div>
           <Ddl
-            options={ddlOptions}
+            ddlArr={ddlArr}
             getRecords={getRecords}
             setIsLoading={setIsLoading}
+            unselectClick={unselectClick}
           />
         </div>
       </div>
@@ -60,19 +61,20 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   );
 }
 
-function Ddl(options) {
+function Ddl(ddlArr) {
   const [ddlOptions, setDdlOptions] = useState([]);
-  //for some odd reason, 'optionsArr' is an object containing the props passed to this component
-  const optionsTmp = options.options;
-  const getRecords = options.getRecords;
-  const setIsLoading = options.setIsLoading;
+  //for some odd reason, 'ddlArr' is an object containing the props passed to this component
+  const optionsTmp = ddlArr.ddlArr;
+  const getRecords = ddlArr.getRecords;
+  const setIsLoading = ddlArr.setIsLoading;
+  const unselectClick = ddlArr.unselectClick;
 
   useEffect(() => {
     if (optionsTmp.length > 0) setDdlOptions(optionsTmp);
-    else setDdlOptions([]);
   }, [optionsTmp]);
 
   async function dateChange(e) {
+    unselectClick();
     await setIsLoading(true);
     await getRecords(e.target.value);
     setIsLoading(false); //not using await to avoid synchronous behavior when possible
