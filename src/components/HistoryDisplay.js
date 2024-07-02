@@ -21,13 +21,13 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
     setDdlArr(ddlData);
   }, [ddlData]);
 
-  function unselectClick() {
+  function unselectImgs() {
     setUnselectAll((unselectAll) => unselectAll + 1);
   }
 
   function closeModal() {
     exitModal();
-    unselectClick();
+    unselectImgs();
     setDdlArr([]);
   }
 
@@ -47,7 +47,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
             ddlArr={ddlArr}
             getRecords={getRecords}
             setIsLoading={setIsLoading}
-            unselectClick={unselectClick}
+            unselectImgs={unselectImgs}
           />
         </div>
       </div>
@@ -55,7 +55,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
         Component={ImgContainer}
         InstantiateData={dbData}
         unselectAll={unselectAll}
-        unselectClick={unselectClick}
+        unselectImgs={unselectImgs}
       />
     </div>
   );
@@ -67,14 +67,15 @@ function Ddl(ddlArr) {
   const optionsTmp = ddlArr.ddlArr;
   const getRecords = ddlArr.getRecords;
   const setIsLoading = ddlArr.setIsLoading;
-  const unselectClick = ddlArr.unselectClick;
+  const unselectImgs = ddlArr.unselectImgs;
 
   useEffect(() => {
     if (optionsTmp.length > 0) setDdlOptions(optionsTmp);
+    else setDdlOptions([]);
   }, [optionsTmp]);
 
   async function dateChange(e) {
-    unselectClick();
+    unselectImgs();
     await setIsLoading(true);
     await getRecords(e.target.value);
     setIsLoading(false); //not using await to avoid synchronous behavior when possible
@@ -93,7 +94,7 @@ function DynamicInstantiation({
   Component,
   InstantiateData,
   unselectAll,
-  unselectClick,
+  unselectImgs,
 }) {
   const [data, setData] = useState([{}]);
   const [selectedImgData, setSelectedImgData] = useState([]);
@@ -154,7 +155,7 @@ function DynamicInstantiation({
         <Button
           text="Unselect All"
           style={{ padding: "1em", borderRadius: ".5em" }}
-          onClick={unselectClick}
+          onClick={unselectImgs}
         />
         <Button
           text="Download"

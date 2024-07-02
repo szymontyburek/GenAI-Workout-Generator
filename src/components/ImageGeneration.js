@@ -40,21 +40,17 @@ function ImageGeneration({ setIsLoading }) {
     }
   }
 
-  async function getRecords(date) {
+  async function getRecords() {
     let base64;
 
     try {
       setIsLoading(true);
 
-      let ddlDate = date;
-      //if arg1 is an empty string
-      if (arguments[0].length == 0) {
-        const getDates = await axios.get("http://localhost:8080/getDates");
-        const distinctDates = getDates.data.message;
-        ddlDate = distinctDates[0];
-        setDdlData(distinctDates);
-      }
+      const getDates = await axios.get("http://localhost:8080/getDates");
+      const distinctDates = getDates.data.message;
+      setDdlData(distinctDates);
 
+      const ddlDate = arguments[0] ? arguments[0] : distinctDates[0];
       const response = await axios.get("http://localhost:8080/getRecords", {
         params: { date: ddlDate },
       });
