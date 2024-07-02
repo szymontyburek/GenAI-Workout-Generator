@@ -1,7 +1,0 @@
-to find documents with a certain dateCreated field: 
-
-db.collection.find({
-    dateCreated: ISODate("2024-05-11T00:00:00.000+00:00")
-})
-
-to find all dateCreated fields
