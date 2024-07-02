@@ -17,7 +17,7 @@ const getCollection = async function (connection) {
   return connection.db("ImageGenerator").collection("images");
 };
 
-const getData = async function (dateStr) {
+const getRecords = async function (dateStr) {
   let data;
   let distinctDates = [];
   let success;
@@ -73,4 +73,4 @@ const addRecord = async function (document) {
   return true;
 };
 
-module.exports = { addRecord, getData };
+module.exports = { addRecord, getRecords };

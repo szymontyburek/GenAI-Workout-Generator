@@ -40,13 +40,13 @@ function ImageGeneration({ setIsLoading }) {
     }
   }
 
-  async function getData() {
+  async function getRecords() {
     let base64;
 
     try {
       setIsLoading(true);
 
-      const response = await axios.get("http://localhost:8080/getData");
+      const response = await axios.get("http://localhost:8080/getRecords");
 
       if (response.data.success) {
         const message = response.data.message;
@@ -93,7 +93,7 @@ function ImageGeneration({ setIsLoading }) {
         <Button
           text="History"
           data={sharedUserMessage}
-          onClick={getData}
+          onClick={getRecords}
           id="historyBtn"
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />
@@ -103,7 +103,7 @@ function ImageGeneration({ setIsLoading }) {
           ModalContentsData={{
             sharedDbData: sharedDbData,
             ddlData: ddlData,
-            getData: getData,
+            getRecords: getRecords,
           }}
         />
         <Button
