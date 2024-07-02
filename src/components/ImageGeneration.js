@@ -45,13 +45,17 @@ function ImageGeneration({ setIsLoading }) {
 
     try {
       setIsLoading(true);
+      const getDates = await axios.get("http://localhost:8080/getDates");
+      const distinctDates = getDates.data.message;
 
-      const response = await axios.get("http://localhost:8080/getRecords");
+      const response = await axios.get("http://localhost:8080/getRecords", {
+        params: { date: distinctDates[0] },
+      });
 
       if (response.data.success) {
         const message = response.data.message;
-        setDdlData(message.distinctDates);
-        setSharedDbData(message.data);
+        //setDdlData(message.distinctDates);
+        setSharedDbData(message);
         setClickTrigger((clickTrigger) => clickTrigger + 1); //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {
         setSharedPlaceholder(response.data.message);

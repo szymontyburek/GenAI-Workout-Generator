@@ -18,8 +18,7 @@ const getCollection = async function (connection) {
 };
 
 const getRecords = async function (dateStr) {
-  let data;
-  let distinctDates = [];
+  let records;
   let success;
   let connection;
 
@@ -28,7 +27,30 @@ const getRecords = async function (dateStr) {
     const collection = await getCollection(connection);
 
     const findQuery = dateStr ? { dateCreated: new Date(dateStr) } : {};
-    data = await collection.find(findQuery).toArray();
+
+    records = await collection.find().toArray();
+
+    success = true;
+  } catch (err) {
+    console.log(err);
+    success = false;
+  } finally {
+    await connection.close();
+  }
+  return {
+    message: records,
+    success: success,
+  };
+};
+
+const getDates = async function () {
+  let distinctDates = [];
+  let success;
+  let connection;
+
+  try {
+    connection = await getConnection();
+    const collection = await getCollection(connection);
 
     let distinctDatesTmp = await collection
       .aggregate([
@@ -49,13 +71,12 @@ const getRecords = async function (dateStr) {
     await connection.close();
   }
   return {
-    message: { data: data, distinctDates: distinctDates },
+    message: distinctDates,
     success: success,
   };
 };
 
 const addRecord = async function (document) {
-  let data;
   let success;
   let connection;
 
@@ -73,4 +94,4 @@ const addRecord = async function (document) {
   return true;
 };
 
-module.exports = { addRecord, getRecords };
+module.exports = { addRecord, getDates, getRecords };

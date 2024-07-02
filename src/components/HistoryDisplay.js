@@ -8,12 +8,12 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   const ddlData = ModalContentsData.ddlData;
   const getRecords = ModalContentsData.getRecords;
 
-  const [postData, setPostData] = useState("");
+  const [dbData, setDbData] = useState("");
   const [unselectAll, setUnselectAll] = useState(0);
   const [ddlOptions, setDdlOptions] = useState([]);
 
   useEffect(() => {
-    setPostData(sharedDbData);
+    setDbData(sharedDbData);
   }, [sharedDbData]);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
       </div>
       <DynamicInstantiation
         Component={ImgContainer}
-        InstantiateData={postData}
+        InstantiateData={dbData}
         unselectAll={unselectAll}
         unselectClick={unselectClick}
       />
