@@ -7,6 +7,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   const sharedDbData = ModalContentsData.sharedDbData;
   const ddlData = ModalContentsData.ddlData;
   const getRecords = ModalContentsData.getRecords;
+  const setIsLoading = ModalContentsData.setIsLoading;
 
   const [dbData, setDbData] = useState("");
   const [unselectAll, setUnselectAll] = useState(0);
@@ -44,7 +45,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
           <Ddl
             options={ddlOptions}
             getRecords={getRecords}
-            setIsLoading={ModalContentsData.setIsLoading}
+            setIsLoading={setIsLoading}
           />
         </div>
       </div>
@@ -58,21 +59,21 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   );
 }
 
-function Ddl(optionsArr) {
+function Ddl(options) {
   const [ddlOptions, setDdlOptions] = useState([]);
   //for some odd reason, 'optionsArr' is an object containing the props passed to this component
-  const options = optionsArr.options;
-  const getRecords = optionsArr.getRecords;
-  const setIsLoading = optionsArr.setIsLoading;
+  const optionsTmp = options.options;
+  const getRecords = options.getRecords;
+  const setIsLoading = options.setIsLoading;
 
   useEffect(() => {
-    if (options.length > 0) setDdlOptions(options);
-  }, [options]);
+    if (optionsTmp.length > 0) setDdlOptions(optionsTmp);
+  }, [optionsTmp]);
 
   async function dateChange(e) {
-    setIsLoading(true);
+    await setIsLoading(true);
     await getRecords(e.target.value);
-    setIsLoading(false);
+    setIsLoading(false); //not using await to avoid synchronous behavior when possible
   }
 
   return (
