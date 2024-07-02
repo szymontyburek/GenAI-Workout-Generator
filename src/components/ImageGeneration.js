@@ -40,21 +40,27 @@ function ImageGeneration({ setIsLoading }) {
     }
   }
 
-  async function getRecords() {
+  async function getRecords(date) {
     let base64;
 
     try {
       setIsLoading(true);
-      const getDates = await axios.get("http://localhost:8080/getDates");
-      const distinctDates = getDates.data.message;
+
+      let ddlDate = date;
+      //if arg1 is an empty string
+      if (arguments[0].length == 0) {
+        const getDates = await axios.get("http://localhost:8080/getDates");
+        const distinctDates = getDates.data.message;
+        ddlDate = distinctDates[0];
+        setDdlData(distinctDates);
+      }
 
       const response = await axios.get("http://localhost:8080/getRecords", {
-        params: { date: distinctDates[0] },
+        params: { date: ddlDate },
       });
 
-      if (response.data.success && getDates.data.success) {
+      if (response.data.success) {
         const message = response.data.message;
-        setDdlData(distinctDates);
         setSharedDbData(message);
         setClickTrigger((clickTrigger) => clickTrigger + 1); //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {
@@ -108,6 +114,7 @@ function ImageGeneration({ setIsLoading }) {
             sharedDbData: sharedDbData,
             ddlData: ddlData,
             getRecords: getRecords,
+            setIsLoading: setIsLoading,
           }}
         />
         <Button

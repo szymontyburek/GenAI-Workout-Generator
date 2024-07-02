@@ -41,7 +41,11 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
           }}
         >
           <div className="title">Prior Generations:</div>
-          <Ddl options={ddlOptions} />
+          <Ddl
+            options={ddlOptions}
+            getRecords={getRecords}
+            setIsLoading={ModalContentsData.setIsLoading}
+          />
         </div>
       </div>
       <DynamicInstantiation
@@ -56,13 +60,20 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
 
 function Ddl(optionsArr) {
   const [ddlOptions, setDdlOptions] = useState([]);
+  //for some odd reason, 'optionsArr' is an object containing the props passed to this component
+  const options = optionsArr.options;
+  const getRecords = optionsArr.getRecords;
+  const setIsLoading = optionsArr.setIsLoading;
 
   useEffect(() => {
-    const options = optionsArr.options;
     if (options.length > 0) setDdlOptions(options);
-  }, [optionsArr]);
+  }, [options]);
 
-  function dateChange() {}
+  async function dateChange(e) {
+    setIsLoading(true);
+    await getRecords(e.target.value);
+    setIsLoading(false);
+  }
 
   return (
     <select onChange={dateChange}>
