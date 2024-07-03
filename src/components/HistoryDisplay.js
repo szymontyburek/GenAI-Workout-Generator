@@ -12,7 +12,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   const [dbData, setDbData] = useState("");
   const [unselectAll, setUnselectAll] = useState(0);
   const [ddlArr, setDdlArr] = useState([]);
-  const divRef = useRef(null);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     setDbData(sharedDbData);
@@ -32,12 +32,8 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
     setDdlArr([]);
   }
 
-  function scrollToTop() {
-    divRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
   return (
-    <div ref={divRef}>
+    <div ref={modalRef}>
       <div className="modal-header">
         <div
           style={{
@@ -73,7 +69,7 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
         InstantiateData={dbData}
         unselectAll={unselectAll}
         unselectImgs={unselectImgs}
-        scrollToTop={scrollToTop}
+        modalRef={modalRef}
       />
     </div>
   );
@@ -113,7 +109,7 @@ function DynamicInstantiation({
   InstantiateData,
   unselectAll,
   unselectImgs,
-  scrollToTop,
+  modalRef,
 }) {
   const [data, setData] = useState([{}]);
   const [selectedImgData, setSelectedImgData] = useState([]);
@@ -179,7 +175,12 @@ function DynamicInstantiation({
         <Button
           text="Back To Top"
           style={{ padding: "1em", borderRadius: ".5em" }}
-          onClick={scrollToTop}
+          onClick={function () {
+            modalRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }}
         />
         <Button
           text="Download"
