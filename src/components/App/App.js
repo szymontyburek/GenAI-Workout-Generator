@@ -1,7 +1,7 @@
 import "../Modal/Modal.css";
 import { useState, useEffect, useRef } from "react";
 import Button from "../Button";
-import ImageGeneration from "../ImageGeneration";
+import ImageGeneration from "../ImageGeneration/ImageGeneration";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 function ParentContainer() {

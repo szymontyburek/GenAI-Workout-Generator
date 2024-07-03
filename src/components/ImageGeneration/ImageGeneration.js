@@ -1,10 +1,11 @@
 import { useRef, useState, useEffect } from "react";
-import Button from "./Button";
-import Modal from "./Modal/Modal";
-import TextField from "./TextField";
-import ImgContainer from "./ImgContainer";
-import Gallery from "./Modal/Gallery";
-import downloadImage from "../methods/downloadImage";
+import Button from "../Button";
+import Modal from "../Modal/Modal";
+import TextField from "../TextField";
+import ImgContainer from "../ImgContainer";
+import Gallery from "../Modal/Gallery";
+import downloadImage from "../../methods/downloadImage";
+import "./ImageGeneration.css";
 import axios from "axios";
 
 function ImageGeneration({ setIsLoading }) {
@@ -86,7 +87,10 @@ function ImageGeneration({ setIsLoading }) {
       }}
     >
       <h1>Image Generator</h1>
-      <ImgContainer src={sharedImgData.base64} />
+      <ImgContainer
+        src={sharedImgData.base64}
+        className="defaultImgContainer"
+      />
       <TextField
         text={sharedUserMessage}
         onType={setSharedUserMessage}

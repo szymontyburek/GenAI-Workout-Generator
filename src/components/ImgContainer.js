@@ -7,6 +7,7 @@ export default function ImgContainer({
   onUnselect,
   unselectAll,
   imgData,
+  className,
 }) {
   const [imgSrc, setImgSrc] = useState("");
   const [styles, setStyles] = useState({
@@ -48,7 +49,7 @@ export default function ImgContainer({
   }
 
   return (
-    <div style={styles}>
+    <div style={styles} className={className}>
       <img style={{ width: "100%" }} src={src} onClick={selectImg}></img>
     </div>
   );
