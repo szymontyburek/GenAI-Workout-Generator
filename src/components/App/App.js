@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import Modal from "../Modal";
 import Button from "../Button";
 import ImageGeneration from "../ImageGeneration";
-import LoadingAnimation from "../LoadingAnimation";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 function ParentContainer() {
   const [isLoading, setIsLoading] = useState(false);
