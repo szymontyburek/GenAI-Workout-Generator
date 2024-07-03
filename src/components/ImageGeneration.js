@@ -10,7 +10,7 @@ import axios from "axios";
 function ImageGeneration({ setIsLoading }) {
   const [sharedUserMessage, setSharedUserMessage] = useState("");
   const [sharedImgData, setSharedImgData] = useState({});
-  const [sharedPostData, setSharedPostData] = useState("");
+  const [sharedDbData, setSharedDbData] = useState("");
   const [ddlData, setDdlData] = useState("");
   const [sharedPlaceholder, setSharedPlaceholder] = useState(
     "Image description..."
@@ -33,25 +33,34 @@ function ImageGeneration({ setIsLoading }) {
         setSharedUserMessage("");
       }
     } catch (error) {
-      setSharedUserMessage(error);
+      setSharedPlaceholder(error);
       setSharedUserMessage("");
     } finally {
       setIsLoading(false);
     }
   }
 
-  async function getData(text) {
+  async function getRecords() {
     let base64;
 
     try {
       setIsLoading(true);
 
-      const response = await axios.get("http://localhost:8080/getData");
+      let ddlDate;
+      if (typeof arguments[0] == "undefined") {
+        const getDates = await axios.get("http://localhost:8080/getDates");
+        const distinctDates = getDates.data.message;
+        ddlDate = distinctDates[0];
+        setDdlData(distinctDates);
+      } else ddlDate = arguments[0];
+
+      const response = await axios.get("http://localhost:8080/getRecords", {
+        params: { date: ddlDate },
+      });
 
       if (response.data.success) {
         const message = response.data.message;
-        setDdlData(message.distinctDates);
-        setSharedPostData(message.data);
+        setSharedDbData(message);
         setClickTrigger((clickTrigger) => clickTrigger + 1); //because this variable is used as an useEffect dependency in its corresponding Modal component instantiation, the modal will be opened
       } else {
         setSharedPlaceholder(response.data.message);
@@ -92,8 +101,7 @@ function ImageGeneration({ setIsLoading }) {
       >
         <Button
           text="History"
-          data={sharedUserMessage}
-          onClick={getData}
+          onClick={getRecords}
           id="historyBtn"
           style={{ padding: "1em", borderRadius: "0.5em" }}
         />
@@ -101,8 +109,10 @@ function ImageGeneration({ setIsLoading }) {
           clickEvent={clickTrigger}
           ModalContents={HistoryDisplay}
           ModalContentsData={{
-            sharedPostData: sharedPostData,
+            sharedDbData: sharedDbData,
             ddlData: ddlData,
+            getRecords: getRecords,
+            setIsLoading: setIsLoading,
           }}
         />
         <Button

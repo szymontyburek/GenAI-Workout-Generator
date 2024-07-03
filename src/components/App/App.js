@@ -15,6 +15,7 @@ function ParentContainer() {
     left: 0,
     backgroundColor: "black",
     opacity: 0.6,
+    zIndex: 999,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
