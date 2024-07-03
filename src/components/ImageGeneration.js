@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import Button from "./Button";
-import Modal from "./Modal";
+import Modal from "./Modal/Modal";
 import TextField from "./TextField";
 import ImgContainer from "./ImgContainer";
 import HistoryDisplay from "./HistoryDisplay";

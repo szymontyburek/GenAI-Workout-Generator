@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Button from "./Button";
+import Button from "../Button";
 
 function Modal({ clickEvent, ModalContents, ModalContentsData, ddlData }) {
   const [sharedModalClass, setSharedModalClass] = useState("modal");
