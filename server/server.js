@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const { getData, addRecord } = require("./db");
+const { getRecords, getDates, addRecord } = require("./db");
 const port = process.env.PORT || 8080;
 
 app.use(cors());
@@ -49,18 +49,23 @@ app.post("/addRecord", async (req, res) => {
 
     success = true;
   } catch (err) {
-    message = "Error. Image could not be generated. Please try again.";
+    message = err.message;
     console.log("ERROR: " + err);
   } finally {
     res.json({
       success: success,
-      message: imgData,
+      message: typeof imgData == "undefined" ? message : imgData,
     });
   }
 });
 
-app.get("/getData", async (req, res) => {
-  const response = await getData();
+app.get("/getRecords", async (req, res) => {
+  const response = await getRecords(req.query.date);
+  res.json(response);
+});
+
+app.get("/getDates", async (req, res) => {
+  const response = await getDates();
   res.json(response);
 });
 

@@ -17,8 +17,39 @@ const getCollection = async function (connection) {
   return connection.db("ImageGenerator").collection("images");
 };
 
-const getData = async function () {
-  let data;
+const getRecords = async function (dateStr) {
+  let records;
+  let success;
+  let connection;
+
+  try {
+    connection = await getConnection();
+    const collection = await getCollection(connection);
+
+    const findQuery = dateStr
+      ? {
+          dateCreated: {
+            $gte: new Date(dateStr),
+            $lt: new Date(dateStr + "T23:59:59Z"),
+          },
+        }
+      : {};
+    records = await collection.find(findQuery).toArray();
+
+    success = true;
+  } catch (err) {
+    console.log(err);
+    success = false;
+  } finally {
+    await connection.close();
+  }
+  return {
+    message: records,
+    success: success,
+  };
+};
+
+const getDates = async function () {
   let distinctDates = [];
   let success;
   let connection;
@@ -27,16 +58,16 @@ const getData = async function () {
     connection = await getConnection();
     const collection = await getCollection(connection);
 
-    data = await collection.find().toArray();
-
     let distinctDatesTmp = await collection
       .aggregate([
         { $group: { _id: "$dateCreated" } },
         { $project: { _id: 0, dateCreated: "$_id" } },
+        { $sort: { dateCreated: -1 } },
       ])
       .toArray();
     for (const obj of distinctDatesTmp) {
-      distinctDates.push(obj.dateCreated);
+      const dateNoTime = obj.dateCreated.toISOString().split("T")[0];
+      if (!distinctDates.includes(dateNoTime)) distinctDates.push(dateNoTime);
     }
 
     success = true;
@@ -47,13 +78,12 @@ const getData = async function () {
     await connection.close();
   }
   return {
-    message: { data: data, distinctDates: distinctDates },
+    message: distinctDates,
     success: success,
   };
 };
 
 const addRecord = async function (document) {
-  let data;
   let success;
   let connection;
 
@@ -71,4 +101,4 @@ const addRecord = async function (document) {
   return true;
 };
 
-module.exports = { addRecord, getData };
+module.exports = { addRecord, getDates, getRecords };

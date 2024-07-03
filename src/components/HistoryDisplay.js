@@ -1,37 +1,53 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "./Button";
 import ImgContainer from "./ImgContainer";
 import downloadImage from "../methods/downloadImage";
 
 export default function HistoryDisplay({ exitModal, ModalContentsData }) {
-  const sharedPostData = ModalContentsData.sharedPostData;
+  const sharedDbData = ModalContentsData.sharedDbData;
   const ddlData = ModalContentsData.ddlData;
+  const getRecords = ModalContentsData.getRecords;
+  const setIsLoading = ModalContentsData.setIsLoading;
 
-  const [postData, setPostData] = useState("");
+  const [dbData, setDbData] = useState("");
   const [unselectAll, setUnselectAll] = useState(0);
-  const [ddlOptions, setDdlOptions] = useState([]);
+  const [ddlArr, setDdlArr] = useState([]);
+  const modalRef = useRef(null);
 
   useEffect(() => {
-    setPostData(sharedPostData);
-  }, [sharedPostData]);
+    setDbData(sharedDbData);
+  }, [sharedDbData]);
 
   useEffect(() => {
-    setDdlOptions(ddlData);
+    setDdlArr(ddlData);
   }, [ddlData]);
 
-  function unselectClick() {
+  function unselectImgs() {
     setUnselectAll((unselectAll) => unselectAll + 1);
   }
 
   function closeModal() {
     exitModal();
-    unselectClick();
+    unselectImgs();
+    setDdlArr([]);
   }
 
   return (
-    <div>
+    <div ref={modalRef}>
       <div className="modal-header">
-        <Button text="&times;" className="close-button" onClick={closeModal} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            text="&times;"
+            className="close-button"
+            onClick={closeModal}
+          />
+        </div>
         <div
           style={{
             display: "flex",
@@ -40,28 +56,47 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
           }}
         >
           <div className="title">Prior Generations:</div>
-          <Ddl options={ddlOptions} />
+          <Ddl
+            ddlArr={ddlArr}
+            getRecords={getRecords}
+            setIsLoading={setIsLoading}
+            unselectImgs={unselectImgs}
+          />
         </div>
       </div>
       <DynamicInstantiation
         Component={ImgContainer}
-        InstantiateData={postData}
+        InstantiateData={dbData}
         unselectAll={unselectAll}
-        unselectClick={unselectClick}
+        unselectImgs={unselectImgs}
+        modalRef={modalRef}
       />
     </div>
   );
 }
 
-function Ddl(options) {
-  const [ddlOptions, setDdlOptions] = useState(["2024-06-20", "2024-06-21"]);
+function Ddl(ddlArr) {
+  const [ddlOptions, setDdlOptions] = useState([]);
+  //for some odd reason, 'ddlArr' is an object containing the props passed to this component
+  const optionsTmp = ddlArr.ddlArr;
+  const getRecords = ddlArr.getRecords;
+  const setIsLoading = ddlArr.setIsLoading;
+  const unselectImgs = ddlArr.unselectImgs;
 
-  // useEffect(() => {
-  //   if (options.length > 0) setDdlOptions(options);
-  // }, [options]);
+  useEffect(() => {
+    if (optionsTmp.length > 0) setDdlOptions(optionsTmp);
+    else setDdlOptions([]);
+  }, [optionsTmp]);
+
+  async function dateChange(e) {
+    unselectImgs();
+    await setIsLoading(true);
+    await getRecords(e.target.value);
+    setIsLoading(false); //not using await to avoid synchronous behavior when possible
+  }
 
   return (
-    <select>
+    <select onChange={dateChange}>
       {ddlOptions.map((item, idx) => (
         <option key={idx}>{item}</option>
       ))}
@@ -73,7 +108,8 @@ function DynamicInstantiation({
   Component,
   InstantiateData,
   unselectAll,
-  unselectClick,
+  unselectImgs,
+  modalRef,
 }) {
   const [data, setData] = useState([{}]);
   const [selectedImgData, setSelectedImgData] = useState([]);
@@ -104,28 +140,15 @@ function DynamicInstantiation({
     <div className="modal-body">
       {data.map((img, idx) => (
         <div key={idx}>
-          <div
+          <h5
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+              textWrap: "nowrap",
             }}
           >
-            <h5
-              style={{
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-                textWrap: "nowrap",
-              }}
-            >
-              {img.description}
-            </h5>
-            <h5 style={{ textWrap: "nowrap", padding: "0em 1em" }}>
-              {typeof img.dateCreated != "undefined"
-                ? " " + img.dateCreated.split("T")[0]
-                : null}
-            </h5>
-          </div>
+            {img.description}
+          </h5>
           <Component
             src={img.base64}
             imgData={img}
@@ -147,7 +170,17 @@ function DynamicInstantiation({
         <Button
           text="Unselect All"
           style={{ padding: "1em", borderRadius: ".5em" }}
-          onClick={unselectClick}
+          onClick={unselectImgs}
+        />{" "}
+        <Button
+          text="Back To Top"
+          style={{ padding: "1em", borderRadius: ".5em" }}
+          onClick={function () {
+            modalRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }}
         />
         <Button
           text="Download"
