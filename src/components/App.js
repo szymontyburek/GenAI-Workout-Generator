@@ -1,8 +1,8 @@
-import "../Modal/Modal.css";
+import "./Modal/Modal.css";
 import { useState, useEffect, useRef } from "react";
-import Button from "../Button";
-import ImageGeneration from "../ImageGeneration/ImageGeneration";
-import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+import Button from "./Button";
+import ImageGeneration from "./ImageGeneration/ImageGeneration";
+import LoadingAnimation from "./LoadingAnimation/LoadingAnimation";
 
 function ParentContainer() {
   const [isLoading, setIsLoading] = useState(false);
