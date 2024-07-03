@@ -3,7 +3,7 @@ import Button from "./Button";
 import Modal from "./Modal/Modal";
 import TextField from "./TextField";
 import ImgContainer from "./ImgContainer";
-import HistoryDisplay from "./HistoryDisplay";
+import Gallery from "./Modal/Gallery";
 import downloadImage from "../methods/downloadImage";
 import axios from "axios";
 
@@ -100,20 +100,10 @@ function ImageGeneration({ setIsLoading }) {
         }}
       >
         <Button
-          text="History"
+          text="Gallery"
           onClick={getRecords}
-          id="historyBtn"
+          id="gallery"
           style={{ padding: "1em", borderRadius: "0.5em" }}
-        />
-        <Modal
-          clickEvent={clickTrigger}
-          ModalContents={HistoryDisplay}
-          ModalContentsData={{
-            sharedDbData: sharedDbData,
-            ddlData: ddlData,
-            getRecords: getRecords,
-            setIsLoading: setIsLoading,
-          }}
         />
         <Button
           text="Download"
@@ -132,6 +122,16 @@ function ImageGeneration({ setIsLoading }) {
           }}
         />
       </div>
+      <Modal
+        clickEvent={clickTrigger}
+        ModalContents={Gallery}
+        ModalContentsData={{
+          sharedDbData: sharedDbData,
+          ddlData: ddlData,
+          getRecords: getRecords,
+          setIsLoading: setIsLoading,
+        }}
+      />
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import Button from "./Button";
-import ImgContainer from "./ImgContainer";
-import downloadImage from "../methods/downloadImage";
+import Button from "../Button";
+import ImgContainer from "../ImgContainer";
+import downloadImage from "../../methods/downloadImage";
 
-export default function HistoryDisplay({ exitModal, ModalContentsData }) {
+export default function Gallery({ exitModal, ModalContentsData }) {
   const sharedDbData = ModalContentsData.sharedDbData;
   const ddlData = ModalContentsData.ddlData;
   const getRecords = ModalContentsData.getRecords;
