@@ -129,27 +129,32 @@ function DynamicInstantiation({
 
   return (
     <div className="modal-body">
-      {data.map((img, idx) => (
-        <div key={idx}>
-          <h5
-            style={{
-              textOverflow: "ellipsis",
-              overflow: "hidden",
-              textWrap: "nowrap",
-            }}
-          >
-            {img.description}
-          </h5>
-          <Component
-            src={img.base64}
-            imgData={img}
-            onSelect={onSelect}
-            onUnselect={onUnselect}
-            unselectAll={unselectAll}
-            selectAbility={true}
-          />
-        </div>
-      ))}
+      <div
+        className="galleryContainer"
+        style={{ display: "grid", gridTemplateColumns: "auto auto" }}
+      >
+        {data.map((img, idx) => (
+          <div key={idx}>
+            <h5
+              style={{
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                textWrap: "nowrap",
+              }}
+            >
+              {img.description}
+            </h5>
+            <Component
+              src={img.base64}
+              imgData={img}
+              onSelect={onSelect}
+              onUnselect={onUnselect}
+              unselectAll={unselectAll}
+              selectAbility={true}
+            />
+          </div>
+        ))}
+      </div>
       <div
         style={{
           display: "flex",

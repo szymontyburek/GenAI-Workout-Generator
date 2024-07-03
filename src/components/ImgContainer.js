@@ -11,7 +11,6 @@ export default function ImgContainer({
   const [imgSrc, setImgSrc] = useState("");
   const [styles, setStyles] = useState({
     width: "inherit",
-    height: "50%",
     display: "flex",
     alignItems: "center",
   });
@@ -30,8 +29,7 @@ export default function ImgContainer({
   }, [unselectAll]);
 
   useEffect(() => {
-    let clone = structuredClone(styles);
-    clone.border = border;
+    let clone = { ...structuredClone(styles), ...{ border: border } };
     setStyles(clone);
   }, [border]);
 
