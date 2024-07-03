@@ -47,14 +47,12 @@ function ImageGeneration({ setIsLoading }) {
       setIsLoading(true);
 
       let ddlDate;
-      if (typeof arguments[0] != "undefined") {
-        ddlDate = arguments[0];
-      } else {
+      if (typeof arguments[0] == "undefined") {
         const getDates = await axios.get("http://localhost:8080/getDates");
         const distinctDates = getDates.data.message;
         ddlDate = distinctDates[0];
         setDdlData(distinctDates);
-      }
+      } else ddlDate = arguments[0];
 
       const response = await axios.get("http://localhost:8080/getRecords", {
         params: { date: ddlDate },
