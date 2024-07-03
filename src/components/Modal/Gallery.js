@@ -38,29 +38,20 @@ export default function Gallery({ exitModal, ModalContentsData }) {
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          <Button
-            text="&times;"
-            className="close-button"
-            onClick={closeModal}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div className="title">Prior Generations:</div>
           <Ddl
             ddlArr={ddlArr}
             getRecords={getRecords}
             setIsLoading={setIsLoading}
             unselectImgs={unselectImgs}
+          />
+          <Button
+            text="&times;"
+            className="close-button"
+            onClick={closeModal}
           />
         </div>
       </div>
