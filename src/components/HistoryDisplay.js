@@ -34,7 +34,19 @@ export default function HistoryDisplay({ exitModal, ModalContentsData }) {
   return (
     <div>
       <div className="modal-header">
-        <Button text="&times;" className="close-button" onClick={closeModal} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            text="&times;"
+            className="close-button"
+            onClick={closeModal}
+          />
+        </div>
         <div
           style={{
             display: "flex",
