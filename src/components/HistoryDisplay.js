@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "./Button";
 import ImgContainer from "./ImgContainer";
 import downloadImage from "../methods/downloadImage";
@@ -110,6 +110,7 @@ function DynamicInstantiation({
 }) {
   const [data, setData] = useState([{}]);
   const [selectedImgData, setSelectedImgData] = useState([]);
+  const divRef = useRef(null);
 
   useEffect(() => {
     if (InstantiateData.length > 0) setData(InstantiateData);
@@ -133,8 +134,12 @@ function DynamicInstantiation({
     setSelectedImgData(shallowClone);
   }
 
+  function scrollToTop() {
+    divRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   return (
-    <div className="modal-body">
+    <div ref={divRef} className="modal-body">
       {data.map((img, idx) => (
         <div key={idx}>
           <h5
@@ -168,6 +173,11 @@ function DynamicInstantiation({
           text="Unselect All"
           style={{ padding: "1em", borderRadius: ".5em" }}
           onClick={unselectImgs}
+        />{" "}
+        <Button
+          text="Back To Top"
+          style={{ padding: "1em", borderRadius: ".5em" }}
+          onClick={scrollToTop}
         />
         <Button
           text="Download"
