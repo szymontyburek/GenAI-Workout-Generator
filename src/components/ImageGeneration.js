@@ -33,7 +33,7 @@ function ImageGeneration({ setIsLoading }) {
         setSharedUserMessage("");
       }
     } catch (error) {
-      setSharedUserMessage(error);
+      setSharedPlaceholder(error);
       setSharedUserMessage("");
     } finally {
       setIsLoading(false);
@@ -47,7 +47,7 @@ function ImageGeneration({ setIsLoading }) {
       setIsLoading(true);
 
       let ddlDate;
-      if (arguments[0].length > 0) {
+      if (typeof arguments[0] != "undefined") {
         ddlDate = arguments[0];
       } else {
         const getDates = await axios.get("http://localhost:8080/getDates");
@@ -103,7 +103,6 @@ function ImageGeneration({ setIsLoading }) {
       >
         <Button
           text="History"
-          data={sharedUserMessage}
           onClick={getRecords}
           id="historyBtn"
           style={{ padding: "1em", borderRadius: "0.5em" }}

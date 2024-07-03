@@ -49,12 +49,12 @@ app.post("/addRecord", async (req, res) => {
 
     success = true;
   } catch (err) {
-    message = "Error. Image could not be generated. Please try again.";
+    message = err.message;
     console.log("ERROR: " + err);
   } finally {
     res.json({
       success: success,
-      message: imgData,
+      message: typeof imgData == "undefined" ? message : imgData,
     });
   }
 });
