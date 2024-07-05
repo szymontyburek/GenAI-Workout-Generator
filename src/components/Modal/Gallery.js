@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Button from "../Button";
 import ImgContainer from "../ImgContainer";
 import downloadImage from "../../methods/downloadImage";
+import "./Gallery.css";
 
 export default function Gallery({ exitModal, ModalContentsData }) {
   const sharedDbData = ModalContentsData.sharedDbData;

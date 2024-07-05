@@ -1,0 +1,38 @@
+.modal-header select {
+  height: 2.5em;
+}
+
+.modal-header {
+  padding: 10px 15px;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 10px 15px;
+}
+
+.modal-body img {
+  width: 100%;
+}
+
+.modal-body img:hover {
+  cursor: pointer;
+}
+
+.galleryContainer {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  column-gap: 10%;
+}
