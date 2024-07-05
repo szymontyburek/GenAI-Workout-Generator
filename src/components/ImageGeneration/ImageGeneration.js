@@ -88,7 +88,8 @@ function ImageGeneration({ setIsLoading }) {
     >
       <h1>Image Generator</h1>
       <ImgContainer
-        src={sharedImgData.base64}
+        // src={sharedImgData.base64}
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8z8BQz0AEYBxVSF+FABJADveWkH6oAAAAAElFTkSuQmCC"
         className="defaultImgContainer"
       />
       <TextField

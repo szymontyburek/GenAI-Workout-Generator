@@ -88,7 +88,7 @@ function Ddl(ddlArr) {
   }
 
   return (
-    <select onChange={dateChange}>
+    <select style={{ border: "2px solid black" }} onChange={dateChange}>
       {ddlOptions.map((item, idx) => (
         <option key={idx}>{item}</option>
       ))}
