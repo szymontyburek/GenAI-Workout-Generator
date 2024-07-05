@@ -28,13 +28,13 @@ function Modal({ clickEvent, ModalContents, ModalContentsData, ddlData }) {
           ddlData={ddlData}
         />
       </div>
-      <OverlayDiv className={sharedOverlayClass} />
+      <OverlayDiv exitModal={exitModal} className={sharedOverlayClass} />
     </div>
   );
 }
 
-function OverlayDiv({ className }) {
-  return <div className={className}></div>;
+function OverlayDiv({ className, exitModal }) {
+  return <div onClick={exitModal} className={className}></div>;
 }
 
 export default Modal;
