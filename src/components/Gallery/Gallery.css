@@ -1,9 +1,11 @@
 :root {
-  --modalBtnsContainer: 50px;
+  --modalBtnsContainer: 5em;
+  --subModalWidth: 95%;
 }
 
 .subModal {
   height: calc(100% - var(--modalBtnsContainer));
+  width: var(--subModalWidth);
   overflow: auto;
 }
 
@@ -55,7 +57,7 @@
 }
 
 @media (orientation: landscape) {
-  .subModal {
-    width: 60%;
+  :root {
+    --subModalWidth: 60%;
   }
 }

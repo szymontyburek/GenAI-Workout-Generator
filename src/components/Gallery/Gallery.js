@@ -159,21 +159,22 @@ function DynamicInstantiation({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          margin: "1em 0",
           position: "absolute",
           bottom: 0,
           height: "var(--modalBtnsContainer)",
-          margin: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "var(--subModalWidth)",
         }}
       >
         <Button
           text="Unselect All"
-          style={{ padding: "1em", borderRadius: ".5em" }}
+          style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
           onClick={unselectImgs}
         />{" "}
         <Button
           text="Back To Top"
-          style={{ padding: "1em", borderRadius: ".5em" }}
+          style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
           onClick={function () {
             modalRef.current.scrollIntoView({
               behavior: "smooth",
@@ -187,6 +188,7 @@ function DynamicInstantiation({
             padding: "1em",
             borderRadius: ".5em",
             backgroundColor: "#ee2400",
+            textWrap: "nowrap",
           }}
           onClick={downloadImage}
           data={selectedImgData}
