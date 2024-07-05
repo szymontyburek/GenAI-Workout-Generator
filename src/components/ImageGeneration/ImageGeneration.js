@@ -3,7 +3,7 @@ import Button from "../Button";
 import Modal from "../Modal/Modal";
 import TextField from "../TextField";
 import ImgContainer from "../ImgContainer";
-import Gallery from "../Modal/Gallery";
+import Gallery from "../Gallery/Gallery";
 import downloadImage from "../../methods/downloadImage";
 import "./ImageGeneration.css";
 import axios from "axios";
