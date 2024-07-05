@@ -129,10 +129,7 @@ function DynamicInstantiation({
 
   return (
     <div className="modal-body">
-      <div
-        className="galleryContainer"
-        style={{ display: "grid", gridTemplateColumns: "auto auto" }}
-      >
+      <div className="galleryContainer">
         {data.map((img, idx) => (
           <div key={idx}>
             <h5
