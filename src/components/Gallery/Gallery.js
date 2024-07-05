@@ -34,7 +34,7 @@ export default function Gallery({ exitModal, ModalContentsData }) {
   }
 
   return (
-    <div ref={modalRef}>
+    <div ref={modalRef} className="subModal">
       <div className="modal-header">
         <div
           style={{

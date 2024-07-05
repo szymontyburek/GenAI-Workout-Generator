@@ -7,6 +7,15 @@
   width: 100%;
 }
 
+.generateContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: 100vh;
+}
+
 @media (min-width: 601px) {
   .defaultImgContainer img {
     width: 60%;
@@ -17,5 +26,9 @@
   .defaultImgContainer img {
     height: 80%;
     width: auto;
+  }
+
+  .generateContainer {
+    width: 50vw;
   }
 }

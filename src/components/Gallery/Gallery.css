@@ -37,3 +37,16 @@
   column-gap: 10%;
   row-gap: 2em;
 }
+
+@media (min-width: 601px) {
+  .galleryContainer {
+    grid-template-columns: 30% 30% 30%;
+    column-gap: 5%;
+  }
+}
+
+@media (orientation: landscape) {
+  .subModal {
+    width: 60%;
+  }
+}

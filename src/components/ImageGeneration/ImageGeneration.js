@@ -76,16 +76,7 @@ function ImageGeneration({ setIsLoading }) {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "80vw",
-        height: "100vh",
-      }}
-    >
+    <div className="generateContainer">
       <h1>Image Generator</h1>
       <ImgContainer
         // src={sharedImgData.base64}
