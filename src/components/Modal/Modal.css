@@ -1,10 +1,6 @@
-:root {
-  --modalBtnsContainer: 50px;
-}
-
 .modal {
   position: fixed;
-  top: calc(50% - (var(--modalBtnsContainer) / 2));
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   transition: 200ms ease-in-out;
@@ -12,7 +8,7 @@
   z-index: 10;
   background-color: white;
   width: 100vw;
-  height: calc(100vh - var(--modalBtnsContainer));
+  height: 100vh;
   overflow: auto;
 }
 

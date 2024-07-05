@@ -1,3 +1,12 @@
+:root {
+  --modalBtnsContainer: 50px;
+}
+
+.subModal {
+  height: calc(100% - var(--modalBtnsContainer));
+  overflow: auto;
+}
+
 .modal-header select {
   height: 2.5em;
 }
