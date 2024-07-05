@@ -50,7 +50,7 @@ export default function ImgContainer({
 
   return (
     <div style={styles} className={className}>
-      <img style={{ width: "100%" }} src={src} onClick={selectImg}></img>
+      <img src={src} onClick={selectImg}></img>
     </div>
   );
 }

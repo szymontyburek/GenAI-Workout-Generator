@@ -1,3 +1,16 @@
 .defaultImgContainer {
   height: 50%;
+  justify-content: center;
+}
+
+.defaultImgContainer img {
+  width: 100%;
+}
+
+@media (orientation: landscape) {
+  .defaultImgContainer img {
+    height: 100%;
+    width: auto;
+    max-width: 60%;
+  }
 }

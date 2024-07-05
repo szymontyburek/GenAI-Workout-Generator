@@ -20,7 +20,12 @@ function TextField({ text, onType, placeholder }) {
 
   return (
     <textarea
-      style={{ width: "inherit", height: "5em", margin: "1em 0" }}
+      style={{
+        width: "inherit",
+        height: "5em",
+        margin: "1em 0",
+        border: "2px solid black",
+      }}
       value={nodeValue}
       onChange={getText}
       placeholder={Placeholder}
