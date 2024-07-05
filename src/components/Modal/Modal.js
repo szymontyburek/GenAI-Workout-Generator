@@ -3,7 +3,7 @@ import Button from "../Button";
 
 function Modal({ clickEvent, ModalContents, ModalContentsData, ddlData }) {
   const [sharedModalClass, setSharedModalClass] = useState("modal");
-  const [sharedOverlayClass, setSharedOverlayClass] = useState("modal");
+  const [sharedOverlayClass, setSharedOverlayClass] = useState("overlay");
 
   useEffect(() => {
     if (clickEvent > 0) openModal(); //clickEvent equals 0 on initial HTML render
@@ -11,12 +11,12 @@ function Modal({ clickEvent, ModalContents, ModalContentsData, ddlData }) {
 
   function openModal() {
     setSharedModalClass("modal active");
-    setSharedOverlayClass("modal active");
+    setSharedOverlayClass("overlay active");
   }
 
   function exitModal() {
     setSharedModalClass("modal");
-    setSharedOverlayClass("modal");
+    setSharedOverlayClass("overlay");
   }
 
   return (
@@ -33,8 +33,8 @@ function Modal({ clickEvent, ModalContents, ModalContentsData, ddlData }) {
   );
 }
 
-function OverlayDiv({ sharedOverlayClass }) {
-  return <div className={sharedOverlayClass} id="overlay"></div>;
+function OverlayDiv({ className }) {
+  return <div className={className}></div>;
 }
 
 export default Modal;
