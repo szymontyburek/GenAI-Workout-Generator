@@ -154,11 +154,16 @@ function DynamicInstantiation({
         ))}
       </div>
       <div
+        className="modalBtnsContainer"
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           margin: "1em 0",
+          position: "absolute",
+          bottom: 0,
+          height: "var(--modalBtnsContainer)",
+          margin: 0,
         }}
       >
         <Button
