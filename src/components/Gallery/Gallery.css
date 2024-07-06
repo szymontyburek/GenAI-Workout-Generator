@@ -1,5 +1,5 @@
 :root {
-  --subModalSectionsHeight: 75px;
+  --subModalSectionsHeight: 3em;
   --subModalSectionsWidth: 95%;
 }
 
@@ -9,26 +9,17 @@
   overflow: auto;
 }
 
+.modal-header,
 .modal-footer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  bottom: 0;
-  height: var(--subModalSectionsHeight);
-  left: 50%;
-  transform: translateX(-50%);
-  width: var(--subModalSectionsWidth);
-}
-
-.modal-header {
+  padding: 1em;
   position: absolute;
   align-items: center;
   height: var(--subModalSectionsHeight);
   width: var(--subModalSectionsWidth);
   left: 50%;
   transform: translateX(-50%);
-  top: 0;
   background-color: white;
 }
 
@@ -51,7 +42,8 @@
   grid-template-columns: 45% 45%;
   column-gap: 10%;
   row-gap: 2em;
-  margin-top: var(--subModalSectionsHeight);
+  margin-top: calc(var(--subModalSectionsHeight) + 1em);
+  margin-bottom: 3em;
 }
 
 .modal-body img {

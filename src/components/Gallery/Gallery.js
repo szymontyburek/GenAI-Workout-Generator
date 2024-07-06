@@ -44,12 +44,7 @@ export default function Gallery({
     <div ref={modalRef} className="subModal">
       <div
         className="modal-header"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "10px 15px",
-          borderBottom: "1px solid black",
-        }}
+        style={{ top: 0, borderBottom: "1px solid black" }}
       >
         <Ddl
           ddlData={ddlData}
@@ -82,7 +77,10 @@ export default function Gallery({
           </div>
         ))}
       </div>
-      <div className="modal-footer">
+      <div
+        className="modal-footer"
+        style={{ bottom: 0, borderTop: "1px solid black" }}
+      >
         <Button
           text="Unselect All"
           style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
