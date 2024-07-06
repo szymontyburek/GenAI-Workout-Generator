@@ -165,10 +165,7 @@ function DynamicInstantiation({
           text="Back To Top"
           style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
           onClick={function () {
-            modalRef.current.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
+            modalRef.current.scrollTop = 0;
           }}
         />
         <Button
