@@ -14,18 +14,13 @@ export default function Gallery({
   const ddlData = ModalContentsData.ddlData;
   const getRecords = ModalContentsData.getRecords;
   const setIsLoading = ModalContentsData.setIsLoading;
-  const [dbData, setDbData] = useState("");
-  const modalRef = useRef(null);
-  const [data, setData] = useState([{}]);
+  const [dbData, setDbData] = useState([{}]);
   const [selectedImgData, setSelectedImgData] = useState([]);
+  const modalRef = useRef(null);
 
   useEffect(() => {
-    setDbData(sharedDbData);
+    if (sharedDbData.length > 0) setDbData(sharedDbData);
   }, [sharedDbData]);
-
-  useEffect(() => {
-    if (dbData.length > 0) setData(dbData);
-  }, [dbData]);
 
   function onSelect(imgObj) {
     const shallowClone = [...selectedImgData];
@@ -70,7 +65,7 @@ export default function Gallery({
       </div>
       <div className="modal-body">
         <div className="galleryContainer">
-          {data.map((img, idx) => (
+          {dbData.map((img, idx) => (
             <div key={idx}>
               <h5
                 style={{
