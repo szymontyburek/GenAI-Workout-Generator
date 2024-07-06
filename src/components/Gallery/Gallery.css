@@ -44,6 +44,7 @@
   row-gap: 2em;
   margin-top: calc(var(--subModalSectionsHeight) + 1em);
   margin-bottom: 3em;
+  justify-content: center;
 }
 
 .modal-body img {
@@ -64,5 +65,19 @@
 @media (orientation: landscape) {
   :root {
     --subModalSectionsWidth: 60%;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .modal.active {
+    width: 60%;
+  }
+
+  .modal-body {
+    grid-template-columns: 20% 20% 20% 20%;
+  }
+
+  :root {
+    --subModalSectionsWidth: 90%;
   }
 }
