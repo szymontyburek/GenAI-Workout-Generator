@@ -50,7 +50,9 @@ export default function Gallery({
         InstantiateData={dbData}
         unselectTrigger={unselectTrigger}
         unselectImgs={unselectImgs}
-        modalRef={modalRef}
+        backToTop={function () {
+          modalRef.current.scrollTop = 0;
+        }}
       />
     </div>
   );
@@ -90,7 +92,7 @@ function DynamicInstantiation({
   InstantiateData,
   unselectTrigger,
   unselectImgs,
-  modalRef,
+  backToTop,
 }) {
   const [data, setData] = useState([{}]);
   const [selectedImgData, setSelectedImgData] = useState([]);
@@ -164,9 +166,7 @@ function DynamicInstantiation({
         <Button
           text="Back To Top"
           style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
-          onClick={function () {
-            modalRef.current.scrollTop = 0;
-          }}
+          onClick={backToTop}
         />
         <Button
           text="Download"
