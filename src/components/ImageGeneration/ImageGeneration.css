@@ -18,7 +18,7 @@
 
 @media (min-width: 601px) {
   .defaultImgContainer img {
-    width: 60%;
+    width: 50%;
   }
 }
 
@@ -30,5 +30,15 @@
 
   .generateContainer {
     width: 50vw;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .defaultImgContainer img {
+    height: 60%;
+  }
+
+  .generateContainer {
+    width: 40vw;
   }
 }
