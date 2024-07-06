@@ -16,16 +16,11 @@ export default function Gallery({
   const setIsLoading = ModalContentsData.setIsLoading;
 
   const [dbData, setDbData] = useState("");
-  const [ddlArr, setDdlArr] = useState([]);
   const modalRef = useRef(null);
 
   useEffect(() => {
     setDbData(sharedDbData);
   }, [sharedDbData]);
-
-  useEffect(() => {
-    setDdlArr(ddlData);
-  }, [ddlData]);
 
   return (
     <div ref={modalRef} className="subModal">
@@ -38,7 +33,7 @@ export default function Gallery({
           }}
         >
           <Ddl
-            ddlArr={ddlArr}
+            ddlData={ddlData}
             getRecords={getRecords}
             setIsLoading={setIsLoading}
             unselectImgs={unselectImgs}
@@ -61,13 +56,13 @@ export default function Gallery({
   );
 }
 
-function Ddl(ddlArr) {
+function Ddl(ddlData) {
   const [ddlOptions, setDdlOptions] = useState([]);
-  //for some odd reason, 'ddlArr' is an object containing the props passed to this component
-  const optionsTmp = ddlArr.ddlArr;
-  const getRecords = ddlArr.getRecords;
-  const setIsLoading = ddlArr.setIsLoading;
-  const unselectImgs = ddlArr.unselectImgs;
+  //for some odd reason, 'ddlData' is an object containing the props passed to this component
+  const optionsTmp = ddlData.ddlData;
+  const getRecords = ddlData.getRecords;
+  const setIsLoading = ddlData.setIsLoading;
+  const unselectImgs = ddlData.unselectImgs;
 
   useEffect(() => {
     if (optionsTmp.length > 0) setDdlOptions(optionsTmp);
