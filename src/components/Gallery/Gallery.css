@@ -1,10 +1,10 @@
 :root {
-  --modalBtnsContainer: 5em;
+  --modal-footer: 5em;
   --subModalWidth: 95%;
 }
 
 .subModal {
-  height: calc(100% - var(--modalBtnsContainer));
+  height: calc(100% - var(--modal-footer));
   width: var(--subModalWidth);
   overflow: auto;
 }

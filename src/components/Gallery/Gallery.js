@@ -87,44 +87,44 @@ export default function Gallery({
             </div>
           ))}
         </div>
-        <div
-          className="modalBtnsContainer"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            position: "absolute",
-            bottom: 0,
-            height: "var(--modalBtnsContainer)",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "var(--subModalWidth)",
+      </div>
+      <div
+        className="modal-footer"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          position: "absolute",
+          bottom: 0,
+          height: "var(--modal-footer)",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "var(--subModalWidth)",
+        }}
+      >
+        <Button
+          text="Unselect All"
+          style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
+          onClick={unselectImgs}
+        />{" "}
+        <Button
+          text="Back To Top"
+          style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
+          onClick={function () {
+            modalRef.current.scrollTop = 0;
           }}
-        >
-          <Button
-            text="Unselect All"
-            style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
-            onClick={unselectImgs}
-          />{" "}
-          <Button
-            text="Back To Top"
-            style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
-            onClick={function () {
-              modalRef.current.scrollTop = 0;
-            }}
-          />
-          <Button
-            text="Download"
-            style={{
-              padding: "1em",
-              borderRadius: ".5em",
-              backgroundColor: "#ee2400",
-              textWrap: "nowrap",
-            }}
-            onClick={downloadImage}
-            data={selectedImgData}
-          />
-        </div>
+        />
+        <Button
+          text="Download"
+          style={{
+            padding: "1em",
+            borderRadius: ".5em",
+            backgroundColor: "#ee2400",
+            textWrap: "nowrap",
+          }}
+          onClick={downloadImage}
+          data={selectedImgData}
+        />
       </div>
     </div>
   );
