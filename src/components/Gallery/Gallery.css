@@ -1,22 +1,22 @@
 :root {
-  --modal-footer: 5em;
-  --subModalWidth: 95%;
+  --subModalSectionsHeight: 75px;
+  --subModalSectionsWidth: 95%;
 }
 
 .subModal {
-  height: calc(100% - var(--modal-footer));
-  width: var(--subModalWidth);
+  height: calc(100% - var(--subModalSectionsHeight));
+  width: var(--subModalSectionsWidth);
   overflow: auto;
 }
 
 .modal-header {
-  height: 50px;
-  align-items: center;
   position: absolute;
-  top: 0;
-  width: 95%;
+  align-items: center;
+  height: var(--subModalSectionsHeight);
+  width: var(--subModalSectionsWidth);
   left: 50%;
   transform: translateX(-50%);
+  top: 0;
 }
 
 .modal-header select {
@@ -57,6 +57,6 @@
 
 @media (orientation: landscape) {
   :root {
-    --subModalWidth: 60%;
+    --subModalSectionsWidth: 60%;
   }
 }

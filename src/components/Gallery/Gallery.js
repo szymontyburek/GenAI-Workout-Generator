@@ -90,10 +90,10 @@ export default function Gallery({
           alignItems: "center",
           position: "absolute",
           bottom: 0,
-          height: "var(--modal-footer)",
+          height: "var(--subModalSectionsHeight)",
           left: "50%",
           transform: "translateX(-50%)",
-          width: "var(--subModalWidth)",
+          width: "var(--subModalSectionsWidth)",
         }}
       >
         <Button
