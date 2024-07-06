@@ -14,16 +14,14 @@ export default function Gallery({
   const ddlData = ModalContentsData.ddlData;
   const getRecords = ModalContentsData.getRecords;
   const setIsLoading = ModalContentsData.setIsLoading;
-
   const [dbData, setDbData] = useState("");
   const modalRef = useRef(null);
+  const [data, setData] = useState([{}]);
+  const [selectedImgData, setSelectedImgData] = useState([]);
 
   useEffect(() => {
     setDbData(sharedDbData);
   }, [sharedDbData]);
-
-  const [data, setData] = useState([{}]);
-  const [selectedImgData, setSelectedImgData] = useState([]);
 
   useEffect(() => {
     if (dbData.length > 0) setData(dbData);
@@ -70,17 +68,6 @@ export default function Gallery({
           />
         </div>
       </div>
-
-      {/* <DynamicInstantiation
-        Component={ImgContainer}
-        InstantiateData={dbData}
-        unselectTrigger={unselectTrigger}
-        unselectImgs={unselectImgs}
-        backToTop={function () {
-          modalRef.current.scrollTop = 0;
-        }}
-      /> */}
-
       <div className="modal-body">
         <div className="galleryContainer">
           {data.map((img, idx) => (
