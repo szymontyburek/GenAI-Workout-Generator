@@ -126,6 +126,9 @@ function ImageGeneration({ setIsLoading }) {
           ddlData: ddlData,
           getRecords: getRecords,
           setIsLoading: setIsLoading,
+          resetDdlData: function (data) {
+            setDdlData(data);
+          },
         }}
       />
     </div>
