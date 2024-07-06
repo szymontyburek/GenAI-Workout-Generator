@@ -9,6 +9,16 @@
   overflow: auto;
 }
 
+.modal-header {
+  height: 50px;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  width: 95%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .modal-header select {
   height: 2.5em;
 }
