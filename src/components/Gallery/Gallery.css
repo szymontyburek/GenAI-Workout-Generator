@@ -9,6 +9,18 @@
   overflow: auto;
 }
 
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  height: var(--subModalSectionsHeight);
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--subModalSectionsWidth);
+}
+
 .modal-header {
   position: absolute;
   align-items: center;

@@ -82,20 +82,7 @@ export default function Gallery({
           </div>
         ))}
       </div>
-      <div
-        className="modal-footer"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          position: "absolute",
-          bottom: 0,
-          height: "var(--subModalSectionsHeight)",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "var(--subModalSectionsWidth)",
-        }}
-      >
+      <div className="modal-footer">
         <Button
           text="Unselect All"
           style={{ padding: "1em", borderRadius: ".5em", textWrap: "nowrap" }}
