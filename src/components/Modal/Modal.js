@@ -20,13 +20,9 @@ function Modal({ clickEvent, ModalContents, ModalContentsData, ddlData }) {
     setSharedOverlayClass("overlay active");
   }
 
-  function exitModal() {
+  function closeModal() {
     setSharedModalClass("modal");
     setSharedOverlayClass("overlay");
-  }
-
-  function closeModal() {
-    exitModal();
     unselectImgs();
     resetDdlData([]);
   }
@@ -35,22 +31,18 @@ function Modal({ clickEvent, ModalContents, ModalContentsData, ddlData }) {
     <div>
       <div className={sharedModalClass} id="modal">
         <ModalContents
-          exitModal={exitModal}
+          closeModal={closeModal}
           ModalContentsData={ModalContentsData}
           unselectTrigger={unselectTrigger}
           unselectImgs={unselectImgs}
         />
       </div>
-      <OverlayDiv
-        closeModal={closeModal}
-        exitModal={exitModal}
-        className={sharedOverlayClass}
-      />
+      <OverlayDiv closeModal={closeModal} className={sharedOverlayClass} />
     </div>
   );
 }
 
-function OverlayDiv({ closeModal, className, exitModal }) {
+function OverlayDiv({ closeModal, className }) {
   return <div onClick={closeModal} className={className}></div>;
 }
 

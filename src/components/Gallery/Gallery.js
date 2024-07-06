@@ -7,7 +7,7 @@ import "./Gallery.css";
 export default function Gallery({
   unselectImgs,
   unselectTrigger,
-  exitModal,
+  closeModal,
   ModalContentsData,
 }) {
   const sharedDbData = ModalContentsData.sharedDbData;
@@ -26,12 +26,6 @@ export default function Gallery({
   useEffect(() => {
     setDdlArr(ddlData);
   }, [ddlData]);
-
-  function closeModal() {
-    exitModal();
-    unselectImgs();
-    setDdlArr([]);
-  }
 
   return (
     <div ref={modalRef} className="subModal">
