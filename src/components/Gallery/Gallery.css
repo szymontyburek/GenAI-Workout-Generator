@@ -32,6 +32,10 @@
 
 .modal-body {
   padding: 10px 15px;
+  display: grid;
+  grid-template-columns: 45% 45%;
+  column-gap: 10%;
+  row-gap: 2em;
 }
 
 .modal-body img {
@@ -42,15 +46,8 @@
   cursor: pointer;
 }
 
-.galleryContainer {
-  display: grid;
-  grid-template-columns: 45% 45%;
-  column-gap: 10%;
-  row-gap: 2em;
-}
-
 @media (min-width: 601px) {
-  .galleryContainer {
+  .modal-body {
     grid-template-columns: 30% 30% 30%;
     column-gap: 5%;
   }

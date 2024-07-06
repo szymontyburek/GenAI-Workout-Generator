@@ -64,29 +64,27 @@ export default function Gallery({
         </div>
       </div>
       <div className="modal-body">
-        <div className="galleryContainer">
-          {dbData.map((img, idx) => (
-            <div key={idx}>
-              <h5
-                style={{
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                  textWrap: "nowrap",
-                }}
-              >
-                {img.description}
-              </h5>
-              <ImgContainer
-                src={img.base64}
-                imgData={img}
-                onSelect={onSelect}
-                onUnselect={onUnselect}
-                unselectTrigger={unselectTrigger}
-                selectAbility={true}
-              />
-            </div>
-          ))}
-        </div>
+        {dbData.map((img, idx) => (
+          <div key={idx}>
+            <h5
+              style={{
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                textWrap: "nowrap",
+              }}
+            >
+              {img.description}
+            </h5>
+            <ImgContainer
+              src={img.base64}
+              imgData={img}
+              onSelect={onSelect}
+              onUnselect={onUnselect}
+              unselectTrigger={unselectTrigger}
+              selectAbility={true}
+            />
+          </div>
+        ))}
       </div>
       <div
         className="modal-footer"
