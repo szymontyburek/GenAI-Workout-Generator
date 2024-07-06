@@ -13,14 +13,6 @@
   height: 2.5em;
 }
 
-.modal-header {
-  padding: 10px 15px;
-  border-bottom: 1px solid black;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
 .modal-header .close-button {
   cursor: pointer;
   border: none;

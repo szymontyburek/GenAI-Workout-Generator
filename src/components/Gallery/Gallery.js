@@ -42,26 +42,22 @@ export default function Gallery({
 
   return (
     <div ref={modalRef} className="subModal">
-      <div className="modal-header">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Ddl
-            ddlData={ddlData}
-            getRecords={getRecords}
-            setIsLoading={setIsLoading}
-            unselectImgs={unselectImgs}
-          />
-          <Button
-            text="&times;"
-            className="close-button"
-            onClick={closeModal}
-          />
-        </div>
+      <div
+        className="modal-header"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "10px 15px",
+          borderBottom: "1px solid black",
+        }}
+      >
+        <Ddl
+          ddlData={ddlData}
+          getRecords={getRecords}
+          setIsLoading={setIsLoading}
+          unselectImgs={unselectImgs}
+        />
+        <Button text="&times;" className="close-button" onClick={closeModal} />
       </div>
       <div className="modal-body">
         {dbData.map((img, idx) => (
