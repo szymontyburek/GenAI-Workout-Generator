@@ -4,14 +4,18 @@ import ImgContainer from "../ImgContainer";
 import downloadImage from "../../methods/downloadImage";
 import "./Gallery.css";
 
-export default function Gallery({ exitModal, ModalContentsData }) {
+export default function Gallery({
+  unselectImgs,
+  unselectTrigger,
+  exitModal,
+  ModalContentsData,
+}) {
   const sharedDbData = ModalContentsData.sharedDbData;
   const ddlData = ModalContentsData.ddlData;
   const getRecords = ModalContentsData.getRecords;
   const setIsLoading = ModalContentsData.setIsLoading;
 
   const [dbData, setDbData] = useState("");
-  const [unselectAll, setUnselectAll] = useState(0);
   const [ddlArr, setDdlArr] = useState([]);
   const modalRef = useRef(null);
 
@@ -22,10 +26,6 @@ export default function Gallery({ exitModal, ModalContentsData }) {
   useEffect(() => {
     setDdlArr(ddlData);
   }, [ddlData]);
-
-  function unselectImgs() {
-    setUnselectAll((unselectAll) => unselectAll + 1);
-  }
 
   function closeModal() {
     exitModal();
@@ -59,7 +59,7 @@ export default function Gallery({ exitModal, ModalContentsData }) {
       <DynamicInstantiation
         Component={ImgContainer}
         InstantiateData={dbData}
-        unselectAll={unselectAll}
+        unselectTrigger={unselectTrigger}
         unselectImgs={unselectImgs}
         modalRef={modalRef}
       />
@@ -99,7 +99,7 @@ function Ddl(ddlArr) {
 function DynamicInstantiation({
   Component,
   InstantiateData,
-  unselectAll,
+  unselectTrigger,
   unselectImgs,
   modalRef,
 }) {
@@ -147,7 +147,7 @@ function DynamicInstantiation({
               imgData={img}
               onSelect={onSelect}
               onUnselect={onUnselect}
-              unselectAll={unselectAll}
+              unselectTrigger={unselectTrigger}
               selectAbility={true}
             />
           </div>

@@ -5,7 +5,7 @@ export default function ImgContainer({
   selectAbility,
   onSelect,
   onUnselect,
-  unselectAll,
+  unselectTrigger,
   imgData,
   className,
 }) {
@@ -27,7 +27,7 @@ export default function ImgContainer({
     setBorder("4px solid black");
     onUnselect();
     setClickCount(0);
-  }, [unselectAll]);
+  }, [unselectTrigger]);
 
   useEffect(() => {
     let clone = { ...structuredClone(styles), ...{ border: border } };
