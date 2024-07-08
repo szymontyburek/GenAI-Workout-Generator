@@ -5,13 +5,13 @@ export default function ImgContainer({
   selectAbility,
   onSelect,
   onUnselect,
-  unselectAll,
+  unselectTrigger,
   imgData,
+  className,
 }) {
   const [imgSrc, setImgSrc] = useState("");
   const [styles, setStyles] = useState({
     width: "inherit",
-    height: "50%",
     display: "flex",
     alignItems: "center",
   });
@@ -27,11 +27,10 @@ export default function ImgContainer({
     setBorder("4px solid black");
     onUnselect();
     setClickCount(0);
-  }, [unselectAll]);
+  }, [unselectTrigger]);
 
   useEffect(() => {
-    let clone = structuredClone(styles);
-    clone.border = border;
+    let clone = { ...structuredClone(styles), ...{ border: border } };
     setStyles(clone);
   }, [border]);
 
@@ -50,8 +49,8 @@ export default function ImgContainer({
   }
 
   return (
-    <div style={styles}>
-      <img style={{ width: "100%" }} src={src} onClick={selectImg}></img>
+    <div style={styles} className={className}>
+      <img src={src} onClick={selectImg}></img>
     </div>
   );
 }

@@ -1,0 +1,83 @@
+:root {
+  --subModalSectionsHeight: 3em;
+  --subModalSectionsWidth: 95%;
+}
+
+.subModal {
+  height: calc(100% - var(--subModalSectionsHeight));
+  width: var(--subModalSectionsWidth);
+  overflow: auto;
+}
+
+.modal-header,
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  position: absolute;
+  align-items: center;
+  height: var(--subModalSectionsHeight);
+  width: var(--subModalSectionsWidth);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+}
+
+.modal-header select {
+  height: 2.5em;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 10px 15px;
+  display: grid;
+  grid-template-columns: 45% 45%;
+  column-gap: 10%;
+  row-gap: 2em;
+  margin-top: calc(var(--subModalSectionsHeight) + 1em);
+  margin-bottom: 3em;
+  justify-content: center;
+}
+
+.modal-body img {
+  width: 100%;
+}
+
+.modal-body img:hover {
+  cursor: pointer;
+}
+
+@media (min-width: 601px) {
+  .modal-body {
+    grid-template-columns: 30% 30% 30%;
+    column-gap: 5%;
+  }
+}
+
+@media (orientation: landscape) {
+  :root {
+    --subModalSectionsWidth: 60%;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .modal.active {
+    width: 60%;
+  }
+
+  .modal-body {
+    grid-template-columns: 20% 20% 20% 20%;
+  }
+
+  :root {
+    --subModalSectionsWidth: 90%;
+  }
+}
