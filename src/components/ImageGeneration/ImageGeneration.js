@@ -1,10 +1,11 @@
 import { useRef, useState, useEffect } from "react";
-import Button from "./Button";
-import Modal from "./Modal";
-import TextField from "./TextField";
-import ImgContainer from "./ImgContainer";
-import HistoryDisplay from "./HistoryDisplay";
-import downloadImage from "../methods/downloadImage";
+import Button from "../Button";
+import Modal from "../Modal/Modal";
+import TextField from "../TextField";
+import ImgContainer from "../ImgContainer";
+import Gallery from "../Gallery/Gallery";
+import downloadImage from "../../methods/downloadImage";
+import "./ImageGeneration.css";
 import axios from "axios";
 
 function ImageGeneration({ setIsLoading }) {
@@ -75,18 +76,12 @@ function ImageGeneration({ setIsLoading }) {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "80vw",
-        height: "100vh",
-      }}
-    >
+    <div className="generateContainer">
       <h1>Image Generator</h1>
-      <ImgContainer src={sharedImgData.base64} />
+      <ImgContainer
+        src={sharedImgData.base64}
+        className="defaultImgContainer"
+      />
       <TextField
         text={sharedUserMessage}
         onType={setSharedUserMessage}
@@ -100,20 +95,10 @@ function ImageGeneration({ setIsLoading }) {
         }}
       >
         <Button
-          text="History"
+          text="Gallery"
           onClick={getRecords}
-          id="historyBtn"
+          id="gallery"
           style={{ padding: "1em", borderRadius: "0.5em" }}
-        />
-        <Modal
-          clickEvent={clickTrigger}
-          ModalContents={HistoryDisplay}
-          ModalContentsData={{
-            sharedDbData: sharedDbData,
-            ddlData: ddlData,
-            getRecords: getRecords,
-            setIsLoading: setIsLoading,
-          }}
         />
         <Button
           text="Download"
@@ -132,6 +117,19 @@ function ImageGeneration({ setIsLoading }) {
           }}
         />
       </div>
+      <Modal
+        clickEvent={clickTrigger}
+        ModalContents={Gallery}
+        ModalContentsData={{
+          sharedDbData: sharedDbData,
+          ddlData: ddlData,
+          getRecords: getRecords,
+          setIsLoading: setIsLoading,
+          resetDdlData: function (data) {
+            setDdlData(data);
+          },
+        }}
+      />
     </div>
   );
 }

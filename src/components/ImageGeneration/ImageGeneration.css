@@ -1,0 +1,44 @@
+.defaultImgContainer {
+  height: 50%;
+  justify-content: center;
+}
+
+.defaultImgContainer img {
+  width: 100%;
+}
+
+.generateContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: 100vh;
+}
+
+@media (min-width: 601px) {
+  .defaultImgContainer img {
+    width: 50%;
+  }
+}
+
+@media (orientation: landscape) {
+  .defaultImgContainer img {
+    height: 80%;
+    width: auto;
+  }
+
+  .generateContainer {
+    width: 50vw;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .defaultImgContainer img {
+    height: 60%;
+  }
+
+  .generateContainer {
+    width: 40vw;
+  }
+}
