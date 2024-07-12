@@ -1,4 +1,8 @@
-/node_modules
+client/node_modules
+client/.gcloudignore
+client/build
+client/client.yaml
 server/node_modules
 server/.env
-.gcloudignore
+server/.gcloudignore
+server/server.yaml
