@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const axios = require("axios");
-const { getRecords, getDates, addRecord } = require("./db");
+const { getRecords, getMonths, addRecord } = require("./db");
 const port = process.env.PORT || 8080;
 
 app.use(cors());
@@ -64,8 +64,8 @@ app.get("/getRecords", async (req, res) => {
   res.json(response);
 });
 
-app.get("/getDates", async (req, res) => {
-  const response = await getDates();
+app.get("/getMonths", async (req, res) => {
+  const response = await getMonths();
   res.json(response);
 });
 
