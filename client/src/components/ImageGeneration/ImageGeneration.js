@@ -58,7 +58,7 @@ function ImageGeneration({ setIsLoading }) {
         const distinctDates = getDates.data.message;
 
         if (!getDates.data.success) {
-          alert(distinctDates);
+          alert(distinctDates); //will be a message asking user to refresh page, because db connection failed
           return;
         }
 
