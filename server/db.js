@@ -2,30 +2,32 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
-const getConnection = async function () {
-  return new MongoClient(process.env.MONGODB_CONNECTION, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
-  });
+let collection;
+
+const getCollection = async function () {
+  try {
+    const connection = new MongoClient(process.env.MONGODB_CONNECTION, {
+      ssl: true,
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+      },
+    });
+    await connection.connect();
+    collection = connection.db("ImageGenerator").collection("images");
+  } catch {
+    collection = "Error: Refresh page and try again";
+  }
 };
 
-const getCollection = async function (connection) {
-  await connection.connect();
-  return connection.db("ImageGenerator").collection("images");
-};
+getCollection();
 
 const getRecords = async function (dateStr) {
   let records;
   let success;
-  let connection;
 
   try {
-    connection = await getConnection();
-    const collection = await getCollection(connection);
-
     const findQuery = dateStr
       ? {
           dateCreated: {
@@ -40,8 +42,6 @@ const getRecords = async function (dateStr) {
   } catch (err) {
     console.log(err);
     success = false;
-  } finally {
-    await connection.close();
   }
   return {
     message: records,
@@ -52,12 +52,8 @@ const getRecords = async function (dateStr) {
 const getDates = async function () {
   let distinctDates = [];
   let success;
-  let connection;
 
   try {
-    connection = await getConnection();
-    const collection = await getCollection(connection);
-
     let distinctDatesTmp = await collection
       .aggregate([
         { $group: { _id: "$dateCreated" } },
@@ -73,9 +69,8 @@ const getDates = async function () {
     success = true;
   } catch (err) {
     console.log(err);
+    distinctDates = collection;
     success = false;
-  } finally {
-    await connection.close();
   }
   return {
     message: distinctDates,
@@ -85,18 +80,13 @@ const getDates = async function () {
 
 const addRecord = async function (document) {
   let success;
-  let connection;
 
   try {
-    connection = await getConnection();
-    const collection = await getCollection(connection);
     const result = await collection.insertOne(document);
     success = true;
   } catch (err) {
     console.log(err);
     success = false;
-  } finally {
-    await connection.close();
   }
   return true;
 };
