@@ -4,6 +4,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 
 const getConnection = async function () {
   return new MongoClient(process.env.MONGODB_CONNECTION, {
+    ssl: true,
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,

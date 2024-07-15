@@ -18,13 +18,18 @@ function ImageGeneration({ setIsLoading }) {
   );
   const [clickTrigger, setClickTrigger] = useState(0);
 
+  let serverURL;
+  if (process.env.NODE_ENV === "development")
+    serverURL = "http://localhost:8080";
+  else serverURL = "https://server-dot-image-generator-2.wl.r.appspot.com";
+
   async function getImage(text) {
     const params = { message: text };
     let base64;
 
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:8080/addRecord", {
+      const response = await axios.post(serverURL + "/addRecord", {
         params,
       });
 
@@ -49,13 +54,13 @@ function ImageGeneration({ setIsLoading }) {
 
       let ddlDate;
       if (typeof arguments[0] == "undefined") {
-        const getDates = await axios.get("http://localhost:8080/getDates");
+        const getDates = await axios.get(serverURL + "/getDates");
         const distinctDates = getDates.data.message;
         ddlDate = distinctDates[0];
         setDdlData(distinctDates);
       } else ddlDate = arguments[0];
 
-      const response = await axios.get("http://localhost:8080/getRecords", {
+      const response = await axios.get(serverURL + "/getRecords", {
         params: { date: ddlDate },
       });
 
