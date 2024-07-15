@@ -23,16 +23,20 @@ const getCollection = async function () {
 
 getCollection();
 
-const getRecords = async function (dateStr) {
+const getRecords = async function (monthStr) {
   let records;
   let success;
 
   try {
-    const findQuery = dateStr
+    const [month, year] = monthStr.split("-");
+    const startDate = new Date(`${year}-${month}-01T00:00:00Z`);
+    const endDate = new Date(startDate);
+    endDate.setMonth(endDate.getMonth() + 1); // Set to the first day of the next month
+    const findQuery = monthStr
       ? {
           dateCreated: {
-            $gte: new Date(dateStr),
-            $lt: new Date(dateStr + "T23:59:59Z"),
+            $gte: startDate,
+            $lt: endDate,
           },
         }
       : {};
