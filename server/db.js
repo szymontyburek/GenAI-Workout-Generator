@@ -49,7 +49,7 @@ const getRecords = async function (dateStr) {
   };
 };
 
-const getDates = async function () {
+const getMonths = async function () {
   let distinctDates = [];
   let success;
 
@@ -100,4 +100,4 @@ const addRecord = async function (document) {
   return true;
 };
 
-module.exports = { addRecord, getDates, getRecords };
+module.exports = { addRecord, getMonths, getRecords };

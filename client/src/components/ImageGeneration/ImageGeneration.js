@@ -54,10 +54,10 @@ function ImageGeneration({ setIsLoading }) {
 
       let ddlDate;
       if (typeof arguments[0] == "undefined") {
-        const getDates = await axios.get(serverURL + "/getDates");
-        const distinctDates = getDates.data.message;
+        const getMonths = await axios.get(serverURL + "/getMonths");
+        const distinctDates = getMonths.data.message;
 
-        if (!getDates.data.success) {
+        if (!getMonths.data.success) {
           alert(distinctDates); //will be a message asking user to refresh page, because db connection failed
           return;
         }
