@@ -5,16 +5,20 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 let collection;
 
 const getCollection = async function () {
-  const connection = new MongoClient(process.env.MONGODB_CONNECTION, {
-    ssl: true,
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
-  });
-  await connection.connect();
-  collection = connection.db("ImageGenerator").collection("images");
+  try {
+    const connection = new MongoClient(process.env.MONGODB_CONNECTION, {
+      ssl: true,
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+      },
+    });
+    await connection.connect();
+    collection = connection.db("ImageGenerator").collection("images");
+  } catch {
+    collection = "Error: Refresh page and try again";
+  }
 };
 
 getCollection();
@@ -65,6 +69,7 @@ const getDates = async function () {
     success = true;
   } catch (err) {
     console.log(err);
+    distinctDates = collection;
     success = false;
   }
   return {
