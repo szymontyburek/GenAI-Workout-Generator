@@ -54,7 +54,9 @@ function ImageGeneration({ setIsLoading }) {
 
       let ddlDate;
       if (typeof arguments[0] == "undefined") {
-        const getDates = await axios.get(serverURL + "/getDates");
+        const getDates = await axios.get(serverURL + "/getDates", {
+          params: { date: "07-2024" },
+        });
         const distinctDates = getDates.data.message;
 
         if (!getDates.data.success) {
