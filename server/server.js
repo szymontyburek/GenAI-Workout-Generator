@@ -69,8 +69,4 @@ app.get("/getMonths", async (req, res) => {
   res.json(response);
 });
 
-app.get("/hi", async (req, res) => {
-  res.json({ "hi!": "it is working" });
-});
-
 module.exports = { app: app };
