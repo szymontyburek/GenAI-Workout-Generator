@@ -18,7 +18,7 @@ const getCollection = async function (connection) {
   return connection.db("ImageGenerator").collection("images");
 };
 
-const getRecords = async function (dateStr) {
+const getRecords = async function (monthStr) {
   let records;
   let success;
   let connection;
@@ -26,16 +26,20 @@ const getRecords = async function (dateStr) {
   try {
     connection = await getConnection();
     const collection = await getCollection(connection);
-    const findQuery = dateStr
+    const [month, year] = monthStr.split("-");
+    const startDate = new Date(`${year}-${month}-01T00:00:00Z`);
+    const endDate = new Date(startDate);
+    endDate.setMonth(endDate.getMonth() + 1); // Set to the first day of the next month
+    const findQuery = monthStr
       ? {
           dateCreated: {
-            $gte: new Date(dateStr),
-            $lt: new Date(dateStr + "T23:59:59Z"),
+            $gte: startDate,
+            $lt: endDate,
           },
         }
       : {};
-    records = await collection.find(findQuery).toArray();
 
+    records = await collection.find(findQuery).toArray();
     success = true;
   } catch (err) {
     console.log(err);
@@ -58,20 +62,29 @@ const getDates = async function () {
     const collection = await getCollection(connection);
     let distinctDatesTmp = await collection
       .aggregate([
-        { $group: { _id: "$dateCreated" } },
-        { $project: { _id: 0, dateCreated: "$_id" } },
-        { $sort: { dateCreated: -1 } },
+        {
+          $group: {
+            _id: {
+              $dateToString: { format: "%m-%Y", date: "$dateCreated" },
+            },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            month: "$_id",
+          },
+        },
+        {
+          $sort: { month: -1 },
+        },
       ])
       .toArray();
-    for (const obj of distinctDatesTmp) {
-      const dateNoTime = obj.dateCreated.toISOString().split("T")[0];
-      if (!distinctDates.includes(dateNoTime)) distinctDates.push(dateNoTime);
-    }
+    for (const obj of distinctDatesTmp) distinctDates.push(obj.month);
 
     success = true;
   } catch (err) {
     console.log(err);
-    distinctDates = collection;
     success = false;
   } finally {
     connection.close();
